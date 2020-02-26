@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/02/24 18:19:55 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/02/26 15:54:32 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,67 @@ int worldMap[mapWidth][mapHeight]=
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
+int		ft_keyboard(int keycode, pos *one)
+{
+	(void)one;
+	one->moveSpeed = 0.8;
+	one->rotSpeed = 0.3;
+
+	if (keycode == 53)
+		exit(1);
+	if (keycode == 13 || keycode == 126)
+	{
+		if (worldMap[(int)(one->posX + one->dirX * one->moveSpeed)][(int)one->posY] == 0)
+			one->posX += one->dirX * one->moveSpeed;
+		if (worldMap[(int)one->posX][(int)(one->posY + one->dirY * one->moveSpeed)] == 0)
+			one->posY += one->dirY * one->moveSpeed;
+	}
+	if (keycode == 1 || keycode == 125)
+	{
+		if (worldMap[(int)(one->posX - one->dirX * one->moveSpeed)][(int)one->posY] == 0)
+			one->posX -= one->dirX * one->moveSpeed;
+		if (worldMap[(int)one->posX][(int)(one->posY - one->dirY * one->moveSpeed)] == 0)
+			one->posY -= one->dirY * one->moveSpeed;
+	}
+	if (keycode == 14)
+	{
+			one->posY -= one->dirX * one->moveSpeed;
+			one->posX += one->dirY * one->moveSpeed;
+	}
+	if (keycode == 12)
+	{
+			one->posY += one->dirX * one->moveSpeed;
+			one->posX -= one->dirY * one->moveSpeed;
+	}
+	if (keycode == 2 || keycode == 124)
+	{
+		one->oldDirX = one->dirX;
+		one->dirX = one->dirX * cos(-(one->rotSpeed)) - one->dirY * sin(-(one->rotSpeed));
+		one->dirY = one->oldDirX * sin(-(one->rotSpeed)) + one->dirY * cos(-(one->rotSpeed));
+		one->oldPlaneX = one->planeX;
+		one->planeX = one->planeX * cos(-(one->rotSpeed)) - one->planeY * sin(-(one->rotSpeed));
+		one->planeY = one->oldPlaneX * sin(-(one->rotSpeed)) + one->planeY * cos(-(one->rotSpeed));
+	}
+	if (keycode == 0 || keycode == 123)
+	{
+		one->oldDirX = one->dirX;
+		one->dirX = one->dirX * cos(one->rotSpeed) - one->dirY * sin(one->rotSpeed);
+		one->dirY = one->oldDirX * sin(one->rotSpeed) + one->dirY * cos(one->rotSpeed);
+		one->oldPlaneX = one->planeX;
+		one->planeX = one->planeX * cos(one->rotSpeed) - one->planeY * sin(one->rotSpeed);
+		one->planeY = one->oldPlaneX * sin(one->rotSpeed) + one->planeY * cos(one->rotSpeed);
+	}
+	//	printf("%i", keycode);
+	raycast_flat(one->mlx, one);
+	mlx_put_image_to_window(one->mlx, one->mlx_win, one->img, 0, 0);
+	return (0);
+}
 void	*raycast_flat(void *mlx1, pos *one)
 {
-	/////////////////////////////////////////////////////////////////////////
-
 	int	x;
 
 	x = 0;
+	mlx1 = 0;
 	while (x < screenWidth)
 	{
 		one->cameraX = 2 * x / (double)screenWidth - 1;
@@ -120,18 +174,20 @@ void	*raycast_flat(void *mlx1, pos *one)
 		int y = 0;
 		while (y < one->drawStart)
 		{
-		
-			mlx_pixel_put(mlx1, one->mlx_win, x, y, one->sky);
+		//	mlx_pixel_put(mlx1, one->mlx_win, x, y, one->sky);
+			one->addr[y * screenWidth + x] = one->sky;
 			y++;
 		}
 		while (y < one->drawEnd)
 		{
-			mlx_pixel_put(mlx1, one->mlx_win, x, y, one->color);
+	//		mlx_pixel_put(mlx1, one->mlx_win, x, y, one->color);
+			one->addr[y * screenWidth + x] = one->wall;
 			y++;
 		}
 		while (y < screenHeight)
-		{	
-			mlx_pixel_put(mlx1, one->mlx_win, x, y, one->ground);
+		{
+		//	mlx_pixel_put(mlx1, one->mlx_win, x, y, one->ground);
+			one->addr[y * screenWidth + x] = one->ground;
 			y++;
 		}
 		x++;

@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/02/24 18:20:01 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/02/26 15:54:34 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ typedef	struct	first
 {
 	void		*mlx;
 	void		*mlx_win;
+	void		*img;
+	int			*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 	double		posX;
 	double		posY;
 	double		dirX;
@@ -79,5 +84,6 @@ typedef	struct	first
 
 //int				worldMap;
 void			*raycast_flat(void *mlx1, pos *one);
+int				ft_keyboard(int keycode, pos *one);
 
 #endif

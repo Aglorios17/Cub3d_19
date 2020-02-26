@@ -6,62 +6,11 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:56:19 by aglorios          #+#    #+#             */
-/*   Updated: 2020/02/24 18:19:58 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/02/26 15:54:36 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	ft_keyboard(int keycode, pos *one)
-{
-	(void)one;
-	one->moveSpeed = 0.8;
-	one->rotSpeed = 0.3;
-
-	if (keycode == 53)
-		exit(1);
-	if (keycode == 13 || keycode == 126)
-	{
-		one->posX += one->dirX * one->moveSpeed;
-		one->posY += one->dirY * one->moveSpeed;
-	}
-	if (keycode == 1 || keycode == 125)
-	{
-		one->posX -= one->dirX * one->moveSpeed;
-		one->posY -= one->dirY * one->moveSpeed;
-	}
-	if (keycode == 14)
-	{
-		one->posY -= one->dirX * one->moveSpeed;
-		one->posX += one->dirY * one->moveSpeed;
-	}
-	if (keycode == 12)
-	{
-		one->posY += one->dirX * one->moveSpeed;
-		one->posX -= one->dirY * one->moveSpeed;
-	}
-	if (keycode == 2 || keycode == 124)
-	{
-		one->oldDirX = one->dirX;
-		one->dirX = one->dirX * cos(-(one->rotSpeed)) - one->dirY * sin(-(one->rotSpeed));
-		one->dirY = one->oldDirX * sin(-(one->rotSpeed)) + one->dirY * cos(-(one->rotSpeed));
-		one->oldPlaneX = one->planeX;
-		one->planeX = one->planeX * cos(-(one->rotSpeed)) - one->planeY * sin(-(one->rotSpeed));
-		one->planeY = one->oldPlaneX * sin(-(one->rotSpeed)) + one->planeY * cos(-(one->rotSpeed));
-	}
-	if (keycode == 0 || keycode == 123)
-	{
-		one->oldDirX = one->dirX;
-		one->dirX = one->dirX * cos(one->rotSpeed) - one->dirY * sin(one->rotSpeed);
-		one->dirY = one->oldDirX * sin(one->rotSpeed) + one->dirY * cos(one->rotSpeed);
-		one->oldPlaneX = one->planeX;
-		one->planeX = one->planeX * cos(one->rotSpeed) - one->planeY * sin(one->rotSpeed);
-		one->planeY = one->oldPlaneX * sin(one->rotSpeed) + one->planeY * cos(one->rotSpeed);
-	}
-//	printf("%i", keycode);
-	raycast_flat(one->mlx, one);
-	return (0);
-}
 
 int main()
 {
@@ -72,7 +21,7 @@ int main()
 
 	one.mlx = mlx_init();
 
-	one.posX = 22;
+	one.posX = 12;
 	one.posY = 12;
 	one.dirX = -1;
 	one.dirY = 0;
@@ -80,11 +29,18 @@ int main()
 	one.planeY = 0.66;
 	one.time = 0;
 	one.oldtime = 0;
+	one.bits_per_pixel = 0;
+	one.line_length = 0;
+	one.endian = 0;
 
 	one.mlx_win = mlx_new_window(one.mlx, screenWidth, screenHeight, "Cub3D");
+	one.img = mlx_new_image(one.mlx, screenWidth, screenHeight);
+	one.addr = (int*)mlx_get_data_addr(one.img, &one.bits_per_pixel, &one.line_length, &one.endian);
+	
 	raycast_flat(one.mlx, &one);
-
+	mlx_put_image_to_window(one.mlx, one.mlx_win, one.img, 0, 0);
 	mlx_hook(one.mlx_win, 2, 1L<<0, ft_keyboard, &one);
+
 
 	mlx_loop(one.mlx);
 }
