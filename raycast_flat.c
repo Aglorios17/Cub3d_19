@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/02/26 15:54:32 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:52:46 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int worldMap[mapWidth][mapHeight]=
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
 	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -29,22 +29,22 @@ int worldMap[mapWidth][mapHeight]=
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
+	{1,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
+	{1,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
 	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
 int		ft_keyboard(int keycode, pos *one)
 {
 	(void)one;
-	one->moveSpeed = 0.8;
-	one->rotSpeed = 0.3;
+	one->moveSpeed = 0.5;
+	one->rotSpeed = 0.2;
 
 	if (keycode == 53)
 		exit(1);
@@ -64,12 +64,16 @@ int		ft_keyboard(int keycode, pos *one)
 	}
 	if (keycode == 14)
 	{
+		if (worldMap[(int)one->posX][(int)(one->posY - one->dirX * one->moveSpeed)] == 0)
 			one->posY -= one->dirX * one->moveSpeed;
+		if (worldMap[(int)(one->posX + one->dirX * one->moveSpeed)][(int)one->posY] == 0)
 			one->posX += one->dirY * one->moveSpeed;
 	}
 	if (keycode == 12)
 	{
+		if (worldMap[(int)one->posX][(int)(one->posY + one->dirX * one->moveSpeed)] == 0)
 			one->posY += one->dirX * one->moveSpeed;
+		if (worldMap[(int)(one->posX - one->dirX * one->moveSpeed)][(int)one->posY] == 0)
 			one->posX -= one->dirY * one->moveSpeed;
 	}
 	if (keycode == 2 || keycode == 124)
@@ -168,25 +172,21 @@ void	*raycast_flat(void *mlx1, pos *one)
 		if (one->drawEnd >= screenHeight)
 			one->drawEnd = screenHeight - 1;
 		/////////////////////////////////////////////////////////////////////////
-		one->color = one->wall;
-		if (one->side == 1)
-			one->color = one->color / 2;
+		if (one->side == 2) /// MARCHE PLUS
+			one->wall1 = one->wall2;
 		int y = 0;
 		while (y < one->drawStart)
 		{
-		//	mlx_pixel_put(mlx1, one->mlx_win, x, y, one->sky);
 			one->addr[y * screenWidth + x] = one->sky;
 			y++;
 		}
 		while (y < one->drawEnd)
 		{
-	//		mlx_pixel_put(mlx1, one->mlx_win, x, y, one->color);
-			one->addr[y * screenWidth + x] = one->wall;
+			one->addr[y * screenWidth + x] = one->wall1;
 			y++;
 		}
 		while (y < screenHeight)
 		{
-		//	mlx_pixel_put(mlx1, one->mlx_win, x, y, one->ground);
 			one->addr[y * screenWidth + x] = one->ground;
 			y++;
 		}

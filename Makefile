@@ -6,7 +6,7 @@
 #    By: aglorios <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/20 13:33:12 by aglorios          #+#    #+#              #
-#    Updated: 2020/02/24 15:04:17 by aglorios         ###   ########.fr        #
+#    Updated: 2020/03/02 15:25:58 by aglorios         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ MINILIBX_PATH   = ./minilibx
 #SRCS_LIST 		= main.c
 #SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 SRCS 			= raycast_flat.c \
+				  parsing.c	\
 				  main.c
 
 OBJS			= ${SRCS:.c=.o}
@@ -23,7 +24,7 @@ INCLUDE 		= cube3d.h
 #FOLDER			= srcs
 LIBFT 			= libft
 MINILIBX 		= minilibx
-CC				= gcc -g -Wall -Wextra -Werror
+CC				= gcc -g -Wall -Wextra -Werror #-fsanitize=address
 RM				= rm -f
 MLXFLAGS 		= -I ./minilibx -L ./minilibx -lmlx -framework OpenGl -framework Appkit
 LIBFLAGS 		= -I ./libft -L ./libft -L . ./libft/*.c 

@@ -32,7 +32,7 @@ int	main(void)
 	img.img = mlx_new_image(mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
-	carre = 450;
+	carre = 200;
 	dimy = 1080/2 + carre/2;
 	dimx = 1920/2 + carre/2;
 	y = dimy - carre;

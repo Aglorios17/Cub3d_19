@@ -6,18 +6,19 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:56:19 by aglorios          #+#    #+#             */
-/*   Updated: 2020/02/26 15:54:36 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/02 15:52:48 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main()
+int main(int argc, char **argv)
 {
 	pos	one;
 	one.sky = 0xCCFFFF;
 	one.ground = 0xCC6600;
-	one.wall = 0x0000FF;	
+	one.wall1 = 0x0000FF;	
+	one.wall2 = 0xFF99CC;	
 
 	one.mlx = mlx_init();
 
@@ -32,6 +33,10 @@ int main()
 	one.bits_per_pixel = 0;
 	one.line_length = 0;
 	one.endian = 0;
+
+	if (argc > 2)
+		return (-1);
+	parsing(&one, argv[1]);
 
 	one.mlx_win = mlx_new_window(one.mlx, screenWidth, screenHeight, "Cub3D");
 	one.img = mlx_new_image(one.mlx, screenWidth, screenHeight);
