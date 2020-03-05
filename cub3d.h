@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/04 16:50:38 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:56:02 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,14 @@ typedef	struct	first
 	int			screenwidth;		
 	int			screenheight;		
 	char		*datamap;
+	char		*size;
+	char		*textNO;
+	char		*textSO;
+	char		*textWE;
+	char		*textEA;
+	char		*textS;
+	char		*textF;
+	char		*textC;
 
 }				pos;				
 

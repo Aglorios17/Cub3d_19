@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/05 13:50:27 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/05 17:53:39 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ void	*raycast_flat(void *mlx1, pos *one)
 
 	x = 0;
 	mlx1 = 0;
-	while (x < screenWidth)
+	while (x < one->screenwidth)
 	{
-		one->cameraX = 2 * x / (double)screenWidth - 1;
+		one->cameraX = 2 * x / (double)one->screenwidth - 1;
 		one->rayDirX = one->dirX + one->planeX * one->cameraX;
 		one->rayDirY = one->dirY + one->planeY * one->cameraX;
 
@@ -164,30 +164,30 @@ void	*raycast_flat(void *mlx1, pos *one)
 		else
 			one->perpWallDist = (one->mapY - one->posY + (1 - one->stepY) / 2) / one->rayDirY;
 
-		one->lineHeight = (int)(screenHeight / one->perpWallDist);
-		one->drawStart = -one->lineHeight / 2 + screenHeight / 2; 
+		one->lineHeight = (int)(one->screenheight / one->perpWallDist);
+		one->drawStart = -one->lineHeight / 2 + one->screenheight / 2; 
 		if (one->drawStart < 0)
 			one->drawStart = 0;
-		one->drawEnd = one->lineHeight / 2 + screenHeight / 2; 
-		if (one->drawEnd >= screenHeight)
-			one->drawEnd = screenHeight - 1;
+		one->drawEnd = one->lineHeight / 2 + one->screenheight / 2; 
+		if (one->drawEnd >= one->screenheight)
+			one->drawEnd = one->screenheight - 1;
 		/////////////////////////////////////////////////////////////////////////
 		if (one->side == 2) /// MARCHE PLUS
 			one->wall1 = one->wall2;
 		int y = 0;
 		while (y < one->drawStart)
 		{
-			one->addr[y * screenWidth + x] = one->sky;
+			one->addr[y * one->screenwidth + x] = one->sky;
 			y++;
 		}
-		while (y < one->drawEnd)
+		while (y <= one->drawEnd)
 		{
-			one->addr[y * screenWidth + x] = one->wall1;
+			one->addr[y * one->screenwidth + x] = one->wall1;
 			y++;
 		}
-		while (y < screenHeight)
+		while (y < one->screenheight)
 		{
-			one->addr[y * screenWidth + x] = one->ground;
+			one->addr[y * one->screenwidth + x] = one->ground;
 			y++;
 		}
 		x++;

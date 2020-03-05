@@ -28,13 +28,13 @@ int	main(void)
 	t_data  img;
 
 	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Cub3D");
-	img.img = mlx_new_image(mlx, 1920, 1080);
+	mlx_win = mlx_new_window(mlx, 2560, 1440, "Cub3D");
+	img.img = mlx_new_image(mlx, 2560, 1440);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 		&img.endian);
-	carre = 200;
-	dimy = 1080/2 + carre/2;
-	dimx = 1920/2 + carre/2;
+	carre = 1400;
+	dimy = 1440/2 + carre/2;
+	dimx = 2560/2 + carre/2;
 	y = dimy - carre;
 	while (y < dimy)
 	{
