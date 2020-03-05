@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/02 15:52:46 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/05 13:50:27 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,30 @@ int		ft_keyboard(int keycode, pos *one)
 		exit(1);
 	if (keycode == 13 || keycode == 126)
 	{
-		if (worldMap[(int)(one->posX + one->dirX * one->moveSpeed)][(int)one->posY] == 0)
+		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] == '0')
 			one->posX += one->dirX * one->moveSpeed;
-		if (worldMap[(int)one->posX][(int)(one->posY + one->dirY * one->moveSpeed)] == 0)
+		if (one->map[(int)(one->posY + one->dirY * one->moveSpeed)][(int)one->posX] == '0')
 			one->posY += one->dirY * one->moveSpeed;
 	}
 	if (keycode == 1 || keycode == 125)
 	{
-		if (worldMap[(int)(one->posX - one->dirX * one->moveSpeed)][(int)one->posY] == 0)
+		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] == '0')
 			one->posX -= one->dirX * one->moveSpeed;
-		if (worldMap[(int)one->posX][(int)(one->posY - one->dirY * one->moveSpeed)] == 0)
+		if (one->map[(int)(one->posY - one->dirY * one->moveSpeed)][(int)one->posX] == '0')
 			one->posY -= one->dirY * one->moveSpeed;
 	}
-	if (keycode == 14)
+	if (keycode == 14) /////////////// bug
 	{
-		if (worldMap[(int)one->posX][(int)(one->posY - one->dirX * one->moveSpeed)] == 0)
+		if (one->map[(int)(one->posY - one->dirX * one->moveSpeed)][(int)one->posX] == '0')
 			one->posY -= one->dirX * one->moveSpeed;
-		if (worldMap[(int)(one->posX + one->dirX * one->moveSpeed)][(int)one->posY] == 0)
+		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] == '0')
 			one->posX += one->dirY * one->moveSpeed;
 	}
 	if (keycode == 12)
 	{
-		if (worldMap[(int)one->posX][(int)(one->posY + one->dirX * one->moveSpeed)] == 0)
+		if (one->map[(int)(one->posY + one->dirX * one->moveSpeed)][(int)one->posX] == '0')
 			one->posY += one->dirX * one->moveSpeed;
-		if (worldMap[(int)(one->posX - one->dirX * one->moveSpeed)][(int)one->posY] == 0)
+		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] == '0')
 			one->posX -= one->dirY * one->moveSpeed;
 	}
 	if (keycode == 2 || keycode == 124)
@@ -155,7 +155,7 @@ void	*raycast_flat(void *mlx1, pos *one)
 				one->mapY += one->stepY;
 				one->side = 1;
 			}
-			if (worldMap[one->mapX][one->mapY] > 0) 
+			if (one->map[one->mapY][one->mapX] > '0') 
 				one->hit = 1;
 		}
 		/////////////////////////////////////////////////////////////////////////

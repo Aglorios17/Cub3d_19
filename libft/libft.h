@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:27:36 by aglorios          #+#    #+#             */
-/*   Updated: 2020/02/13 14:36:03 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/04 12:54:10 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,10 @@ char				*ft_strndup(const char *s1, size_t n);
 int					ft_line(int fd, char **line, char **str);
 int					ft_read(int fd, char **line);
 char				*ft_strchrgnl(const char *s, int c);
+char				*ft_strnjoin_gnl(char *s1, char *s2, int ret);
+char				*ft_strdup_gnl(char *s1);
+char				*ft_substr_gnl(char const *s, int start, int len);
+int					ft_strlen_gnl(const char *str);
+int					get_next_line3d(const int fd, char **line);
 
 #endif

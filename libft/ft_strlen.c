@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/14 19:36:10 by aglorios          #+#    #+#             */
-/*   Updated: 2019/10/21 12:54:41 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/04 13:04:22 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ size_t	ft_strlen(const char *str)
 	unsigned int a;
 
 	a = 0;
+	if (str == NULL)
+		return(0);
 	while (str[a] != '\0')
-	{
 		a++;
-	}
 	return (a);
 }

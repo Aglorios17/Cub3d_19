@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/02 15:13:26 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:50:38 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,11 @@ typedef	struct	first
 	unsigned	wall1;
 	unsigned	wall2;
 	////////////////////////////
-	char		*map;
+	char		**map;
+	int			mapwidth;		
+	int			mapheight;		
+	int			screenwidth;		
+	int			screenheight;		
 	char		*datamap;
 
 }				pos;				

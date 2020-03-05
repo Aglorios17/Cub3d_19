@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:56:19 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/02 15:52:48 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/05 13:50:16 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int main(int argc, char **argv)
 
 	one.mlx = mlx_init();
 
-	one.posX = 12;
-	one.posY = 12;
+	one.posX = 4;
+	one.posY = 4;
 	one.dirX = -1;
 	one.dirY = 0;
 	one.planeX = 0;
