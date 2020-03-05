@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/05 17:55:58 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/05 19:37:19 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ int	parsing(pos *one, char *file)
 	//	printf("map ||\n%s||", one->datamap);
 //	printf("||%s||", one->textF);
 	one->map = ft_split(one->datamap, '\n');
-	if (check_errordata(one) == -1) ///////////////// bug error return
+	if (check_errordata(one) == -1)
 		return (-1);
 	if (check_pos(one) == -1)
 		return (-1);
