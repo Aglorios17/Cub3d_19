@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/06 16:51:19 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/06 19:17:12 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,9 +187,9 @@ int	checktexture(pos *one)
 	int w;
 	char *mur;
 
-	i = 0;
 	h = 0;
 	w = 0;
+	i = 0;
 	mur = 0;
 	if (one->textNO[i] == 'N' && one->textNO[i + 1] == 'O')
 		i += 2;
@@ -202,8 +202,53 @@ int	checktexture(pos *one)
 		return (-1);
 	}
 	one->addrNO = (int*)mlx_get_data_addr(one->imgNO, &one->bits_per_pixel, &one->line_length, &one->endian); 
+	/////////////////////////////////////////////////////////////////////////////////////
+	i = 0;
+	mur = 0;
+	if (one->textSO[i] == 'S' && one->textSO[i + 1] == 'O')
+		i += 2;
+	while (one->textSO[i] != '\0' && one->textSO[i] == ' ')
+		i++;
+	mur = ft_strdup(&one->textSO[i]);
+	if (!(one->imgSO = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
+	{
+		write(1, "\nError", 7);
+		return (-1);
+	}
+	one->addrSO = (int*)mlx_get_data_addr(one->imgSO, &one->bits_per_pixel, &one->line_length, &one->endian);
+	/////////////////////////////////////////////////////////////////////////////////////
+	i = 0;
+	mur = 0;
+	if (one->textWE[i] == 'W' && one->textWE[i + 1] == 'E')
+		i += 2;
+	while (one->textWE[i] != '\0' && one->textWE[i] == ' ')
+		i++;
+	mur = ft_strdup(&one->textWE[i]);
+	if (!(one->imgWE = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
+	{
+		write(1, "\nError", 7);
+		return (-1);
+	}
+	one->addrWE = (int*)mlx_get_data_addr(one->imgWE, &one->bits_per_pixel, &one->line_length, &one->endian);
+	/////////////////////////////////////////////////////////////////////////////////////
+	i = 0;
+	mur = 0;
+	if (one->textEA[i] == 'E' && one->textEA[i + 1] == 'A')
+		i += 2;
+	while (one->textEA[i] != '\0' && one->textEA[i] == ' ')
+		i++;
+	mur = ft_strdup(&one->textEA[i]);
+	if (!(one->imgEA = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
+	{
+		write(1, "\nError", 7);
+		return (-1);
+	}
+	one->addrEA = (int*)mlx_get_data_addr(one->imgEA, &one->bits_per_pixel, &one->line_length, &one->endian);
 //	printf("\nmur||%s||", mur);
-//	printf("\n&||%s||", &one->textNO[i]);
+	printf("\n&||%s||", &one->textNO[i]);
+	printf("\n&||%s||", &one->textSO[i]);
+	printf("\n&||%s||", &one->textWE[i]);
+	printf("\n&||%s||", &one->textEA[i]);
 //	printf("\n||%s||", one->textNO);
 	return (1);
 }
@@ -285,7 +330,7 @@ int	parsing(pos *one, char *file)
 	one->datamap = ft_strjoin(one->datamap, "\0");
 	free(line);
 	close(fd);
-	//	printf("map ||\n%s||", one->datamap);
+//	printf("map ||\n%s||", one->datamap);
 //	printf("||%s||", one->textNO);
 	one->map = ft_split(one->datamap, '\n');
 	if (check_errordata(one) == -1)
