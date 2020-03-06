@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/06 16:51:21 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/06 17:32:07 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		texture(pos *one)
 	one->texX = (int)(one->wallX * (double)texWidth);
 	if (one->side == 0 && one->rayDirX > 0)
 		one->texX = texWidth - one->texX - 1;
-	if (one->side == 1 && one->rayDirX < 0)
+	if (one->side == 1 && one->rayDirY < 0)
 		one->texX = texWidth - one->texX - 1;
 
 	one->step = 1.0 * texWidth / one->lineHeight;
@@ -165,8 +165,8 @@ void	*raycast_flat(void *mlx1, pos *one)
 
 		texture(one);
 		/////////////////////////////////////////////////////////////////////////
-		if (one->side == 2) /// MARCHE PLUS
-			one->wall1 = one->wall2;
+		//if (one->side == 2) /// MARCHE PLUS
+		//	one->wall1 = one->wall2;
 		int y = 0;
 		while (y < one->drawStart)
 		{
