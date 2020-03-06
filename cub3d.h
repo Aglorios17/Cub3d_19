@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/05 17:56:02 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/06 16:51:23 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 #define mapHeight 24
 #define screenWidth 1920
 #define screenHeight 1080
+#define	texWidth 64
+#define	texHeight 64
 
 typedef	struct	first
 {
@@ -96,10 +98,21 @@ typedef	struct	first
 	char		*textS;
 	char		*textF;
 	char		*textC;
-
+	////////////////////////////
+	char		*murNO;
+	void		*imgNO;
+	int			*addrNO;
+	////////////////////////////
+	int			texNum;
+	int			texcolor;
+	int			texX;
+	int			texY;
+	double		wallX;
+	double		step;
+	double		texPos;
+	int			**buffer;
 }				pos;				
 
-//int				worldMap;
 void			*raycast_flat(void *mlx1, pos *one);
 int				ft_keyboard(int keycode, pos *one);
 int				parsing(pos *one, char *file);

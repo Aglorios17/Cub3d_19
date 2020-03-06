@@ -6,39 +6,11 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/05 19:37:30 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/06 16:51:21 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int worldMap[mapWidth][mapHeight]=
-{
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-	{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
-	{1,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-	{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-};
 
 int		ft_keyboard(int keycode, pos *one)
 {
@@ -99,6 +71,25 @@ int		ft_keyboard(int keycode, pos *one)
 	mlx_put_image_to_window(one->mlx, one->mlx_win, one->img, 0, 0);
 	return (0);
 }
+
+int		texture(pos *one)
+{
+	if (one->side == 0)
+		one->wallX = one->posY + one->perpWallDist * one->rayDirY;
+	else
+		one->wallX = one->posX + one->perpWallDist * one->rayDirX;
+	one->wallX -= floor((one->wallX));
+	one->texX = (int)(one->wallX * (double)texWidth);
+	if (one->side == 0 && one->rayDirX > 0)
+		one->texX = texWidth - one->texX - 1;
+	if (one->side == 1 && one->rayDirX < 0)
+		one->texX = texWidth - one->texX - 1;
+
+	one->step = 1.0 * texWidth / one->lineHeight;
+	one->texPos = (one->drawStart - one->screenheight / 2 + one->lineHeight / 2) * one->step;
+	return (0);
+}
+
 void	*raycast_flat(void *mlx1, pos *one)
 {
 	int	x;
@@ -171,6 +162,8 @@ void	*raycast_flat(void *mlx1, pos *one)
 		one->drawEnd = one->lineHeight / 2 + one->screenheight / 2; 
 		if (one->drawEnd >= one->screenheight)
 			one->drawEnd = one->screenheight - 1;
+
+		texture(one);
 		/////////////////////////////////////////////////////////////////////////
 		if (one->side == 2) /// MARCHE PLUS
 			one->wall1 = one->wall2;
@@ -180,9 +173,14 @@ void	*raycast_flat(void *mlx1, pos *one)
 			one->addr[y * one->screenwidth + x] = one->sky;
 			y++;
 		}
+	//	texture(one, x);
 		while (y <= one->drawEnd)
 		{
-			one->addr[y * one->screenwidth + x] = one->wall1;
+			one->texY = (int)one->texPos & (texHeight - 1);
+			one->texPos += one->step;
+			one->color = one->addrNO[texHeight * one->texY + one->texX];
+			one->addr[y * one->screenwidth + x] = one->color;
+		//	printf("||%i||", one->texX);
 			y++;
 		}
 		while (y < one->screenheight)

@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/05 19:37:19 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/06 16:51:19 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,34 @@ int	check_errordata(pos *one)
 	return (1);
 }
 
+int	checktexture(pos *one)
+{
+	int i;
+	int h;
+	int w;
+	char *mur;
+
+	i = 0;
+	h = 0;
+	w = 0;
+	mur = 0;
+	if (one->textNO[i] == 'N' && one->textNO[i + 1] == 'O')
+		i += 2;
+	while (one->textNO[i] != '\0' && one->textNO[i] == ' ')
+		i++;
+	mur = ft_strdup(&one->textNO[i]);
+	if (!(one->imgNO = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
+	{
+		write(1, "\nError", 7);
+		return (-1);
+	}
+	one->addrNO = (int*)mlx_get_data_addr(one->imgNO, &one->bits_per_pixel, &one->line_length, &one->endian); 
+//	printf("\nmur||%s||", mur);
+//	printf("\n&||%s||", &one->textNO[i]);
+//	printf("\n||%s||", one->textNO);
+	return (1);
+}
+
 int	parsing(pos *one, char *file)
 {
 	int fd;
@@ -258,9 +286,11 @@ int	parsing(pos *one, char *file)
 	free(line);
 	close(fd);
 	//	printf("map ||\n%s||", one->datamap);
-//	printf("||%s||", one->textF);
+//	printf("||%s||", one->textNO);
 	one->map = ft_split(one->datamap, '\n');
 	if (check_errordata(one) == -1)
+		return (-1);
+	if (checktexture(one) == -1)
 		return (-1);
 	if (check_pos(one) == -1)
 		return (-1);
