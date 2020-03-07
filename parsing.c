@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/07 12:31:46 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/07 13:13:50 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ int	check_errordata(pos *one)
 			i = ft_strlen(one->textC);		
 
 	}
-	if (r > 255 || g > 255 || b > 255)
+	if (r > 255 || g > 255 || b > 255 || r < 0 || g < 0 || b < 0)
 	{
 		write(1, "\nError", 7);
 		return (-1);
@@ -337,7 +337,7 @@ int	check_errormap(pos *one)
 		//		printf("\n%s|", one->map[f]);
 		f++;
 	}
-	//	printf("f|\n%i|", f);
+//	printf("f|\n%i|", f);
 	//	printf("a|\n%i|", a);
 	g = 0;
 	i = 0;
@@ -349,9 +349,40 @@ int	check_errormap(pos *one)
 //	}
 
 	i = 0;
-	while (one->map[i] != '\0')
+	while (one->map[i])
 	{
-		if (one->map[0][i] != ' ' && one->map[0][i] != '1')
+		if (one->map[i][0] != ' ' && one->map[i][0] != '1' && one->map[i][0] != '\0')
+			g = 1;
+		if (one->map[i][0] == ' ' && one->map[i][1] == '0')
+			g = 1;
+		i++;
+	}
+
+	i = 0;
+	while (one->map[i])
+	{
+		j = ft_strlen2(one->map[i]) - 1;
+		if (one->map[i][j] != '1')
+			g = 1;
+		i++;
+	}
+
+	i = 0;
+	while (one->map[0][i])
+	{
+		if (one->map[0][i] != '1' && one->map[0][i] != ' ')
+			g = 1;
+		if (one->map[0][i] == ' ' && one->map[1][i] == '0')
+			g = 1;
+		i++;
+	}
+
+	i = 0;
+	while (one->map[f - 1][i])
+	{
+		if (one->map[f - 1][i] != '1' && one->map[f - 1][i] != ' ')
+			g = 1;
+		if (one->map[f - 1][i] == ' ' && one->map[f - 2][i] == '0')
 			g = 1;
 		i++;
 	}
