@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/07 10:08:05 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/07 11:23:01 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		ft_keyboard(int keycode, pos *one)
 	one->rotSpeed = 0.2;
 
 	if (keycode == 53)
+		exit(1);
+	if (keycode == 17)
 		exit(1);
 	if (keycode == 13 || keycode == 126)
 	{

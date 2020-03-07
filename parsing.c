@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/07 10:08:11 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/07 12:31:46 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,12 +184,12 @@ int	check_errordata(pos *one)
 		return (-1);
 	}
 	one->sky = transform_to_hex(r, g, b);
-//	printf("w||%i||", one->screenwidth);
-//	printf("\nh||%i||", one->screenheight);
-//	printf("\nr||%i||", r);
-//	printf("\ng||%i||", g);
-//	printf("\nb||%i||", b);
-//	printf("\ng||%u||", one->ground);
+	//	printf("w||%i||", one->screenwidth);
+	//	printf("\nh||%i||", one->screenheight);
+	//	printf("\nr||%i||", r);
+	//	printf("\ng||%i||", g);
+	//	printf("\nb||%i||", b);
+	//	printf("\ng||%u||", one->ground);
 	return (1);
 }
 
@@ -291,14 +291,131 @@ int	checktexture(pos *one)
 		}
 		one->addrC = (int*)mlx_get_data_addr(one->imgC, &one->bits_per_pixel, &one->line_length, &one->endian);
 	}
-//	printf("\nmur||%s||", mur);
-//	printf("\n&||%s||", &one->textNO[i]);
-//	printf("\n&||%s||", &one->textSO[i]);
-//	printf("\n&||%s||", &one->textWE[i]);
-//	printf("\n&||%s||", &one->textEA[i]);
-//	printf("\n&||%s||", &one->textF[i]);
-//	printf("\n&||%s||", &one->textC[i]);
-//	printf("\n||%s||", one->textNO);
+	//	printf("\nmur||%s||", mur);
+	//	printf("\n&||%s||", &one->textNO[i]);
+	//	printf("\n&||%s||", &one->textSO[i]);
+	//	printf("\n&||%s||", &one->textWE[i]);
+	//	printf("\n&||%s||", &one->textEA[i]);
+	//	printf("\n&||%s||", &one->textF[i]);
+	//	printf("\n&||%s||", &one->textC[i]);
+	//	printf("\n||%s||", one->textNO);
+	return (1);
+}
+
+int	ft_strlen2(char *s)
+{
+	int i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+int	check_errormap(pos *one)
+{
+	int i;
+	int	a;
+	int j;
+	int g;
+	int f;
+
+	i = 0;
+	a = 0;
+	while (one->map[i] != '\0')
+	{
+		if (a < ft_strlen2(one->map[i]))
+			a = ft_strlen2(one->map[i]);
+		i++;
+	}
+
+	f = 0;
+	while (one->map[f] != '\0')
+	{
+		//		printf("\n%s|", one->map[f]);
+		f++;
+	}
+	//	printf("f|\n%i|", f);
+	//	printf("a|\n%i|", a);
+	g = 0;
+	i = 0;
+//	while (one->map[f][i] != '\0')
+//	{
+//		if (one->map[f][i] != ' ' && one->map[f][i] != '1')
+//			g = 1;
+//		i++;
+//	}
+
+	i = 0;
+	while (one->map[i] != '\0')
+	{
+		if (one->map[0][i] != ' ' && one->map[0][i] != '1')
+			g = 1;
+		i++;
+	}
+
+	i = 1;
+	while (i < f - 1)
+	{
+		j = 1;
+		while (j != ft_strlen2(one->map[i - 1]))
+		{
+			if (one->map[i][j] == ' ')
+			{
+				if (one->map[i][j - 1] != '1' && one->map[i][j - 1] != ' ' && one->map[i][j - 1] != '\0')
+					g = 1;
+				if (one->map[i][j + 1] != '1' && one->map[i][j + 1] != ' ' && one->map[i][j + 1] != '\0')
+					g = 1;
+				if (one->map[i + 1][j] != '1' && one->map[i + 1][j] != ' ' && one->map[i + 1][j] != '\0')
+					g = 1;
+				if (one->map[i - 1][j] != '1' && one->map[i - 1][j] != ' ' && one->map[i - 1][j] != '\0')
+					g = 1;
+				if (one->map[i - 1][j - 1] != '1' && one->map[i - 1][j - 1] != ' ' && one->map[i - 1][j - 1] != '\0')
+					g = 1;
+				if (one->map[i + 1][j + 1] != '1' && one->map[i + 1][j + 1] != ' ' && one->map[i + 1][j + 1] != '\0')
+					g = 1;
+				if (one->map[i + 1][j - 1] != '1' && one->map[i + 1][j - 1] != ' ' && one->map[i + 1][j - 1] != '\0')
+					g = 1;
+				if (one->map[i - 1][j + 1] != '1' && one->map[i - 1][j + 1] != ' ' && one->map[i - 1][j + 1] != '\0')
+					g = 1;
+			}
+			j++;
+		}
+		i++;
+	}
+	if (g == 1)
+	{
+		write(1, "\nError", 7);
+		return (-1);
+	}
+
+	//	printf("a |%d|", a);
+	i = 0;
+	while (one->map[i] != '\0')
+	{
+		j = 0;
+		g = 0;
+		if (ft_strlen2(one->map[i]) < a)
+		{
+			j = a - ft_strlen2(one->map[i]);
+			//			printf("j |%d|", j);
+			while (g < j)
+			{
+				one->map[i] = ft_strjoin(one->map[i], " ");
+				g++;
+			}
+		}
+		i++;
+	}
+	/*	f = 0;
+		while (one->map[f] != '\0')
+		{
+		printf("\n%s|", one->map[f]);
+		f++;
+		}*/
+	//	printf("f|\n%i|", f);
 	return (1);
 }
 
@@ -379,14 +496,16 @@ int	parsing(pos *one, char *file)
 	one->datamap = ft_strjoin(one->datamap, "\0");
 	free(line);
 	close(fd);
-//	printf("map ||\n%s||", one->datamap);
-//	printf("||%s||", one->textNO);
+	//	printf("map ||\n%s||", one->datamap);
+	//	printf("||%s||", one->textNO);
 	one->map = ft_split(one->datamap, '\n');
+	if (check_pos(one) == -1)
+		return (-1);
+	if (check_errormap(one) == -1)
+		return (-1);
 	if (check_errordata(one) == -1)
 		return (-1);
 	if (checktexture(one) == -1)
-		return (-1);
-	if (check_pos(one) == -1)
 		return (-1);
 	return (1);
 }
