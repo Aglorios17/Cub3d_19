@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/06 19:19:42 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/07 10:08:08 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,16 @@ typedef	struct	first
 	char		*murEA;
 	void		*imgEA;
 	int			*addrEA;
+	////////////////////////////
+	char		*murF;
+	void		*imgF;
+	int			*addrF;
+	int			fo;
+	////////////////////////////
+	char		*murC;
+	void		*imgC;
+	int			*addrC;
+	int			co;
 	////////////////////////////
 	int			texNum;
 	int			texcolor;

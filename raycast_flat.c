@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/06 19:19:39 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/07 10:08:05 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,15 @@ void	*raycast_flat(void *mlx1, pos *one)
 		int y = 0;
 		while (y < one->drawStart)
 		{
-			one->addr[y * one->screenwidth + x] = one->sky;
+			if (one->co == 1)
+				one->addr[y * one->screenwidth + x] = one->sky;
+			else
+			{
+				one->texY = (int)one->texPos & (texHeight - 1);
+				one->texPos += one->step;
+				one->color = one->addrC[texHeight * one->texY + one->texX];
+				one->addr[y * one->screenwidth + x] = one->color;
+			}
 			y++;
 		}
 	//	texture(one, x);
@@ -178,16 +186,34 @@ void	*raycast_flat(void *mlx1, pos *one)
 		{
 			one->texY = (int)one->texPos & (texHeight - 1);
 			one->texPos += one->step;
-			one->color = one->addrNO[texHeight * one->texY + one->texX];
+			if (one->side == 1 && one->rayDirY < 0)
+				one->color = one->addrNO[texHeight * one->texY + one->texX];
+			if (one->side == 1 && one->rayDirY > 0)
+				one->color = one->addrSO[texHeight * one->texY + one->texX];
+			if (one->side == 0 && one->rayDirX < 0)
+				one->color = one->addrWE[texHeight * one->texY + one->texX];
+			if (one->side == 0 && one->rayDirX > 0)
+				one->color = one->addrEA[texHeight * one->texY + one->texX];
 			one->addr[y * one->screenwidth + x] = one->color;
 		//	printf("||%i||", one->texX);
 			y++;
 		}
 		while (y < one->screenheight)
 		{
-			one->addr[y * one->screenwidth + x] = one->ground;
+			if (one->fo == 1)
+				one->addr[y * one->screenwidth + x] = one->ground;
+			else
+			{
+				one->texY = (int)one->texPos & (texHeight - 1);
+				one->texPos += one->step;
+				one->color = one->addrF[texHeight * one->texY + one->texX];
+				one->addr[y * one->screenwidth + x] = one->color;
+			}
 			y++;
 		}
+//		printf("\nDirX||%f||", one->rayDirX);
+//		printf("\nDirY||%f||", one->rayDirY);
+//		printf("\nSide||%d||", one->side);
 		x++;
 	}
 	return (NULL);

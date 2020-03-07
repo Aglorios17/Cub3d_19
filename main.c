@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/24 14:56:19 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/06 16:51:16 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/07 09:45:25 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int main(int argc, char **argv)
 	one.endian = 0;
 	one.screenheight = 0;
 	one.screenwidth = 0;
+	one.fo = 0;
+	one.co = 0;
 
 	if (argc != 2)
 	{
