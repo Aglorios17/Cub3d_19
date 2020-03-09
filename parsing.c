@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/07 13:13:50 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:16:42 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	check_pos(pos *one)
 {
 	int i;
 	int j;
+	int a;
 
 	i = 0;
+	a = 0;
 	while (one->map[i] != '\0')
 	{
 		j = 0;
@@ -25,7 +27,7 @@ int	check_pos(pos *one)
 		{
 			if (ft_isalpha(one->map[i][j]))
 			{
-				if (one->map[i][j] == 'N' || one->map[i][j] == 'S' || one->map[i][j] == 'W' || one->map[i][j] == 'E')
+				if (a == 0 && (one->map[i][j] == 'N' || one->map[i][j] == 'S' || one->map[i][j] == 'W' || one->map[i][j] == 'E'))
 				{
 					one->posY = i + 0.5;
 					one->posX = j + 0.5;
@@ -58,7 +60,7 @@ int	check_pos(pos *one)
 						one->dirY = 0;
 					}
 					one->map[i][j] = '0';
-					return (1);
+					a = 1;
 				}
 				else
 				{

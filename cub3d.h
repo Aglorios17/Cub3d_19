@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/07 10:08:08 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/09 15:16:46 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ typedef	struct	first
 	double		step;
 	double		texPos;
 	int			**buffer;
+	////////////////////////////
+		
 }				pos;				
 
 void			*raycast_flat(void *mlx1, pos *one);

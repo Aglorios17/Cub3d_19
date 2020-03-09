@@ -6,7 +6,7 @@
 #    By: aglorios <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/20 13:33:12 by aglorios          #+#    #+#              #
-#    Updated: 2020/03/05 16:48:14 by aglorios         ###   ########.fr        #
+#    Updated: 2020/03/09 14:23:04 by aglorios         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ MINILIBX_PATH   = ./minilibx
 #SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 SRCS 			= raycast_flat.c \
 				  parsing.c	\
+				  sprites.c	\
 				  main.c
 
 OBJS			= ${SRCS:.c=.o}
