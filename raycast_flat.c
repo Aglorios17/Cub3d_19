@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/13 15:22:28 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/07 11:23:01 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:19:10 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,11 +164,10 @@ void	*raycast_flat(void *mlx1, pos *one)
 		one->drawEnd = one->lineHeight / 2 + one->screenheight / 2; 
 		if (one->drawEnd >= one->screenheight)
 			one->drawEnd = one->screenheight - 1;
-
-		texture(one);
 		/////////////////////////////////////////////////////////////////////////
-		//if (one->side == 2) /// MARCHE PLUS
-		//	one->wall1 = one->wall2;
+		texture(one);
+		sprites(one);
+		/////////////////////////////////////////////////////////////////////////
 		int y = 0;
 		while (y < one->drawStart)
 		{

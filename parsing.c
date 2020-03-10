@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/09 15:16:42 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:19:14 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,7 @@ int	check_errormap(pos *one)
 	f = 0;
 	while (one->map[f] != '\0')
 	{
-		//		printf("\n%s|", one->map[f]);
+//		printf("\n%s|", one->map[f]);
 		f++;
 	}
 //	printf("f|\n%i|", f);

@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/09 14:17:37 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/09 14:50:27 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/10 16:19:44 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 int	sprites(pos *one)
 {
-	one->wall1 = one->wall1;
+	int i;
+	one->numSprites = 19;
+	
+	i = 0;
+	while (i < one->numSprites)
+	{
+	//	one->spriteOrder[i] = i;
+	//	one->spriteDistance[i] = ((one->posX - one->))
+		i++;
+	}
 	return (1);
 }
