@@ -6,7 +6,7 @@
 #    By: aglorios <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/20 13:33:12 by aglorios          #+#    #+#              #
-#    Updated: 2020/03/09 14:23:04 by aglorios         ###   ########.fr        #
+#    Updated: 2020/03/11 14:39:59 by aglorios         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ INCLUDE 		= cube3d.h
 #FOLDER			= srcs
 LIBFT 			= libft
 MINILIBX 		= minilibx
-CC				= gcc -g -Wall -Wextra -Werror #-fsanitize=address
+CC				= gcc -g -Wall -Wextra -Werror # -fsanitize=address
 RM				= rm -f
 MLXFLAGS 		= -I ./minilibx -L ./minilibx -lmlx -framework OpenGl -framework Appkit
 LIBFLAGS 		= -I ./libft -L ./libft -L . ./libft/*.c 

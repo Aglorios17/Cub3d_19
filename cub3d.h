@@ -6,7 +6,7 @@
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/10 16:20:28 by aglorios         ###   ########.fr       */
+/*   Updated: 2020/03/11 16:09:00 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,18 @@ typedef	struct	first
 	int			numSprites;
 	int			spriteOrder;
 	double		spriteDistance;
-		
+	double		spriteX;
+	double		spriteY;
+	double		invDet;
+	double		transformX;
+	double		transformY;
+	int			spriteScreenX;
+	int			spriteHeight;
+	int			drawStartY;
+	int			drawStartX;
+	int			drawEndX;
+	int			drawEndY;
+	int			spriteWidth;
 }				pos;				
 
 void			*raycast_flat(void *mlx1, pos *one);
