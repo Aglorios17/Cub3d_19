@@ -452,6 +452,27 @@ int	check_errormap(pos *one)
 	return (1);
 }
 
+int	check_numsprite(pos *one)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (one->map[i] != '\0')
+	{
+		j = 0;
+		while (one->map[i][j] != '\0')
+		{
+			if (one->map[i][j] == '2')
+				one->numSprites += 1;
+			j++;
+		}
+		i++;
+	}
+	printf("\n||%i||", one->numSprites);
+	return (1);
+}
+
 int	parsing(pos *one, char *file)
 {
 	int fd;
@@ -537,6 +558,8 @@ int	parsing(pos *one, char *file)
 	if (check_errormap(one) == -1)
 		return (-1);
 	if (check_errordata(one) == -1)
+		return (-1);
+	if (check_numsprite(one) == -1)
 		return (-1);
 	if (checktexture(one) == -1)
 		return (-1);

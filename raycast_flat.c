@@ -148,7 +148,7 @@ void	*raycast_flat(void *mlx1, pos *one)
 				one->mapY += one->stepY;
 				one->side = 1;
 			}
-			if (one->map[one->mapY][one->mapX] > '0') 
+			if (one->map[one->mapY][one->mapX] == '1') 
 				one->hit = 1;
 		}
 		/////////////////////////////////////////////////////////////////////////

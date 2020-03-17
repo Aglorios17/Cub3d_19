@@ -11,28 +11,50 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 /*
-void sortSprites(int* order, double* dist, int amount, pos *one)
+void tmp(pos *one, int i, int j)
 {
-	std::vector<std::pair<double, int>> sprites(amount);
+	double	tmpX;
+	double	tmpY;
+
+	one->spriteDistance = ((one->posX - one->spriteX[j]) *
+		(one->posX - one->spriteX[j]) +
+		(one->posY - one->spritesY[j]) * 
+		(one->posY - one->spritesY[j]));
+	tmpX = one->spriteX[i];
+	tmpY = one->spriteY[i];
+	one->spriteX[i] = one->spriteX[i + 1];
+	one->spriteY[i] = one->spriteY[i + 1];
+	one->spriteX[i + 1] = tmpX;
+	one->spriteY[i + 1] = tmpY;
+}
+*/
+/*
+void sortSprites(pos *one)
+{
 	int i;
+	int j;
 
 	i = 0;
-	one->numSprites = one->numSprites;
-	while (i < amount) 
+	while (i < one->numSprites - 1) 
 	{
-		sprites[i].first = dist[i];
-		sprites[i].second = order[i];
-		i++;
-	}
-	std::sort(sprites.begin(), sprites.end());
-	restore in reverse order to go from farthest to nearest
-	i = 0;
-	while (i < amount)
-	{
-		dist[i] = sprites[amount - i - 1].first;
-		order[i] = sprites[amount - i - 1].second;
+		one->spriteDistance = ((one->posX - one->spriteX[i]) *
+			(one->posX - one->spriteX[i]) +
+			(one->posY - one->spritesY[i]) * 
+			(one->posY - one->spritesY[i]));
+		j = i + 1;
+		while (j < one->numSprites)
+		{
+
+			if (((one->posX - one->spriteX[j]) *
+				(one->posX - one->spriteX[j]) +
+				(one->posY - one->spritesY[j]) * 
+				(one->posY - one->spritesY[j])) > one->spriteDistance)
+			{
+				tmp(m, i, j);
+			}
+			j++;
+		}
 		i++;
 	}
 }
@@ -41,7 +63,6 @@ void sortSprites(int* order, double* dist, int amount, pos *one)
 int	sprites(pos *one)
 {
 	int i;
-	one->numSprites = 19;
 
 	i = 0;
 	while (i < one->numSprites)
