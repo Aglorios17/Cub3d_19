@@ -10,18 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int parsesprite(one *pos)
+#include "cub3d.h"
+
+int parsesprite(pos *one)
 {
 	int i;
 	int j;
 	double a;
 
 	i = 0;
-	k = 0;
-	if (!(one->spriteX = malloc(sizeof(int *) * one->numSprites + 1)))
-		return (-1);
-	if (!(one->spriteY = malloc(sizeof(int *) * one->numSprites + 1)))
-		return (-1);
+	a = 0;
+//	if (!(one->spriteX = malloc(sizeof(int *) * one->numSprites + 1)))
+//		return (-1);
+//	if (!(one->spriteY = malloc(sizeof(int *) * one->numSprites + 1)))
+//		return (-1);
+//	one->spriteX[0] = 0;
 	while (one->map[i] != '\0')
 	{
 		while (one->map[i][j] != '\0')
@@ -29,13 +32,13 @@ int parsesprite(one *pos)
 			j = 0;
 			if (one->map[i][j] == '2')
 			{
-				one->spriteX[k] = j + 0.5;
-				one->spriteY[k] = i + 0.5;
-				k++;
+//				one->spriteX[a] = j + 0.5;
+//				one->spriteY[a] = i + 0.5;
+//				a++;
 			}
 			j++;
 		}
-		i++:
+		i++;
 	}
 	return (1);	
 }

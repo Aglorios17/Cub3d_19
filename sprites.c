@@ -28,8 +28,8 @@ void tmp(pos *one, int i, int j)
 	one->spriteX[i + 1] = tmpX;
 	one->spriteY[i + 1] = tmpY;
 }
-*/
-/*
+
+
 void sortSprites(pos *one)
 {
 	int i;
@@ -59,7 +59,6 @@ void sortSprites(pos *one)
 	}
 }
 */
-
 int	sprites(pos *one)
 {
 	int i;

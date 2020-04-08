@@ -98,6 +98,7 @@ void	*raycast_flat(void *mlx1, pos *one)
 
 	x = 0;
 	mlx1 = 0;
+//	write(1, "1", 1);
 	while (x < one->screenwidth)
 	{
 		one->cameraX = 2 * x / (double)one->screenwidth - 1;
@@ -166,7 +167,6 @@ void	*raycast_flat(void *mlx1, pos *one)
 			one->drawEnd = one->screenheight - 1;
 		/////////////////////////////////////////////////////////////////////////
 		texture(one);
-		sprites(one);
 		/////////////////////////////////////////////////////////////////////////
 		int y = 0;
 		while (y < one->drawStart)
@@ -182,7 +182,6 @@ void	*raycast_flat(void *mlx1, pos *one)
 			}
 			y++;
 		}
-	//	texture(one, x);
 		while (y <= one->drawEnd)
 		{
 			one->texY = (int)one->texPos & (texHeight - 1);
@@ -217,5 +216,8 @@ void	*raycast_flat(void *mlx1, pos *one)
 //		printf("\nSide||%d||", one->side);
 		x++;
 	}
+	/////////////////////////////////////////////////////////////////////////
+//	sprites(one);
+	/////////////////////////////////////////////////////////////////////////
 	return (NULL);
 }

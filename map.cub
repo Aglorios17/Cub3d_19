@@ -1,10 +1,10 @@
-R 384 216
+R 500 350
 
 NO ./textures/mur1.xpm
 SO ./textures/mur2.xpm
 WE ./textures/sol.xpm
 EA ./textures/wolf/redbrick.xpm
-S ./path_to_the_sprite_texture
+S ./textures/wolf/barrel.xpm
 
 F 224,205,169
 C 191,226,243

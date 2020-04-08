@@ -95,7 +95,7 @@ typedef	struct	first
 	char		*textSO;
 	char		*textWE;
 	char		*textEA;
-	char		*textS;
+	char		*textobj;
 	char		*textF;
 	char		*textC;
 	////////////////////////////
@@ -114,6 +114,10 @@ typedef	struct	first
 	char		*murEA;
 	void		*imgEA;
 	int			*addrEA;
+	////////////////////////////
+	char		*murobj;
+	void		*imgobj;
+	int			*addrobj;
 	////////////////////////////
 	char		*murF;
 	void		*imgF;
@@ -155,5 +159,6 @@ void			*raycast_flat(void *mlx1, pos *one);
 int				ft_keyboard(int keycode, pos *one);
 int				parsing(pos *one, char *file);
 int				sprites(pos *one);
+int				parsesprite(pos *one);
 
 #endif

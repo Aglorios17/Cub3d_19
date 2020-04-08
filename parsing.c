@@ -259,6 +259,21 @@ int	checktexture(pos *one)
 		return (-1);
 	}
 	one->addrEA = (int*)mlx_get_data_addr(one->imgEA, &one->bits_per_pixel, &one->line_length, &one->endian);
+/////////////////////////////////////////////////////////////////////////////////////
+	i = 0;
+	mur = 0;
+	if (one->textobj[i] == 'S')
+		i += 2;
+	while (one->textobj[i] != '\0' && one->textobj[i] == ' ')
+		i++;
+	mur = ft_strdup(&one->textobj[i]);
+	if (!(one->imgobj = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
+	{
+		write(1, "\nError", 7);
+		return (-1);
+	}
+	one->addrobj = (int*)mlx_get_data_addr(one->imgobj, &one->bits_per_pixel, &one->line_length, &one->endian);
+
 	/////////////////////////////////////////////////////////////////////////////////////
 	i = 0;
 	mur = 0;
@@ -300,6 +315,7 @@ int	checktexture(pos *one)
 	//	printf("\n&||%s||", &one->textEA[i]);
 	//	printf("\n&||%s||", &one->textF[i]);
 	//	printf("\n&||%s||", &one->textC[i]);
+	//	printf("\n&||%s||", &one->textobj[i]);
 	//	printf("\n||%s||", one->textNO);
 	return (1);
 }
@@ -469,7 +485,7 @@ int	check_numsprite(pos *one)
 		}
 		i++;
 	}
-	printf("\n||%i||", one->numSprites);
+//	printf("\n||%i||", one->numSprites);
 	return (1);
 }
 
@@ -488,7 +504,7 @@ int	parsing(pos *one, char *file)
 	one->textSO = "";
 	one->textWE = "";
 	one->textEA = "";
-	one->textS = "";
+	one->textobj = "";
 	one->textF = "";
 	one->textC = "";
 	i = 0;
@@ -534,7 +550,7 @@ int	parsing(pos *one, char *file)
 				if (line[1] == 'O')
 					one->textSO = ft_strjoin(one->textSO, line);
 				else
-					one->textS = ft_strjoin(one->textS, line);
+					one->textobj = ft_strjoin(one->textobj, line);
 				free(line);
 			}
 			a++;
@@ -551,7 +567,7 @@ int	parsing(pos *one, char *file)
 	free(line);
 	close(fd);
 	//	printf("map ||\n%s||", one->datamap);
-	//	printf("||%s||", one->textNO);
+//	printf("||%s||", one->textobj);
 	one->map = ft_split(one->datamap, '\n');
 	if (check_pos(one) == -1)
 		return (-1);
@@ -561,6 +577,8 @@ int	parsing(pos *one, char *file)
 		return (-1);
 	if (check_numsprite(one) == -1)
 		return (-1);
+//	if (parsesprite(one) == -1)
+//		return (-1);
 	if (checktexture(one) == -1)
 		return (-1);
 	return (1);

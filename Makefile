@@ -17,6 +17,7 @@ MINILIBX_PATH   = ./minilibx
 #SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 SRCS 			= raycast_flat.c \
 				  parsing.c	\
+				  parsesprite.c	\
 				  sprites.c	\
 				  main.c
 
