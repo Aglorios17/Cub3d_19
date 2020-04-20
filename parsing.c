@@ -577,8 +577,8 @@ int	parsing(pos *one, char *file)
 		return (-1);
 	if (check_numsprite(one) == -1)
 		return (-1);
-//	if (parsesprite(one) == -1)
-//		return (-1);
+	if (parsesprite(one) == -1)
+		return (-1);
 	if (checktexture(one) == -1)
 		return (-1);
 	return (1);

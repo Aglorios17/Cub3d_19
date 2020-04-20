@@ -141,8 +141,8 @@ typedef	struct	first
 	int			numSprites;
 	int			spriteOrder;
 	double		spriteDistance;
-	double		spriteX;
-	double		spriteY;
+	double		*spriteX;
+	double		*spriteY;
 	double		invDet;
 	double		transformX;
 	double		transformY;
