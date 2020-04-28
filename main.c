@@ -35,8 +35,12 @@ int main(int argc, char **argv)
 	one.endian = 0;
 	one.screenheight = 0;
 	one.screenwidth = 0;
+	one.spriteScreenX = 0;
+	one.vmovescreen = 0;
+	one.numSprites = 0;
 	one.fo = 0;
 	one.co = 0;
+	one.zbuffer = 0;
 
 	if (argc != 2)
 	{
@@ -57,10 +61,11 @@ int main(int argc, char **argv)
 	one.img = mlx_new_image(one.mlx, one.screenwidth, one.screenheight);
 	one.addr = (int*)mlx_get_data_addr(one.img, &one.bits_per_pixel, &one.line_length, &one.endian);
 	
+	bmp(&one);
+
 	raycast_flat(one.mlx, &one);
 	mlx_put_image_to_window(one.mlx, one.mlx_win, one.img, 0, 0);
 	mlx_hook(one.mlx_win, 2, 1L<<0, ft_keyboard, &one);
-
 
 	mlx_loop(one.mlx);
 	return (0);

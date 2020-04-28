@@ -19,6 +19,7 @@ SRCS 			= raycast_flat.c \
 				  parsing.c	\
 				  parsesprite.c	\
 				  sprites.c	\
+				  bmp.c	\
 				  main.c
 
 OBJS			= ${SRCS:.c=.o}

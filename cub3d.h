@@ -140,19 +140,25 @@ typedef	struct	first
 	////////////////////////////
 	int			numSprites;
 	int			spriteOrder;
+	int			*sprtcolor;
+	double		*zbuffer;
 	double		spriteDistance;
 	double		*spriteX;
 	double		*spriteY;
+	double		sprtX;
+	double		sprtY;
 	double		invDet;
 	double		transformX;
 	double		transformY;
 	int			spriteScreenX;
 	int			spriteHeight;
+	int			spriteWidth;
 	int			drawStartY;
 	int			drawStartX;
 	int			drawEndX;
 	int			drawEndY;
-	int			spriteWidth;
+	int		vmovescreen;
+	int		stripe;
 }				pos;				
 
 void			*raycast_flat(void *mlx1, pos *one);
@@ -160,5 +166,6 @@ int				ft_keyboard(int keycode, pos *one);
 int				parsing(pos *one, char *file);
 int				sprites(pos *one);
 int				parsesprite(pos *one);
+int			bmp(pos *one);
 
 #endif

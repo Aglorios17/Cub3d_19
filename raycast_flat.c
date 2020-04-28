@@ -99,6 +99,8 @@ void	*raycast_flat(void *mlx1, pos *one)
 	x = 0;
 	mlx1 = 0;
 //	write(1, "1", 1);
+	if (!(one->zbuffer = malloc(sizeof(int *) * one->screenwidth + 1)))
+		return (0);
 	while (x < one->screenwidth)
 	{
 		one->cameraX = 2 * x / (double)one->screenwidth - 1;
@@ -157,7 +159,8 @@ void	*raycast_flat(void *mlx1, pos *one)
 			one->perpWallDist = (one->mapX - one->posX + (1 - one->stepX) / 2) / one->rayDirX;
 		else
 			one->perpWallDist = (one->mapY - one->posY + (1 - one->stepY) / 2) / one->rayDirY;
-
+		
+	
 		one->lineHeight = (int)(one->screenheight / one->perpWallDist);
 		one->drawStart = -one->lineHeight / 2 + one->screenheight / 2; 
 		if (one->drawStart < 0)
@@ -211,13 +214,18 @@ void	*raycast_flat(void *mlx1, pos *one)
 			}
 			y++;
 		}
+//		printf("\nperp||%f||", one->perpWallDist);
+//		printf("\nbuffer||%f||", one->zbuffer[x]);
 //		printf("\nDirX||%f||", one->rayDirX);
 //		printf("\nDirY||%f||", one->rayDirY);
 //		printf("\nSide||%d||", one->side);
+//		write(1, "1", 1);
+		one->zbuffer[x] = one->perpWallDist;
+//		write(1, "2", 1);
 		x++;
 	}
 	/////////////////////////////////////////////////////////////////////////
-//	sprites(one);
+	sprites(one);
 	/////////////////////////////////////////////////////////////////////////
 	return (NULL);
 }
