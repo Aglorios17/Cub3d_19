@@ -12,23 +12,23 @@
 
 #include "cub3d.h"
 
-void tmp(pos *one, int i, int j)
+void tmp(pos *one, int i, int j, char coord)
 {
-	double	tmpX;
-	double	tmpY;
+	double	swap;
 
-	one->spriteDistance = ((one->posX - one->spriteX[j]) *
-		(one->posX - one->spriteX[j]) +
-		(one->posY - one->spriteY[j]) * 
-		(one->posY - one->spriteY[j]));
-	tmpX = one->spriteX[i];
-	tmpY = one->spriteY[i];
-	one->spriteX[i] = one->spriteX[i + 1];
-	one->spriteY[i] = one->spriteY[i + 1];
-	one->spriteX[i + 1] = tmpX;
-	one->spriteY[i + 1] = tmpY;
+	if (coord == 'x')
+	{
+		swap = one->spriteX[i];
+		one->spriteX[i] = one->spriteX[j];
+		one->spriteX[j] = swap;
+	}
+	else
+	{
+		swap = one->spriteY[i];
+		one->spriteY[i] = one->spriteY[j];
+		one->spriteY[j] = swap;
+	}
 }
-
 
 void sortSprites(pos *one)
 {
@@ -50,7 +50,8 @@ void sortSprites(pos *one)
 				(one->posY - one->spriteY[j]) * 
 				(one->posY - one->spriteY[j])) > one->spriteDistance)
 			{
-				tmp(one, i, j);
+				tmp(one, i, j, 'x');
+				tmp(one, i, j, 'y');
 			}
 			j++;
 		}
@@ -63,9 +64,7 @@ int	sprites(pos *one)
 	int i;
 
 	i = 0;
-//	printf("ok1||%d||", one->numSprites);
 	sortSprites(one);
-//	printf("ok2");
 	while (i < one->numSprites)
 	{
 		one->sprtX = one->spriteX[i] - one->posX;

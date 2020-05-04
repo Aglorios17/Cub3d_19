@@ -1,4 +1,4 @@
-R 500 350
+R 1200 600
 
 NO ./textures/mur1.xpm
 SO ./textures/mur2.xpm
