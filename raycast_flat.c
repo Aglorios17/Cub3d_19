@@ -12,43 +12,50 @@
 
 #include "cub3d.h"
 
+int    exit_hook(void *ok)
+{
+	(void)ok;
+	exit(1);
+	return (0);
+}
+
 int		ft_keyboard(int keycode, pos *one)
 {
 	(void)one;
 	one->moveSpeed = 0.5;
 	one->rotSpeed = 0.2;
 
+	mlx_hook(one->mlx_win, 17, 0, exit_hook, (void*)one);
+//	mlx_hook(one->mlx_win, 17, 0, exit, 1);
 	if (keycode == 53)
-		exit(1);
-	if (keycode == 17)
 		exit(1);
 	if (keycode == 13 || keycode == 126)
 	{
-		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] == '0')
-			one->posX += one->dirX * one->moveSpeed;
-		if (one->map[(int)(one->posY + one->dirY * one->moveSpeed)][(int)one->posX] == '0')
-			one->posY += one->dirY * one->moveSpeed;
+		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] != '1')
+			one->posX += one->dirX * (one->moveSpeed - 0.1);
+		if (one->map[(int)(one->posY + one->dirY * one->moveSpeed)][(int)one->posX] != '1')
+			one->posY += one->dirY * (one->moveSpeed - 0.1);
 	}
 	if (keycode == 1 || keycode == 125)
 	{
-		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] == '0')
-			one->posX -= one->dirX * one->moveSpeed;
-		if (one->map[(int)(one->posY - one->dirY * one->moveSpeed)][(int)one->posX] == '0')
-			one->posY -= one->dirY * one->moveSpeed;
+		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] != '1')
+			one->posX -= one->dirX * (one->moveSpeed - 0.1);
+		if (one->map[(int)(one->posY - one->dirY * one->moveSpeed)][(int)one->posX] != '1')
+			one->posY -= one->dirY * (one->moveSpeed - 0.1);
 	}
-	if (keycode == 14) /////////////// bug
+	if (keycode == 14)
 	{
-		if (one->map[(int)(one->posY - one->dirX * one->moveSpeed)][(int)one->posX] == '0')
-			one->posY -= one->dirX * one->moveSpeed;
-		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] == '0')
-			one->posX += one->dirY * one->moveSpeed;
+		if (one->map[(int)(one->posY - one->dirX * one->moveSpeed)][(int)one->posX] != '1')
+			one->posY -= one->dirX * (one->moveSpeed - 0.1);
+		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] != '1')
+			one->posX += one->dirY * (one->moveSpeed - 0.1);
 	}
 	if (keycode == 12)
 	{
-		if (one->map[(int)(one->posY + one->dirX * one->moveSpeed)][(int)one->posX] == '0')
-			one->posY += one->dirX * one->moveSpeed;
-		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] == '0')
-			one->posX -= one->dirY * one->moveSpeed;
+		if (one->map[(int)(one->posY + one->dirX * one->moveSpeed)][(int)one->posX] != '1')
+			one->posY += one->dirX * (one->moveSpeed - 0.1);
+		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] != '1')
+			one->posX -= one->dirY * (one->moveSpeed - 0.1);
 	}
 	if (keycode == 2 || keycode == 124)
 	{
@@ -68,7 +75,6 @@ int		ft_keyboard(int keycode, pos *one)
 		one->planeX = one->planeX * cos(one->rotSpeed) - one->planeY * sin(one->rotSpeed);
 		one->planeY = one->oldPlaneX * sin(one->rotSpeed) + one->planeY * cos(one->rotSpeed);
 	}
-	//	printf("%i", keycode);
 	raycast_flat(one->mlx, one);
 	mlx_put_image_to_window(one->mlx, one->mlx_win, one->img, 0, 0);
 	return (0);
@@ -98,9 +104,8 @@ void	*raycast_flat(void *mlx1, pos *one)
 
 	x = 0;
 	mlx1 = 0;
-//	write(1, "1", 1);
 	if (!(one->zbuffer = malloc(sizeof(int *) * one->screenwidth + 1)))
-		return (0);
+		return (NULL);
 	while (x < one->screenwidth)
 	{
 		one->cameraX = 2 * x / (double)one->screenwidth - 1;
@@ -198,7 +203,6 @@ void	*raycast_flat(void *mlx1, pos *one)
 			if (one->side == 0 && one->rayDirX > 0)
 				one->color = one->addrEA[texHeight * one->texY + one->texX];
 			one->addr[y * one->screenwidth + x] = one->color;
-		//	printf("||%i||", one->texX);
 			y++;
 		}
 		while (y < one->screenheight)
@@ -214,18 +218,19 @@ void	*raycast_flat(void *mlx1, pos *one)
 			}
 			y++;
 		}
-//		printf("\nperp||%f||", one->perpWallDist);
-//		printf("\nbuffer||%f||", one->zbuffer[x]);
-//		printf("\nDirX||%f||", one->rayDirX);
-//		printf("\nDirY||%f||", one->rayDirY);
-//		printf("\nSide||%d||", one->side);
-//		write(1, "1", 1);
 		one->zbuffer[x] = one->perpWallDist;
-//		write(1, "2", 1);
 		x++;
 	}
 	/////////////////////////////////////////////////////////////////////////
 	sprites(one);
 	/////////////////////////////////////////////////////////////////////////
+	if (one->save == 1)
+	{
+		if (!bmp(one))
+			one->save = 5;
+		else
+			one->save = 0;
+		exit(1);
+	}
 	return (NULL);
 }

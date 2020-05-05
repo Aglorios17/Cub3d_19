@@ -12,6 +12,14 @@
 
 #include "cub3d.h"
 
+int    exit_hook2(void *ok)
+{
+	(void)ok;
+	exit(1);
+	return (0);
+}
+
+
 int main(int argc, char **argv)
 {
 	pos	one;
@@ -42,28 +50,43 @@ int main(int argc, char **argv)
 	one.co = 0;
 	one.zbuffer = 0;
 
+	one.save = 0;
 	if (argc != 2)
 	{
-		write(1, "\nError", 7);
+		if (argc == 3 && !ft_strncmp(argv[2], "--save", 6))
+			one.save = 1;	
+		else
+		{
+			write(1, "\nError", 7);
+			return (-1);
+		}
+	}
+	if (parsing(&one, argv[1]) == -1)
+	{
+		write(1, "\nError Parsing", 15);
 		return (-1);
 	}
-//	write (1, "1", 1);
-	if (parsing(&one, argv[1]) == -1)
-		return (-1);
-//	write (1, "2", 1);
 
 	if (one.screenwidth > 5120)
 		one.screenwidth = 2560;
 	if (one.screenheight > 2880)
 		one.screenheight = 1440;
+	if (one.screenwidth < 720)
+		one.screenwidth = 720;
+	if (one.screenheight < 480)
+		one.screenheight = 480;
 
 	one.mlx_win = mlx_new_window(one.mlx, one.screenwidth, one.screenheight, "Cub3D");
 	one.img = mlx_new_image(one.mlx, one.screenwidth, one.screenheight);
 	one.addr = (int*)mlx_get_data_addr(one.img, &one.bits_per_pixel, &one.line_length, &one.endian);
-	
-	bmp(&one);
 
+	mlx_hook(one.mlx_win, 17, 0, exit_hook2, (void*)&one);
 	raycast_flat(one.mlx, &one);
+	if (one.save == 5)
+	{
+		write(1, "\nError bmp", 11);
+		return (-1);
+	}
 	mlx_put_image_to_window(one.mlx, one.mlx_win, one.img, 0, 0);
 	mlx_hook(one.mlx_win, 2, 1L<<0, ft_keyboard, &one);
 

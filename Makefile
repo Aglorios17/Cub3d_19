@@ -27,7 +27,7 @@ INCLUDE 		= cube3d.h
 #FOLDER			= srcs
 LIBFT 			= libft
 MINILIBX 		= minilibx
-CC				= gcc -g -Wall -Wextra -Werror # -fsanitize=address
+CC				= gcc -g -Wall -Wextra -Werror -fsanitize=address
 RM				= rm -f
 MLXFLAGS 		= -I ./minilibx -L ./minilibx -lmlx -framework OpenGl -framework Appkit
 LIBFLAGS 		= -I ./libft -L ./libft -L . ./libft/*.c 

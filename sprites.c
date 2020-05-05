@@ -108,7 +108,7 @@ int	sprites(pos *one)
 
 				y = one->drawStartY;
 				d = 0;
-				while (y < one->drawEndY)
+				while (y < one->drawEndY /*&& one->texY < 64*/)
 				{
 					d = y * 256 - one->screenheight * 128 + one->spriteHeight * 128;
 					one->texY = ((d * 64) / one->spriteHeight) / 256;

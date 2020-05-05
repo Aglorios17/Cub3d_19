@@ -112,6 +112,11 @@ int	check_errordata(pos *one)
 			}
 		}
 	}
+	if (one->screenheight == 0 || one->screenwidth == 0)
+	{
+		write(1, "screen with 0 !", 15);
+		return (-1);
+	}
 	i = 0;
 	while (one->textF[i] != '\0')
 	{
@@ -186,12 +191,6 @@ int	check_errordata(pos *one)
 		return (-1);
 	}
 	one->sky = transform_to_hex(r, g, b);
-	//	printf("w||%i||", one->screenwidth);
-	//	printf("\nh||%i||", one->screenheight);
-	//	printf("\nr||%i||", r);
-	//	printf("\ng||%i||", g);
-	//	printf("\nb||%i||", b);
-	//	printf("\ng||%u||", one->ground);
 	return (1);
 }
 
@@ -273,7 +272,6 @@ int	checktexture(pos *one)
 		return (-1);
 	}
 	one->addrobj = (int*)mlx_get_data_addr(one->imgobj, &one->bits_per_pixel, &one->line_length, &one->endian);
-
 	/////////////////////////////////////////////////////////////////////////////////////
 	i = 0;
 	mur = 0;
@@ -308,15 +306,6 @@ int	checktexture(pos *one)
 		}
 		one->addrC = (int*)mlx_get_data_addr(one->imgC, &one->bits_per_pixel, &one->line_length, &one->endian);
 	}
-	//	printf("\nmur||%s||", mur);
-	//	printf("\n&||%s||", &one->textNO[i]);
-	//	printf("\n&||%s||", &one->textSO[i]);
-	//	printf("\n&||%s||", &one->textWE[i]);
-	//	printf("\n&||%s||", &one->textEA[i]);
-	//	printf("\n&||%s||", &one->textF[i]);
-	//	printf("\n&||%s||", &one->textC[i]);
-	//	printf("\n&||%s||", &one->textobj[i]);
-	//	printf("\n||%s||", one->textNO);
 	return (1);
 }
 
@@ -342,6 +331,11 @@ int	check_errormap(pos *one)
 
 	i = 0;
 	a = 0;
+	if (one->map[i] == '\0')
+	{
+		write(1, "MAP ??", 6);
+		return (-1);
+	}
 	while (one->map[i] != '\0')
 	{
 		if (a < ft_strlen2(one->map[i]))
@@ -351,21 +345,8 @@ int	check_errormap(pos *one)
 
 	f = 0;
 	while (one->map[f] != '\0')
-	{
-//		printf("\n%s|", one->map[f]);
 		f++;
-	}
-//	printf("f|\n%i|", f);
-	//	printf("a|\n%i|", a);
 	g = 0;
-	i = 0;
-//	while (one->map[f][i] != '\0')
-//	{
-//		if (one->map[f][i] != ' ' && one->map[f][i] != '1')
-//			g = 1;
-//		i++;
-//	}
-
 	i = 0;
 	while (one->map[i])
 	{
@@ -375,7 +356,6 @@ int	check_errormap(pos *one)
 			g = 1;
 		i++;
 	}
-
 	i = 0;
 	while (one->map[i])
 	{
@@ -439,8 +419,6 @@ int	check_errormap(pos *one)
 		write(1, "\nError", 7);
 		return (-1);
 	}
-
-	//	printf("a |%d|", a);
 	i = 0;
 	while (one->map[i] != '\0')
 	{
@@ -449,7 +427,6 @@ int	check_errormap(pos *one)
 		if (ft_strlen2(one->map[i]) < a)
 		{
 			j = a - ft_strlen2(one->map[i]);
-			//			printf("j |%d|", j);
 			while (g < j)
 			{
 				one->map[i] = ft_strjoin(one->map[i], " ");
@@ -458,13 +435,6 @@ int	check_errormap(pos *one)
 		}
 		i++;
 	}
-	/*	f = 0;
-		while (one->map[f] != '\0')
-		{
-		printf("\n%s|", one->map[f]);
-		f++;
-		}*/
-	//	printf("f|\n%i|", f);
 	return (1);
 }
 
@@ -485,7 +455,6 @@ int	check_numsprite(pos *one)
 		}
 		i++;
 	}
-//	printf("\n||%i||", one->numSprites);
 	return (1);
 }
 
@@ -510,48 +479,34 @@ int	parsing(pos *one, char *file)
 	i = 0;
 	j = 0;
 	a = 0;
-	fd = open(file, O_RDONLY);
+
+	if ((fd = open(file, O_RDONLY)) < 0)
+	{
+		write(1, "fail open", 9);
+		return (-1);
+	}
 	while (get_next_line3d(fd, &line))
 	{
 		if (line[0] != '\0')
 		{
 			if (line[0] == 'R')
-			{
 				one->size = ft_strjoin(one->size, line);
-				free(line);
-			}
 			if (line[0] == 'N')
-			{
 				one->textNO = ft_strjoin(one->textNO, line);
-				free(line);
-			}
 			if (line[0] == 'W')
-			{
 				one->textWE = ft_strjoin(one->textWE, line);
-				free(line);
-			}
 			if (line[0] == 'E')
-			{
 				one->textEA = ft_strjoin(one->textEA, line);
-				free(line);
-			}
 			if (line[0] == 'F')
-			{
 				one->textF = ft_strjoin(one->textF, line);
-				free(line);
-			}
 			if (line[0] == 'C')
-			{
 				one->textC = ft_strjoin(one->textC, line);
-				free(line);
-			}
 			if (line[0] == 'S')
 			{
 				if (line[1] == 'O')
 					one->textSO = ft_strjoin(one->textSO, line);
 				else
 					one->textobj = ft_strjoin(one->textobj, line);
-				free(line);
 			}
 			a++;
 		}
@@ -562,12 +517,12 @@ int	parsing(pos *one, char *file)
 			one->datamap = ft_strjoin(one->datamap, "\n");
 		}
 	}
+	if (!one->size)
+		return (-1);
 	one->datamap = ft_strjoin(one->datamap, line);
 	one->datamap = ft_strjoin(one->datamap, "\0");
 	free(line);
 	close(fd);
-	//	printf("map ||\n%s||", one->datamap);
-//	printf("||%s||", one->textobj);
 	one->map = ft_split(one->datamap, '\n');
 	if (check_pos(one) == -1)
 		return (-1);

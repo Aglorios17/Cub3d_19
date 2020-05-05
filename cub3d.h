@@ -159,6 +159,8 @@ typedef	struct	first
 	int			drawEndY;
 	int		vmovescreen;
 	int		stripe;
+	////////////////////////////
+	int		save;
 }				pos;				
 
 void			*raycast_flat(void *mlx1, pos *one);

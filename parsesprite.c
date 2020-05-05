@@ -33,8 +33,6 @@ int parsesprite(pos *one)
 			{
 				one->spriteX[(int)a] = j + 0.5;
 				one->spriteY[(int)a] = i + 0.5;
-			//	printf("\nX == ||%f||", one->spriteX[(int)a]);
-			//	printf("\nY == ||%f||", one->spriteY[(int)a]);
 				a++;
 			}
 			j++;
