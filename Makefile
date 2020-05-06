@@ -13,18 +13,17 @@
 NAME 			= cub3D
 LIBFT_PATH 		= ./libft
 MINILIBX_PATH   = ./minilibx
-#SRCS_LIST 		= main.c
-#SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
-SRCS 			= raycast_flat.c \
-				  parsing.c	\
-				  parsesprite.c	\
-				  sprites.c	\
-				  bmp.c	\
-				  main.c
+SRCS_LIST		= raycast_flat.c \
+				parsing.c	\
+				parsesprite.c	\
+				sprites.c	\
+				bmp.c	\
+				main.c
 
+SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})
 OBJS			= ${SRCS:.c=.o}
 INCLUDE 		= cube3d.h
-#FOLDER			= srcs
+FOLDER			= srcs
 LIBFT 			= libft
 MINILIBX 		= minilibx
 CC				= gcc -g -Wall -Wextra -Werror -fsanitize=address

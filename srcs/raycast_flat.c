@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 int    exit_hook(void *ok)
 {
@@ -26,7 +26,6 @@ int		ft_keyboard(int keycode, pos *one)
 	one->rotSpeed = 0.2;
 
 	mlx_hook(one->mlx_win, 17, 0, exit_hook, (void*)one);
-//	mlx_hook(one->mlx_win, 17, 0, exit, 1);
 	if (keycode == 53)
 		exit(1);
 	if (keycode == 13 || keycode == 126)
@@ -111,16 +110,12 @@ void	*raycast_flat(void *mlx1, pos *one)
 		one->cameraX = 2 * x / (double)one->screenwidth - 1;
 		one->rayDirX = one->dirX + one->planeX * one->cameraX;
 		one->rayDirY = one->dirY + one->planeY * one->cameraX;
-
 		/////////////////////////////////////////////////////////////////////////
 		one->mapX = (int)one->posX;
 		one->mapY = (int)one->posY;
-
 		one->deltaDistX = fabs(1 / one->rayDirX);
 		one->deltaDistY = fabs(1 / one->rayDirY);
-
 		one->hit = 0;
-
 		/////////////////////////////////////////////////////////////////////////
 		if (one->rayDirX < 0)
 		{
@@ -164,8 +159,6 @@ void	*raycast_flat(void *mlx1, pos *one)
 			one->perpWallDist = (one->mapX - one->posX + (1 - one->stepX) / 2) / one->rayDirX;
 		else
 			one->perpWallDist = (one->mapY - one->posY + (1 - one->stepY) / 2) / one->rayDirY;
-		
-	
 		one->lineHeight = (int)(one->screenheight / one->perpWallDist);
 		one->drawStart = -one->lineHeight / 2 + one->screenheight / 2; 
 		if (one->drawStart < 0)

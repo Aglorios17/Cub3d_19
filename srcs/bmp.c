@@ -10,13 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 int	bmp(pos *one)
 {
-//	printf("ok");
-	one->sprtcolor = one->sprtcolor;
-	
 	int fd;
 	int tmp;
 	int size;

@@ -20,8 +20,8 @@
 # include <stdarg.h>
 # include <math.h>
 # include <fcntl.h>
-# include "./libft/libft.h"
-# include "./minilibx/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx/mlx.h"
 
 #define mapWidth 24
 #define mapHeight 24
