@@ -12,19 +12,10 @@
 
 #include "../include/cub3d.h"
 
-int	bmp(pos *one)
+void	header(int fd, int tmp, int size, pos *one)
 {
-	int fd;
-	int tmp;
-	int size;
-
-	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC | O_APPEND, S_IRWXU);
-	if (fd < 0)
-		return (-1);
-	tmp = one->screenwidth;	
-	size = 14 + 40 + (one->screenwidth * one->screenheight) * 4;
-
 	char	header[54];
+
 	ft_bzero(header, 54);
 	header[0] = (unsigned char)('B');
 	header[1] = (unsigned char)('M');
@@ -46,12 +37,24 @@ int	bmp(pos *one)
 	header[26] = (unsigned char)(1);
 	header[28] = (unsigned char)(32);
 	write(fd, header, 54);
+}
 
-	char *tmp2;
+int	bmp(pos *one)
+{
+	int	fd;
+	int	tmp;
+	int	size;
+	char	*tmp2;
 
+	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC |
+	O_APPEND, S_IRWXU);
+	if (fd < 0)
+		return (-1);
+	tmp = one->screenwidth;
+	size = 14 + 40 + (one->screenwidth * one->screenheight) * 4;
+	header(fd, tmp, size, one);
 	tmp2 = (char *)one->addr;
 	write(fd, tmp2, (one->screenwidth * one->screenheight * 4));
-
 	close(fd);
 	return (1);
 }

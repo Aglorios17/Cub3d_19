@@ -161,13 +161,25 @@ typedef	struct	first
 	int		stripe;
 	////////////////////////////
 	int		save;
+	int		r;
+	int		g;
+	int 		b;
 }				pos;				
 
 void			*raycast_flat(void *mlx1, pos *one);
-int				ft_keyboard(int keycode, pos *one);
-int				parsing(pos *one, char *file);
-int				sprites(pos *one);
-int				parsesprite(pos *one);
+int			ft_keyboard(int keycode, pos *one);
+int			parsing(pos *one, char *file);
+void			inittext(pos *one);
+int			check_errormap(pos *one);
+int			ft_strlen2(char *s);
+int			checktexture(pos *one);
+int			check_errordata(pos *one);
+int			rscreen(pos *one, int i);
+int			transform_to_hex(int r, int g, int b);
+int			check_pos(pos *one);
+int			sprites(pos *one);
+void			stripe(pos *one);
+int			parsesprite(pos *one);
 int			bmp(pos *one);
 
 #endif

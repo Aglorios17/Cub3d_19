@@ -12,17 +12,24 @@
 
 #include "../include/cub3d.h"
 
-int parsesprite(pos *one)
+int	spritemalloc(pos *one)
 {
-	int i;
-	int j;
-	double a;
-
-	i = 0;
-	a = 0;
 	if (!(one->spriteX = malloc(sizeof(int *) * one->numSprites + 1)))
 		return (-1);
 	if (!(one->spriteY = malloc(sizeof(int *) * one->numSprites + 1)))
+		return (-1);
+	return (1);
+}
+
+int	parsesprite(pos *one)
+{
+	int	i;
+	int	j;
+	double	a;
+
+	i = 0;
+	a = 0;
+	if (!(spritemalloc(one)))
 		return (-1);
 	while (one->map[i] != '\0')
 	{
@@ -39,5 +46,5 @@ int parsesprite(pos *one)
 		}
 		i++;
 	}
-	return (1);	
+	return (1);
 }
