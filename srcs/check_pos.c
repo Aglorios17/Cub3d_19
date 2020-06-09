@@ -16,37 +16,41 @@ void	lettercheck2(pos *one, int i, int j)
 {
 	if (one->map[i][j] == 'W')
 	{
-		one->planeX = 0;
-		one->planeY = 0.66;
-		one->dirX = -1;
-		one->dirY = 0;
+		one->planex = 0;
+		one->planey = 0.66;
+		one->dirx = -1;
+		one->diry = 0;
+		one->popo += 1;
 	}
 	if (one->map[i][j] == 'E')
 	{
-		one->planeX = 0;
-		one->planeY = -0.66;
-		one->dirX = 1;
-		one->dirY = 0;
+		one->planex = 0;
+		one->planey = -0.66;
+		one->dirx = 1;
+		one->diry = 0;
+		one->popo += 1;
 	}
 }
 
 void	lettercheck(pos *one, int i, int j, int a)
 {
-	one->posY = i + 0.5;
-	one->posX = j + 0.5;
+	one->posy = i + 0.5;
+	one->posx = j + 0.5;
 	if (one->map[i][j] == 'S')
 	{
-		one->planeX = 0.66;
-		one->planeY = 0;
-		one->dirX = 0;
-		one->dirY = 1;
+		one->planex = 0.66;
+		one->planey = 0;
+		one->dirx = 0;
+		one->diry = 1;
+		one->popo += 1;
 	}
 	if (one->map[i][j] == 'N')
 	{
-		one->planeX = -0.66;
-		one->planeY = 0;
-		one->dirX = 0;
-		one->dirY = -1;
+		one->planex = -0.66;
+		one->planey = 0;
+		one->dirx = 0;
+		one->diry = -1;
+		one->popo += 1;
 	}
 	lettercheck2(one, i, j);
 	one->map[i][j] = '0';
@@ -75,6 +79,7 @@ int	check_pos(pos *one)
 
 	i = 0;
 	a = 0;
+	one->popo = 0;
 	while (one->map[i] != '\0')
 	{
 		j = 0;
@@ -86,6 +91,11 @@ int	check_pos(pos *one)
 			j++;
 		}
 		i++;
+	}
+	if (one->popo != 1)
+	{
+		write(1, "\nError pos", 11);
+		return (-1);
 	}
 	return (1);
 }

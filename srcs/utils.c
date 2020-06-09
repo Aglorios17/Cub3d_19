@@ -29,11 +29,23 @@ void	inittext(pos *one)
 	one->map = 0;
 	one->datamap = "";
 	one->size = "";
-	one->textNO = "";
-	one->textSO = "";
-	one->textWE = "";
-	one->textEA = "";
+	one->textno = "";
+	one->textso = "";
+	one->textwe = "";
+	one->textea = "";
 	one->textobj = "";
-	one->textF = "";
-	one->textC = "";
+	one->textf = "";
+	one->textc = "";
+}
+
+int	err(pos *one, int b, int fd, char *line)
+{
+	if (b < 3)
+	{
+		write(1, "map error", 9);
+		return (-1);
+	}
+	if (check(one, fd, line) == -1)
+		return (-1);
+	return (1);
 }

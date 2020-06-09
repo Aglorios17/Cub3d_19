@@ -24,7 +24,7 @@ int	check_numsprite(pos *one)
 		while (one->map[i][j] != '\0')
 		{
 			if (one->map[i][j] == '2')
-				one->numSprites += 1;
+				one->numsprites += 1;
 			j++;
 		}
 		i++;
@@ -61,43 +61,45 @@ void	linecheck(pos *one, char *line)
 	if (line[0] == 'R')
 		one->size = ft_strjoin(one->size, line);
 	if (line[0] == 'N')
-		one->textNO = ft_strjoin(one->textNO, line);
+		one->textno = ft_strjoin(one->textno, line);
 	if (line[0] == 'W')
-		one->textWE = ft_strjoin(one->textWE, line);
+		one->textwe = ft_strjoin(one->textwe, line);
 	if (line[0] == 'E')
-		one->textEA = ft_strjoin(one->textEA, line);
+		one->textea = ft_strjoin(one->textea, line);
 	if (line[0] == 'F')
-		one->textF = ft_strjoin(one->textF, line);
+		one->textf = ft_strjoin(one->textf, line);
 	if (line[0] == 'C')
-		one->textC = ft_strjoin(one->textC, line);
+		one->textc = ft_strjoin(one->textc, line);
 	if (line[0] == 'S')
 	{
 		if (line[1] == 'O')
-			one->textSO = ft_strjoin(one->textSO, line);
+			one->textso = ft_strjoin(one->textso, line);
 		else
 			one->textobj = ft_strjoin(one->textobj, line);
 	}
 }
 
-void	mapgnl(pos *one, char *line, int a)
+int	mapgnl(pos *one, char *line, int a, int b)
 {
 	if (line[0] != '\0' && a > 8)
 	{
 		one->datamap = ft_strjoin(one->datamap, line);
 		free(line);
 		one->datamap = ft_strjoin(one->datamap, "\n");
+		b = 1;
 	}
+	return (b);
 }
 
 int	parsing(pos *one, char *file)
 {
-	int fd;
-	int a;
+	int	fd;
 	char	*line;
 
 	inittext(one);
 	line = NULL;
-	a = 0;
+	one->agnl = 0;
+	one->bgnl = 0;
 	if ((fd = open(file, O_RDONLY)) < 0)
 	{
 		write(1, "fail open", 9);
@@ -108,11 +110,12 @@ int	parsing(pos *one, char *file)
 		if (line[0] != '\0')
 		{
 			linecheck(one, line);
-			a++;
+			one->agnl++;
 		}
-		mapgnl(one, line, a);
+		if (mapgnl(one, line, one->agnl, one->bgnl) == 1)
+			one->bgnl++;
 	}
-	if (check(one, fd, line) == -1)
+	if (err(one, one->bgnl, fd, line) == -1)
 		return (-1);
 	return (1);
 }

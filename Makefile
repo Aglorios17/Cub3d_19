@@ -14,12 +14,16 @@ NAME 			= cub3D
 LIBFT_PATH 		= ./libft
 MINILIBX_PATH   = ./minilibx
 SRCS_LIST		= raycast_flat.c \
+				raycast_draw.c \
+				keyboard.c	\
 				parsing.c	\
 				check_errordata.c	\
 				checkrscreen.c	\
 				check_errormaps.c	\
+				check_errormaps2.c	\
 				check_pos.c	\
 				checktexture.c	\
+				checktexture2.c	\
 				parsesprite.c	\
 				sprites.c	\
 				draw_sprites.c	\
@@ -33,7 +37,7 @@ INCLUDE 		= cube3d.h
 FOLDER			= srcs
 LIBFT 			= libft
 MINILIBX 		= minilibx
-CC				= gcc -g -Wall -Wextra -Werror #-fsanitize=address
+CC				= gcc -g -Wall -Wextra -Werror -fsanitize=address
 RM				= rm -f
 MLXFLAGS 		= -I ./minilibx -L ./minilibx -lmlx -framework OpenGl -framework Appkit
 LIBFLAGS 		= -I ./libft -L ./libft -L . ./libft/*.c 

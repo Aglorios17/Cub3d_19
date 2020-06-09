@@ -23,156 +23,146 @@
 # include "../libft/libft.h"
 # include "../minilibx/mlx.h"
 
-#define mapWidth 24
-#define mapHeight 24
-#define screenWidth 1920
-#define screenHeight 1080
-#define	texWidth 64
-#define	texHeight 64
+# define texwidth 64
+# define texheight 64
 
-typedef	struct	first
+typedef	struct		first
 {
 	void		*mlx;
 	void		*mlx_win;
 	void		*img;
-	int			*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	double		posX;
-	double		posY;
-	double		dirX;
-	double		oldDirX;
-	double		dirY;
-	double		planeX;
-	double		oldPlaneX;
-	double		planeY;
+	int		*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	double		posx;
+	double		posy;
+	double		dirx;
+	double		olddirx;
+	double		diry;
+	double		planex;
+	double		oldplanex;
+	double		planey;
 	double		time;
 	double		oldtime;
-//////////////////////////////////// 
-	double		cameraX;
-	double		rayDirX;
-	double		rayDirY;
-///////////////////////////////////
-	int			mapX;
-	int			mapY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	double		perpWallDist;
-	int			stepX;
-	int			stepY;
-	int			hit;
-	int			side;
-	//////////////////////////////
-	int			lineHeight;
-	int			drawStart;
-	int			drawEnd;	
-	////////////////////////////
-	int			color;
-	////////////////////////////
-//	double		getTicks;
-//	double		redraw;
-//	double		cls;
+	double		camerax;
+	double		raydirx;
+	double		raydiry;
+	int		mapx;
+	int		mapy;
+	double		sidedistx;
+	double		sidedisty;
+	double		deltadistx;
+	double		deltadisty;
+	double		perpwalldist;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		color;
 	double		frametime;
-	double		moveSpeed;
-	double		rotSpeed;
-	////////////////////////////
+	double		movespeed;
+	double		rotspeed;
 	unsigned	sky;
 	unsigned	ground;
 	unsigned	wall1;
 	unsigned	wall2;
-	////////////////////////////
 	char		**map;
-	int			mapwidth;		
-	int			mapheight;		
-	int			screenwidth;		
-	int			screenheight;		
+	int		mapwidth;
+	int		mapheight;
+	int		screenwidth;
+	int		screenheight;
 	char		*datamap;
 	char		*size;
-	char		*textNO;
-	char		*textSO;
-	char		*textWE;
-	char		*textEA;
+	char		*textno;
+	char		*textso;
+	char		*textwe;
+	char		*textea;
 	char		*textobj;
-	char		*textF;
-	char		*textC;
-	////////////////////////////
-	char		*murNO;
-	void		*imgNO;
-	int			*addrNO;
-	////////////////////////////
-	char		*murSO;
-	void		*imgSO;
-	int			*addrSO;
-	////////////////////////////
-	char		*murWE;
-	void		*imgWE;
-	int			*addrWE;
-	////////////////////////////
-	char		*murEA;
-	void		*imgEA;
-	int			*addrEA;
-	////////////////////////////
+	char		*textf;
+	char		*textc;
+	char		*murno;
+	void		*imgno;
+	int		*addrno;
+	char		*murso;
+	void		*imgso;
+	int		*addrso;
+	char		*murwe;
+	void		*imgwe;
+	int		*addrwe;
+	char		*murea;
+	void		*imgea;
+	int		*addrea;
 	char		*murobj;
 	void		*imgobj;
-	int			*addrobj;
-	////////////////////////////
-	char		*murF;
-	void		*imgF;
-	int			*addrF;
-	int			fo;
-	////////////////////////////
-	char		*murC;
-	void		*imgC;
-	int			*addrC;
-	int			co;
-	////////////////////////////
-	int			texNum;
-	int			texcolor;
-	int			texX;
-	int			texY;
-	double		wallX;
+	int		*addrobj;
+	char		*murf;
+	void		*imgf;
+	int		*addrf;
+	int		fo;
+	char		*murc;
+	void		*imgc;
+	int		*addrc;
+	int		co;
+	int		texnum;
+	int		texcolor;
+	int		texx;
+	int		texy;
+	double		wallx;
 	double		step;
-	double		texPos;
-	int			**buffer;
-	////////////////////////////
-	int			numSprites;
-	int			spriteOrder;
-	int			*sprtcolor;
+	double		texpos;
+	int		**buffer;
+	int		numsprites;
+	int		spriteorder;
+	int		*sprtcolor;
 	double		*zbuffer;
-	double		spriteDistance;
-	double		*spriteX;
-	double		*spriteY;
-	double		sprtX;
-	double		sprtY;
-	double		invDet;
-	double		transformX;
-	double		transformY;
-	int			spriteScreenX;
-	int			spriteHeight;
-	int			spriteWidth;
-	int			drawStartY;
-	int			drawStartX;
-	int			drawEndX;
-	int			drawEndY;
+	double		spritedistance;
+	double		*spritex;
+	double		*spritey;
+	double		sprtx;
+	double		sprty;
+	double		invdet;
+	double		transformx;
+	double		transformy;
+	int		spritescreenx;
+	int		spriteheight;
+	int		spritewidth;
+	int		drawstarty;
+	int		drawstartx;
+	int		drawendx;
+	int		drawendy;
 	int		vmovescreen;
 	int		stripe;
-	////////////////////////////
 	int		save;
 	int		r;
 	int		g;
-	int 		b;
-}				pos;				
+	int		b;
+	int		mapa;
+	int		mapg;
+	int		mapf;
+	int		popo;
+	int		agnl;
+	int 		bgnl;
+}			pos;
 
 void			*raycast_flat(void *mlx1, pos *one);
 int			ft_keyboard(int keycode, pos *one);
+void			raycastdraw(pos *one, int x);
+int			texture(pos *one);
 int			parsing(pos *one, char *file);
+int			err(pos *one, int b, int fd, char *line);
+int			check(pos *one, int fd, char *line);
 void			inittext(pos *one);
 int			check_errormap(pos *one);
+int			algomap4(pos *one, int i, int j);
 int			ft_strlen2(char *s);
 int			checktexture(pos *one);
+int			objtext(pos *one, int h, int w, char *mur);
+int			ctext(pos *one, int h, int w, char *mur);
+int			ftext(pos *one, int h, int w, char *mur);
 int			check_errordata(pos *one);
 int			rscreen(pos *one, int i);
 int			transform_to_hex(int r, int g, int b);
@@ -181,5 +171,6 @@ int			sprites(pos *one);
 void			stripe(pos *one);
 int			parsesprite(pos *one);
 int			bmp(pos *one);
+void			exit_end(pos *one);
 
 #endif

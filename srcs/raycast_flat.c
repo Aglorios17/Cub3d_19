@@ -12,89 +12,87 @@
 
 #include "../include/cub3d.h"
 
-int    exit_hook(void *ok)
+void	raycastcam(pos *one, int x)
 {
-	(void)ok;
-	exit(1);
-	return (0);
+	one->camerax = 2 * x / (double)one->screenwidth - 1;
+	one->raydirx = one->dirx + one->planex * one->camerax;
+	one->raydiry = one->diry + one->planey * one->camerax;
+	one->mapx = (int)one->posx;
+	one->mapy = (int)one->posy;
+	one->deltadistx = fabs(1 / one->raydirx);
+	one->deltadisty = fabs(1 / one->raydiry);
+	one->hit = 0;
 }
 
-int		ft_keyboard(int keycode, pos *one)
-{
-	(void)one;
-	one->moveSpeed = 0.5;
-	one->rotSpeed = 0.2;
-
-	mlx_hook(one->mlx_win, 17, 0, exit_hook, (void*)one);
-	if (keycode == 53)
-		exit(1);
-	if (keycode == 13 || keycode == 126)
-	{
-		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] != '1')
-			one->posX += one->dirX * (one->moveSpeed - 0.1);
-		if (one->map[(int)(one->posY + one->dirY * one->moveSpeed)][(int)one->posX] != '1')
-			one->posY += one->dirY * (one->moveSpeed - 0.1);
-	}
-	if (keycode == 1 || keycode == 125)
-	{
-		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] != '1')
-			one->posX -= one->dirX * (one->moveSpeed - 0.1);
-		if (one->map[(int)(one->posY - one->dirY * one->moveSpeed)][(int)one->posX] != '1')
-			one->posY -= one->dirY * (one->moveSpeed - 0.1);
-	}
-	if (keycode == 14)
-	{
-		if (one->map[(int)(one->posY - one->dirX * one->moveSpeed)][(int)one->posX] != '1')
-			one->posY -= one->dirX * (one->moveSpeed - 0.1);
-		if (one->map[(int)one->posY][(int)(one->posX + one->dirX * one->moveSpeed)] != '1')
-			one->posX += one->dirY * (one->moveSpeed - 0.1);
-	}
-	if (keycode == 12)
-	{
-		if (one->map[(int)(one->posY + one->dirX * one->moveSpeed)][(int)one->posX] != '1')
-			one->posY += one->dirX * (one->moveSpeed - 0.1);
-		if (one->map[(int)one->posY][(int)(one->posX - one->dirX * one->moveSpeed)] != '1')
-			one->posX -= one->dirY * (one->moveSpeed - 0.1);
-	}
-	if (keycode == 2 || keycode == 124)
-	{
-		one->oldDirX = one->dirX;
-		one->dirX = one->dirX * cos(-(one->rotSpeed)) - one->dirY * sin(-(one->rotSpeed));
-		one->dirY = one->oldDirX * sin(-(one->rotSpeed)) + one->dirY * cos(-(one->rotSpeed));
-		one->oldPlaneX = one->planeX;
-		one->planeX = one->planeX * cos(-(one->rotSpeed)) - one->planeY * sin(-(one->rotSpeed));
-		one->planeY = one->oldPlaneX * sin(-(one->rotSpeed)) + one->planeY * cos(-(one->rotSpeed));
-	}
-	if (keycode == 0 || keycode == 123)
-	{
-		one->oldDirX = one->dirX;
-		one->dirX = one->dirX * cos(one->rotSpeed) - one->dirY * sin(one->rotSpeed);
-		one->dirY = one->oldDirX * sin(one->rotSpeed) + one->dirY * cos(one->rotSpeed);
-		one->oldPlaneX = one->planeX;
-		one->planeX = one->planeX * cos(one->rotSpeed) - one->planeY * sin(one->rotSpeed);
-		one->planeY = one->oldPlaneX * sin(one->rotSpeed) + one->planeY * cos(one->rotSpeed);
-	}
-	raycast_flat(one->mlx, one);
-	mlx_put_image_to_window(one->mlx, one->mlx_win, one->img, 0, 0);
-	return (0);
-}
-
-int		texture(pos *one)
+void	drawcalcul(pos *one, int x)
 {
 	if (one->side == 0)
-		one->wallX = one->posY + one->perpWallDist * one->rayDirY;
+	{
+		one->perpwalldist = (one->mapx - one->posx +
+			(1 - one->stepx) / 2) / one->raydirx;
+	}
 	else
-		one->wallX = one->posX + one->perpWallDist * one->rayDirX;
-	one->wallX -= floor((one->wallX));
-	one->texX = (int)(one->wallX * (double)texWidth);
-	if (one->side == 0 && one->rayDirX > 0)
-		one->texX = texWidth - one->texX - 1;
-	if (one->side == 1 && one->rayDirY < 0)
-		one->texX = texWidth - one->texX - 1;
+	{
+		one->perpwalldist = (one->mapy - one->posy +
+			(1 - one->stepy) / 2) / one->raydiry;
+	}
+	one->lineheight = (int)(one->screenheight / one->perpwalldist);
+	one->drawstart = -one->lineheight / 2 + one->screenheight / 2;
+	if (one->drawstart < 0)
+		one->drawstart = 0;
+	one->drawend = one->lineheight / 2 + one->screenheight / 2;
+	if (one->drawend >= one->screenheight)
+		one->drawend = one->screenheight - 1;
+	texture(one);
+	raycastdraw(one, x);
+}
 
-	one->step = 1.0 * texWidth / one->lineHeight;
-	one->texPos = (one->drawStart - one->screenheight / 2 + one->lineHeight / 2) * one->step;
-	return (0);
+void	raycast2(pos *one, int x)
+{
+	raycastcam(one, x);
+	if (one->raydirx < 0)
+	{
+		one->stepx = -1;
+		one->sidedistx = (one->posx - one->mapx) * one->deltadistx;
+	}
+	else
+	{
+		one->stepx = 1;
+		one->sidedistx = (one->mapx + 1.0 - one->posx) * one->deltadistx;
+	}
+	if (one->raydiry < 0)
+	{
+		one->stepy = -1;
+		one->sidedisty = (one->posy - one->mapy) * one->deltadisty;
+	}
+	else
+	{
+		one->stepy = 1;
+		one->sidedisty = (one->mapy + 1.0 - one->posy) * one->deltadisty;
+	}
+}
+
+void	raycast(pos *one, int x)
+{
+	raycast2(one, x);
+	while (one->hit == 0)
+	{
+		if (one->sidedistx < one->sidedisty)
+		{
+			one->sidedistx += one->deltadistx;
+			one->mapx += one->stepx;
+			one->side = 0;
+		}
+		else
+		{
+			one->sidedisty += one->deltadisty;
+			one->mapy += one->stepy;
+			one->side = 1;
+		}
+		if (one->map[one->mapy][one->mapx] == '1')
+			one->hit = 1;
+	}
+	drawcalcul(one, x);
 }
 
 void	*raycast_flat(void *mlx1, pos *one)
@@ -107,116 +105,10 @@ void	*raycast_flat(void *mlx1, pos *one)
 		return (NULL);
 	while (x < one->screenwidth)
 	{
-		one->cameraX = 2 * x / (double)one->screenwidth - 1;
-		one->rayDirX = one->dirX + one->planeX * one->cameraX;
-		one->rayDirY = one->dirY + one->planeY * one->cameraX;
-		/////////////////////////////////////////////////////////////////////////
-		one->mapX = (int)one->posX;
-		one->mapY = (int)one->posY;
-		one->deltaDistX = fabs(1 / one->rayDirX);
-		one->deltaDistY = fabs(1 / one->rayDirY);
-		one->hit = 0;
-		/////////////////////////////////////////////////////////////////////////
-		if (one->rayDirX < 0)
-		{
-			one->stepX = -1;
-			one->sideDistX = (one->posX - one->mapX) * one->deltaDistX;
-		}
-		else
-		{
-			one->stepX = 1;
-			one->sideDistX = (one->mapX + 1.0 - one->posX) * one->deltaDistX;
-		}
-		if (one->rayDirY < 0)
-		{
-			one->stepY = -1;
-			one->sideDistY = (one->posY - one->mapY) * one->deltaDistY;
-		}
-		else
-		{
-			one->stepY = 1;
-			one->sideDistY = (one->mapY + 1.0 - one->posY) * one->deltaDistY;
-		}
-		while (one->hit == 0)
-		{
-			if (one->sideDistX < one->sideDistY)
-			{
-				one->sideDistX += one->deltaDistX;
-				one->mapX += one->stepX;
-				one->side = 0;
-			}
-			else
-			{
-				one->sideDistY += one->deltaDistY;
-				one->mapY += one->stepY;
-				one->side = 1;
-			}
-			if (one->map[one->mapY][one->mapX] == '1') 
-				one->hit = 1;
-		}
-		/////////////////////////////////////////////////////////////////////////
-		if (one->side == 0)
-			one->perpWallDist = (one->mapX - one->posX + (1 - one->stepX) / 2) / one->rayDirX;
-		else
-			one->perpWallDist = (one->mapY - one->posY + (1 - one->stepY) / 2) / one->rayDirY;
-		one->lineHeight = (int)(one->screenheight / one->perpWallDist);
-		one->drawStart = -one->lineHeight / 2 + one->screenheight / 2; 
-		if (one->drawStart < 0)
-			one->drawStart = 0;
-		one->drawEnd = one->lineHeight / 2 + one->screenheight / 2; 
-		if (one->drawEnd >= one->screenheight)
-			one->drawEnd = one->screenheight - 1;
-		/////////////////////////////////////////////////////////////////////////
-		texture(one);
-		/////////////////////////////////////////////////////////////////////////
-		int y = 0;
-		while (y < one->drawStart)
-		{
-			if (one->co == 1)
-				one->addr[y * one->screenwidth + x] = one->sky;
-			else
-			{
-				one->texY = (int)one->texPos & (texHeight - 1);
-				one->texPos += one->step;
-				one->color = one->addrC[texHeight * one->texY + one->texX];
-				one->addr[y * one->screenwidth + x] = one->color;
-			}
-			y++;
-		}
-		while (y <= one->drawEnd)
-		{
-			one->texY = (int)one->texPos & (texHeight - 1);
-			one->texPos += one->step;
-			if (one->side == 1 && one->rayDirY < 0)
-				one->color = one->addrNO[texHeight * one->texY + one->texX];
-			if (one->side == 1 && one->rayDirY > 0)
-				one->color = one->addrSO[texHeight * one->texY + one->texX];
-			if (one->side == 0 && one->rayDirX < 0)
-				one->color = one->addrWE[texHeight * one->texY + one->texX];
-			if (one->side == 0 && one->rayDirX > 0)
-				one->color = one->addrEA[texHeight * one->texY + one->texX];
-			one->addr[y * one->screenwidth + x] = one->color;
-			y++;
-		}
-		while (y < one->screenheight)
-		{
-			if (one->fo == 1)
-				one->addr[y * one->screenwidth + x] = one->ground;
-			else
-			{
-				one->texY = (int)one->texPos & (texHeight - 1);
-				one->texPos += one->step;
-				one->color = one->addrF[texHeight * one->texY + one->texX];
-				one->addr[y * one->screenwidth + x] = one->color;
-			}
-			y++;
-		}
-		one->zbuffer[x] = one->perpWallDist;
+		raycast(one, x);
 		x++;
 	}
-	/////////////////////////////////////////////////////////////////////////
 	sprites(one);
-	/////////////////////////////////////////////////////////////////////////
 	if (one->save == 1)
 	{
 		if (!bmp(one))

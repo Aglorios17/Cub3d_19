@@ -1,48 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsesprite.c                                      :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aglorios <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/20 13:35:32 by aglorios          #+#    #+#             */
-/*   Updated: 2020/03/11 16:09:00 by aglorios         ###   ########.fr       */
+/*   Created: 2020/03/02 10:23:42 by aglorios          #+#    #+#             */
+/*   Updated: 2020/03/11 16:08:54 by aglorios         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-int	spritemalloc(pos *one)
+int	algomap4(pos *one, int i, int j)
 {
-	if (!(one->spritex = malloc(sizeof(int *) * one->numsprites + 1)))
+	if (one->mapg == 1)
+	{
+		write(1, "\nError", 7);
 		return (-1);
-	if (!(one->spritey = malloc(sizeof(int *) * one->numsprites + 1)))
-		return (-1);
-	return (1);
-}
-
-int	parsesprite(pos *one)
-{
-	int	i;
-	int	j;
-	double	a;
-
+	}
 	i = 0;
-	a = 0;
-	if (!(spritemalloc(one)))
-		return (-1);
 	while (one->map[i] != '\0')
 	{
 		j = 0;
-		while (one->map[i][j] != '\0')
+		one->mapg = 0;
+		if (ft_strlen2(one->map[i]) < one->mapa)
 		{
-			if (one->map[i][j] == '2')
+			j = one->mapa - ft_strlen2(one->map[i]);
+			while (one->mapg < j)
 			{
-				one->spritex[(int)a] = j + 0.5;
-				one->spritey[(int)a] = i + 0.5;
-				a++;
+				one->map[i] = ft_strjoin(one->map[i], " ");
+				one->mapg++;
 			}
-			j++;
 		}
 		i++;
 	}

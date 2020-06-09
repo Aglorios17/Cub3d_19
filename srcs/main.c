@@ -12,9 +12,16 @@
 
 #include "../include/cub3d.h"
 
-int	exit_hook2(void *ok)
+void	exit_end(pos *one)
+{
+	if (one->mlx && one->mlx_win)
+		mlx_destroy_window(one->mlx, one->mlx_win);
+}
+
+int	exit_hook2(void *ok, pos *one)
 {
 	(void)ok;
+	exit_end(one);
 	exit(1);
 	return (0);
 }
@@ -25,12 +32,12 @@ void	init(pos *one)
 	one->ground = 0;
 	one->wall1 = 0x0000FF;
 	one->wall2 = 0xFF99CC;
-	one->posX = 0;
-	one->posY = 0;
-	one->dirX = 0;
-	one->dirY = 0;
-	one->planeX = 0;
-	one->planeY = 0;
+	one->posx = 0;
+	one->posy = 0;
+	one->dirx = 0;
+	one->diry = 0;
+	one->planex = 0;
+	one->planey = 0;
 	one->time = 0;
 	one->oldtime = 0;
 	one->bits_per_pixel = 0;
@@ -38,9 +45,9 @@ void	init(pos *one)
 	one->endian = 0;
 	one->screenheight = 0;
 	one->screenwidth = 0;
-	one->spriteScreenX = 0;
+	one->spritescreenx = 0;
 	one->vmovescreen = 0;
-	one->numSprites = 0;
+	one->numsprites = 0;
 	one->fo = 0;
 	one->co = 0;
 	one->zbuffer = 0;
@@ -93,10 +100,12 @@ int	main(int argc, char **argv)
 	if (one.save == 5)
 	{
 		write(1, "\nError bmp", 11);
+		exit_end(&one);
 		return (-1);
 	}
 	mlx_put_image_to_window(one.mlx, one.mlx_win, one.img, 0, 0);
 	mlx_hook(one.mlx_win, 2, 1L << 0, ft_keyboard, &one);
 	mlx_loop(one.mlx);
+	exit_end(&one);
 	return (0);
 }

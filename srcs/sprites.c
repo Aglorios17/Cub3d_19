@@ -18,15 +18,15 @@ void	tmp(pos *one, int i, int j, char coord)
 
 	if (coord == 'x')
 	{
-		swap = one->spriteX[i];
-		one->spriteX[i] = one->spriteX[j];
-		one->spriteX[j] = swap;
+		swap = one->spritex[i];
+		one->spritex[i] = one->spritex[j];
+		one->spritex[j] = swap;
 	}
 	else
 	{
-		swap = one->spriteY[i];
-		one->spriteY[i] = one->spriteY[j];
-		one->spriteY[j] = swap;
+		swap = one->spritey[i];
+		one->spritey[i] = one->spritey[j];
+		one->spritey[j] = swap;
 	}
 }
 
@@ -36,19 +36,19 @@ void	sortsprites(pos *one)
 	int j;
 
 	i = 0;
-	while (i < one->numSprites - 1)
+	while (i < one->numsprites - 1)
 	{
-		one->spriteDistance = ((one->posX - one->spriteX[i]) *
-			(one->posX - one->spriteX[i]) +
-			(one->posY - one->spriteY[i]) *
-			(one->posY - one->spriteY[i]));
+		one->spritedistance = ((one->posx - one->spritex[i]) *
+			(one->posx - one->spritex[i]) +
+			(one->posy - one->spritey[i]) *
+			(one->posy - one->spritey[i]));
 		j = i + 1;
-		while (j < one->numSprites)
+		while (j < one->numsprites)
 		{
-			if (((one->posX - one->spriteX[j]) *
-				(one->posX - one->spriteX[j]) +
-				(one->posY - one->spriteY[j]) *
-				(one->posY - one->spriteY[j])) > one->spriteDistance)
+			if (((one->posx - one->spritex[j]) *
+				(one->posx - one->spritex[j]) +
+				(one->posy - one->spritey[j]) *
+				(one->posy - one->spritey[j])) > one->spritedistance)
 			{
 				tmp(one, i, j, 'x');
 				tmp(one, i, j, 'y');
@@ -61,23 +61,23 @@ void	sortsprites(pos *one)
 
 void	calculdrawsprite(pos *one)
 {
-	one->vmovescreen = (int)(94 / one->transformY);
-	one->spriteHeight = (int)fabs((double)one->screenheight /
-		one->transformY);
-	one->drawStartY = -one->spriteHeight / 2 + one->screenheight / 2;
-	if (one->drawStartY < 0)
-		one->drawStartY = 0;
-	one->drawEndY = one->spriteHeight / 2 + one->screenheight / 2;
-	if (one->drawEndY >= one->screenheight)
-		one->drawEndY = one->screenheight - 1;
-	one->spriteWidth = (int)fabs((double)(one->screenheight /
-		(one->transformY)));
-	one->drawStartX = -one->spriteWidth / 2 + one->spriteScreenX;
-	if (one->drawStartX < 0)
-		one->drawStartX = 0;
-	one->drawEndX = one->spriteWidth / 2 + one->spriteScreenX;
-	if (one->drawEndX >= one->screenwidth)
-		one->drawEndX = one->screenwidth - 1;
+	one->vmovescreen = (int)(94 / one->transformy);
+	one->spriteheight = (int)fabs((double)one->screenheight /
+		one->transformy);
+	one->drawstarty = -one->spriteheight / 2 + one->screenheight / 2;
+	if (one->drawstarty < 0)
+		one->drawstarty = 0;
+	one->drawendy = one->spriteheight / 2 + one->screenheight / 2;
+	if (one->drawendy >= one->screenheight)
+		one->drawendy = one->screenheight - 1;
+	one->spritewidth = (int)fabs((double)(one->screenheight /
+		(one->transformy)));
+	one->drawstartx = -one->spritewidth / 2 + one->spritescreenx;
+	if (one->drawstartx < 0)
+		one->drawstartx = 0;
+	one->drawendx = one->spritewidth / 2 + one->spritescreenx;
+	if (one->drawendx >= one->screenwidth)
+		one->drawendx = one->screenwidth - 1;
 }
 
 int	sprites(pos *one)
@@ -86,17 +86,17 @@ int	sprites(pos *one)
 
 	i = 0;
 	sortsprites(one);
-	while (i < one->numSprites)
+	while (i < one->numsprites)
 	{
-		one->sprtX = one->spriteX[i] - one->posX;
-		one->sprtY = one->spriteY[i] - one->posY;
-		one->invDet = 1.0 / (one->planeX * one->dirY - one->dirX * one->planeY);
-		one->transformX = one->invDet *
-			(one->dirY * one->sprtX - one->dirX * one->sprtY);
-		one->transformY = one->invDet *
-			(-one->planeY * one->sprtX + one->planeX * one->sprtY);
-		one->spriteScreenX = (int)((one->screenwidth / 2) *
-			(1 + one->transformX / one->transformY));
+		one->sprtx = one->spritex[i] - one->posx;
+		one->sprty = one->spritey[i] - one->posy;
+		one->invdet = 1.0 / (one->planex * one->diry - one->dirx * one->planey);
+		one->transformx = one->invdet *
+			(one->diry * one->sprtx - one->dirx * one->sprty);
+		one->transformy = one->invdet *
+			(-one->planey * one->sprtx + one->planex * one->sprty);
+		one->spritescreenx = (int)((one->screenwidth / 2) *
+			(1 + one->transformx / one->transformy));
 		calculdrawsprite(one);
 		stripe(one);
 		i++;
