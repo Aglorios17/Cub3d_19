@@ -12,13 +12,13 @@
 
 #include "../include/cub3d.h"
 
-void	exit_end(pos *one)
+void	exit_end(t_pos *one)
 {
 	if (one->mlx && one->mlx_win)
 		mlx_destroy_window(one->mlx, one->mlx_win);
 }
 
-int	exit_hook2(void *ok, pos *one)
+int		exit_hook2(void *ok, t_pos *one)
 {
 	(void)ok;
 	exit_end(one);
@@ -26,7 +26,7 @@ int	exit_hook2(void *ok, pos *one)
 	return (0);
 }
 
-void	init(pos *one)
+void	init(t_pos *one)
 {
 	one->sky = 0;
 	one->ground = 0;
@@ -54,7 +54,7 @@ void	init(pos *one)
 	one->save = 0;
 }
 
-int	errorcheck(int argc, char **argv, pos *one)
+int		errorcheck(int argc, char **argv, t_pos *one)
 {
 	if (argc != 2)
 	{
@@ -82,9 +82,9 @@ int	errorcheck(int argc, char **argv, pos *one)
 	return (1);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
-	pos	one;
+	t_pos	one;
 
 	one.mlx = mlx_init();
 	init(&one);

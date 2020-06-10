@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-void	header(int fd, int tmp, int size, pos *one)
+void	header(int fd, int tmp, int size, t_pos *one)
 {
 	char	header[54];
 
@@ -39,11 +39,11 @@ void	header(int fd, int tmp, int size, pos *one)
 	write(fd, header, 54);
 }
 
-int	bmp(pos *one)
+int		bmp(t_pos *one)
 {
-	int	fd;
-	int	tmp;
-	int	size;
+	int		fd;
+	int		tmp;
+	int		size;
 	char	*tmp2;
 
 	fd = open("screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC |

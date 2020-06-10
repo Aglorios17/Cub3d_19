@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-void	lettercheck2(pos *one, int i, int j)
+void	lettercheck2(t_pos *one, int i, int j)
 {
 	if (one->map[i][j] == 'W')
 	{
@@ -32,7 +32,7 @@ void	lettercheck2(pos *one, int i, int j)
 	}
 }
 
-void	lettercheck(pos *one, int i, int j, int a)
+void	lettercheck(t_pos *one, int i, int j, int a)
 {
 	one->posy = i + 0.5;
 	one->posx = j + 0.5;
@@ -57,7 +57,7 @@ void	lettercheck(pos *one, int i, int j, int a)
 	a = 1;
 }
 
-int	error(pos *one, int i, int j, int a)
+int		error(t_pos *one, int i, int j, int a)
 {
 	if (a == 0 && (one->map[i][j] == 'N' ||
 		one->map[i][j] == 'S' || one->map[i][j] == 'W' ||
@@ -71,7 +71,7 @@ int	error(pos *one, int i, int j, int a)
 	return (1);
 }
 
-int	check_pos(pos *one)
+int		check_pos(t_pos *one)
 {
 	int i;
 	int j;
@@ -100,7 +100,7 @@ int	check_pos(pos *one)
 	return (1);
 }
 
-int	transform_to_hex(int r, int g, int b)
+int		transform_to_hex(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
 }

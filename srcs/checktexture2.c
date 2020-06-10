@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	objtext(pos *one, int h, int w, char *mur)
+int	objtext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -33,7 +33,7 @@ int	objtext(pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	ftext(pos *one, int h, int w, char *mur)
+int	ftext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -57,7 +57,7 @@ int	ftext(pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	ctext(pos *one, int h, int w, char *mur)
+int	ctext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 

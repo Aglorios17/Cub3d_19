@@ -12,40 +12,32 @@
 
 #include "../include/cub3d.h"
 
-int	rgb(pos *one, int i)
+int	rgb(t_pos *one, int i)
 {
-	while (one->textf[i] >= '0' && one->textf[i] <= '9' &&
-		one->textf[i] != ',')
-	{
-		one->r = one->r * 10 + (one->textf[i] - 48);
+	one->r = ft_atoi(&one->textf[i]);
+	while (one->textf[i] != '\0' && one->textf[i - 1] != ',')
 		i++;
-	}
+	if (one->textf[i] == '\0')
+		return (i);
+	one->g = ft_atoi(&one->textf[i]);
 	i++;
-	while (one->textf[i] >= '0' && one->textf[i] <= '9' &&
-		one->textf[i] != ',')
-	{
-		one->g = one->g * 10 + (one->textf[i] - 48);
+	while (one->textf[i] != '\0' && one->textf[i - 1] != ',')
 		i++;
-	}
-	i++;
-	while (one->textf[i] >= '0' && one->textf[i] <= '9' &&
-		one->textf[i] != ',')
-	{
-		one->b = one->b * 10 + (one->textf[i] - 48);
-		i++;
-	}
+	if (one->textf[i] == '\0')
+		return (i);
+	one->b = ft_atoi(&one->textf[i]);
 	return (i);
 }
 
-int	textf(pos *one)
+int	textf(t_pos *one)
 {
 	int i;
 
 	i = 0;
-	one->r = 0;
-	one->g = 0;
-	one->b = 0;
-	while (one->textf[i] != '\0')
+	one->r = -1;
+	one->g = -1;
+	one->b = -1;
+	if (one->textf[i] != '\0')
 	{
 		while (one->textf[i] == 'F' || one->textf[i] == ' ')
 			i++;
@@ -60,46 +52,38 @@ int	textf(pos *one)
 	if (one->r > 255 || one->g > 255 || one->b > 255 ||
 		one->r < 0 || one->g < 0 || one->b < 0)
 	{
-		write(1, "\nError", 7);
+		write(1, "\nError color", 13);
 		return (-1);
 	}
 	return (1);
 }
 
-int	rgb2(pos *one, int i)
+int	rgb2(t_pos *one, int i)
 {
-	while (one->textc[i] >= '0' && one->textc[i] <= '9' &&
-		one->textc[i] != ',')
-	{
-		one->r = one->r * 10 + (one->textc[i] - 48);
+	one->r = ft_atoi(&one->textc[i]);
+	while (one->textc[i] != '\0' && one->textc[i - 1] != ',')
 		i++;
-	}
+	if (one->textc[i] == '\0')
+		return (i);
+	one->g = ft_atoi(&one->textc[i]);
 	i++;
-	while (one->textc[i] >= '0' && one->textc[i] <= '9' &&
-		one->textc[i] != ',')
-	{
-		one->g = one->g * 10 + (one->textc[i] - 48);
+	while (one->textc[i] != '\0' && one->textc[i - 1] != ',')
 		i++;
-	}
-	i++;
-	while (one->textc[i] >= '0' && one->textc[i] <= '9' &&
-		one->textc[i] != ',')
-	{
-		one->b = one->b * 10 + (one->textc[i] - 48);
-		i++;
-	}
+	if (one->textc[i] == '\0')
+		return (i);
+	one->b = ft_atoi(&one->textc[i]);
 	return (i);
 }
 
-int	textc(pos *one)
+int	textc(t_pos *one)
 {
 	int i;
 
 	i = 0;
-	one->r = 0;
-	one->g = 0;
-	one->b = 0;
-	while (one->textc[i] != '\0')
+	one->r = -1;
+	one->g = -1;
+	one->b = -1;
+	if (one->textc[i] != '\0')
 	{
 		while (one->textc[i] == 'C' || one->textc[i] == ' ')
 			i++;
@@ -114,13 +98,13 @@ int	textc(pos *one)
 	if (one->r > 255 || one->g > 255 || one->b > 255 ||
 		one->r < 0 || one->g < 0 || one->b < 0)
 	{
-		write(1, "\nError", 7);
+		write(1, "\nError color", 13);
 		return (-1);
 	}
 	return (1);
 }
 
-int	check_errordata(pos *one)
+int	check_errordata(t_pos *one)
 {
 	int i;
 

@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	algomap4(pos *one, int i, int j)
+int	algomap4(t_pos *one, int i, int j)
 {
 	if (one->mapg == 1)
 	{

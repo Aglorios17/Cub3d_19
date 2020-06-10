@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	notext(pos *one, int h, int w, char *mur)
+int	notext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -32,7 +32,7 @@ int	notext(pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	sotext(pos *one, int h, int w, char *mur)
+int	sotext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -53,7 +53,7 @@ int	sotext(pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	wetext(pos *one, int h, int w, char *mur)
+int	wetext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -74,7 +74,7 @@ int	wetext(pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	eatext(pos *one, int h, int w, char *mur)
+int	eatext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -95,10 +95,10 @@ int	eatext(pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	checktexture(pos *one)
+int	checktexture(t_pos *one)
 {
-	int	h;
-	int	w;
+	int		h;
+	int		w;
 	char	*mur;
 
 	h = 0;

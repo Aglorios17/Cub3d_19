@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	exit_hook(void *ok, pos *one)
+int		exit_hook(void *ok, t_pos *one)
 {
 	(void)ok;
 	exit_end(one);
@@ -20,7 +20,7 @@ int	exit_hook(void *ok, pos *one)
 	return (0);
 }
 
-void	key1(pos *one, int keycode)
+void	key1(t_pos *one, int keycode)
 {
 	if (keycode == 53)
 	{
@@ -47,7 +47,7 @@ void	key1(pos *one, int keycode)
 	}
 }
 
-void	key2(pos *one, int keycode)
+void	key2(t_pos *one, int keycode)
 {
 	if (keycode == 14)
 	{
@@ -69,7 +69,7 @@ void	key2(pos *one, int keycode)
 	}
 }
 
-void	key3(pos *one, int keycode)
+void	key3(t_pos *one, int keycode)
 {
 	if (keycode == 2 || keycode == 124)
 	{
@@ -86,7 +86,7 @@ void	key3(pos *one, int keycode)
 	}
 }
 
-int	ft_keyboard(int keycode, pos *one)
+int		ft_keyboard(int keycode, t_pos *one)
 {
 	(void)one;
 	one->movespeed = 0.5;

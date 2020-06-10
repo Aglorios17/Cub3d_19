@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	check_numsprite(pos *one)
+int		check_numsprite(t_pos *one)
 {
 	int i;
 	int j;
@@ -32,7 +32,7 @@ int	check_numsprite(pos *one)
 	return (1);
 }
 
-int	check(pos *one, int fd, char *line)
+int		check(t_pos *one, int fd, char *line)
 {
 	if (!one->size)
 		return (-1);
@@ -56,7 +56,7 @@ int	check(pos *one, int fd, char *line)
 	return (1);
 }
 
-void	linecheck(pos *one, char *line)
+void	linecheck(t_pos *one, char *line)
 {
 	if (line[0] == 'R')
 		one->size = ft_strjoin(one->size, line);
@@ -79,7 +79,7 @@ void	linecheck(pos *one, char *line)
 	}
 }
 
-int	mapgnl(pos *one, char *line, int a, int b)
+int		mapgnl(t_pos *one, char *line, int a, int b)
 {
 	if (line[0] != '\0' && a > 8)
 	{
@@ -91,9 +91,9 @@ int	mapgnl(pos *one, char *line, int a, int b)
 	return (b);
 }
 
-int	parsing(pos *one, char *file)
+int		parsing(t_pos *one, char *file)
 {
-	int	fd;
+	int		fd;
 	char	*line;
 
 	inittext(one);

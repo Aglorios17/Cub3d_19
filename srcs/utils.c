@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	ft_strlen2(char *s)
+int		ft_strlen2(char *s)
 {
 	int i;
 
@@ -24,7 +24,7 @@ int	ft_strlen2(char *s)
 	return (i);
 }
 
-void	inittext(pos *one)
+void	inittext(t_pos *one)
 {
 	one->map = 0;
 	one->datamap = "";
@@ -38,8 +38,11 @@ void	inittext(pos *one)
 	one->textc = "";
 }
 
-int	err(pos *one, int b, int fd, char *line)
+int		err(t_pos *one, int b, int fd, char *line)
 {
+	int i;
+
+	i = 1;
 	if (b < 3)
 	{
 		write(1, "map error", 9);

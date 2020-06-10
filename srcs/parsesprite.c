@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	spritemalloc(pos *one)
+int	spritemalloc(t_pos *one)
 {
 	if (!(one->spritex = malloc(sizeof(int *) * one->numsprites + 1)))
 		return (-1);
@@ -21,10 +21,10 @@ int	spritemalloc(pos *one)
 	return (1);
 }
 
-int	parsesprite(pos *one)
+int	parsesprite(t_pos *one)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	double	a;
 
 	i = 0;

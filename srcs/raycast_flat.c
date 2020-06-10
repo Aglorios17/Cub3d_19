@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-void	raycastcam(pos *one, int x)
+void	raycastcam(t_pos *one, int x)
 {
 	one->camerax = 2 * x / (double)one->screenwidth - 1;
 	one->raydirx = one->dirx + one->planex * one->camerax;
@@ -24,7 +24,7 @@ void	raycastcam(pos *one, int x)
 	one->hit = 0;
 }
 
-void	drawcalcul(pos *one, int x)
+void	drawcalcul(t_pos *one, int x)
 {
 	if (one->side == 0)
 	{
@@ -47,7 +47,7 @@ void	drawcalcul(pos *one, int x)
 	raycastdraw(one, x);
 }
 
-void	raycast2(pos *one, int x)
+void	raycast2(t_pos *one, int x)
 {
 	raycastcam(one, x);
 	if (one->raydirx < 0)
@@ -72,7 +72,7 @@ void	raycast2(pos *one, int x)
 	}
 }
 
-void	raycast(pos *one, int x)
+void	raycast(t_pos *one, int x)
 {
 	raycast2(one, x);
 	while (one->hit == 0)
@@ -95,7 +95,7 @@ void	raycast(pos *one, int x)
 	drawcalcul(one, x);
 }
 
-void	*raycast_flat(void *mlx1, pos *one)
+void	*raycast_flat(void *mlx1, t_pos *one)
 {
 	int	x;
 

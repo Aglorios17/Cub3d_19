@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-void	drawsprite(pos *one, int stripe)
+void	drawsprite(t_pos *one, int stripe)
 {
 	int y;
 	int d;
@@ -30,7 +30,7 @@ void	drawsprite(pos *one, int stripe)
 	}
 }
 
-void	stripe(pos *one)
+void	stripe(t_pos *one)
 {
 	int stripe;
 

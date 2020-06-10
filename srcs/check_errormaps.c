@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	algomap1(pos *one, int i)
+int		algomap1(t_pos *one, int i)
 {
 	if (one->map[i] == '\0')
 	{
@@ -41,7 +41,7 @@ int	algomap1(pos *one, int i)
 	return (1);
 }
 
-void	algostrlen(pos *one, int i, int j)
+void	algostrlen(t_pos *one, int i, int j)
 {
 	i = 0;
 	while (one->map[i])
@@ -53,7 +53,7 @@ void	algostrlen(pos *one, int i, int j)
 	}
 }
 
-void	algomap2(pos *one, int i, int j)
+void	algomap2(t_pos *one, int i, int j)
 {
 	algostrlen(one, i, j);
 	i = 0;
@@ -78,7 +78,7 @@ void	algomap2(pos *one, int i, int j)
 	}
 }
 
-void	algomap3(pos *one, int j, int i)
+void	algomap3(t_pos *one, int j, int i)
 {
 	if (one->map[i][j - 1] != '1' && one->map[i][j - 1] != ' ' &&
 			one->map[i][j - 1] != '\0')
@@ -106,7 +106,7 @@ void	algomap3(pos *one, int j, int i)
 		one->mapg = 1;
 }
 
-int	check_errormap(pos *one)
+int		check_errormap(t_pos *one)
 {
 	int i;
 	int j;

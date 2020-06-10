@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	rscreen(pos *one, int i)
+int	rscreen(t_pos *one, int i)
 {
 	while (one->size[i] != '\0')
 	{

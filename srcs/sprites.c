@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-void	tmp(pos *one, int i, int j, char coord)
+void	tmp(t_pos *one, int i, int j, char coord)
 {
 	double	swap;
 
@@ -30,7 +30,7 @@ void	tmp(pos *one, int i, int j, char coord)
 	}
 }
 
-void	sortsprites(pos *one)
+void	sortsprites(t_pos *one)
 {
 	int i;
 	int j;
@@ -59,7 +59,7 @@ void	sortsprites(pos *one)
 	}
 }
 
-void	calculdrawsprite(pos *one)
+void	calculdrawsprite(t_pos *one)
 {
 	one->vmovescreen = (int)(94 / one->transformy);
 	one->spriteheight = (int)fabs((double)one->screenheight /
@@ -80,7 +80,7 @@ void	calculdrawsprite(pos *one)
 		one->drawendx = one->screenwidth - 1;
 }
 
-int	sprites(pos *one)
+int		sprites(t_pos *one)
 {
 	int i;
 
