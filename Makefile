@@ -41,24 +41,16 @@ CC				= gcc -g -Wall -Wextra -Werror -fsanitize=address
 RM				= rm -f
 MLXFLAGS 		= -I ./minilibx -L ./minilibx -lmlx -framework OpenGl -framework Appkit
 LIBFLAGS 		= -I ./libft -L ./libft -L . ./libft/*.c 
-# -I Add the directory dir to the list of directories to be searched for header files
-# -L Searches the library when linking
 
 all:			libft_all minilibx_all ${NAME}
 $(NAME):		${OBJS} 
 				@$(CC) $(MLXFLAGS) $(LIBFLAGS) libft.a libmlx.a -I./ $(OBJS) -o $@ 
-#				$(CC) -Lmlx/ -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-#%.o: %.c 		$(INCLUDE)
-#				$(CC) $(CCFLAGS) -Imlx -Iinc -Ilibft -c -o $@ $<
-#				$@gcc -Wall -Wextra -Werror -Imlx -Iinc -Ilibft -c $< -o $@
 clean:			libft_clean minilibx_clean
 				@${RM} ${OBJS}
 fclean:			libft_fclean clean
 				@${RM} ${NAME}
 re:				fclean all
 
-# In this last section we make other makefiles compile with the -C flag
-# The -C flag makes you go to the appropriate path and do the asked command
 libft_all:
 	make -C $(LIBFT_PATH) all
 	cp ./libft/libft.a libft.a
