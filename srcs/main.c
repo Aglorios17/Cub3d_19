@@ -16,6 +16,28 @@ void	exit_end(t_pos *one)
 {
 	if (one->mlx && one->mlx_win)
 		mlx_destroy_window(one->mlx, one->mlx_win);
+	if (one->spritex != NULL)
+		free(one->spritex);
+	if (one->spritey != NULL)
+		free(one->spritey);
+	if (one->size != NULL)
+		free(one->size);
+	if (one->textno != NULL)
+		free(one->textno);
+	if (one->textso != NULL)
+		free(one->textso);
+	if (one->textwe != NULL)
+		free(one->textwe);
+	if (one->textea != NULL)
+		free(one->textea);
+	if (one->textf != NULL)
+		free(one->textf);
+	if (one->textc != NULL)
+		free(one->textc);
+	if (one->textobj != NULL)
+		free(one->textobj);
+	if (one->zbuffer != NULL)
+		free(one->zbuffer);
 }
 
 int		exit_hook2(void *ok, t_pos *one)
