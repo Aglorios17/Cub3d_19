@@ -30,48 +30,44 @@ void	key1(t_pos *one, int keycode)
 	if (keycode == 13 || keycode == 126)
 	{
 		if (one->map[(int)one->posy][(int)(one->posx + one->dirx *
-			one->movespeed)] != '1')
-			one->posx += one->dirx * (one->movespeed - 0.1);
-		if (one->map[(int)(one->posy + one->diry * one->movespeed)]
+			0.5)] != '1')
+			one->posx += one->dirx * one->movespeed;
+		if (one->map[(int)(one->posy + one->diry * 0.5)]
 			[(int)one->posx] != '1')
-			one->posy += one->diry * (one->movespeed - 0.1);
+			one->posy += one->diry * one->movespeed;
 	}
 	if (keycode == 1 || keycode == 125)
 	{
 		if (one->map[(int)one->posy][(int)(one->posx - one->dirx *
-			one->movespeed)] != '1')
-			one->posx -= one->dirx * (one->movespeed - 0.1);
-		if (one->map[(int)(one->posy - one->diry * one->movespeed)]
+			0.5)] != '1')
+			one->posx -= one->dirx * one->movespeed;
+		if (one->map[(int)(one->posy - one->diry * 0.5)]
 			[(int)one->posx] != '1')
-			one->posy -= one->diry * (one->movespeed - 0.1);
+			one->posy -= one->diry * one->movespeed;
 	}
 }
 
 void	key2(t_pos *one, int keycode)
 {
-	if (keycode == 14)
+	if (keycode == 0)
 	{
-		if (one->map[(int)(one->posy - one->dirx * one->movespeed)]
-			[(int)one->posx] != '1')
-			one->posy -= one->dirx * (one->movespeed - 0.1);
-		if (one->map[(int)one->posy][(int)(one->posx + one->dirx *
-			one->movespeed)] != '1')
-			one->posx += one->diry * (one->movespeed - 0.1);
+		if (one->map[(int)(one->posy + one->dirx * 0.5)][(int)one->posx] != '1')
+			one->posy += one->dirx * 0.4;
+		if (one->map[(int)one->posy][(int)(one->posx - one->diry * 0.5)] != '1')
+			one->posx -= one->diry * 0.4;
 	}
-	if (keycode == 12)
+	if (keycode == 2)
 	{
-		if (one->map[(int)(one->posy + one->dirx *
-			one->movespeed)][(int)one->posx] != '1')
-			one->posy += one->dirx * (one->movespeed - 0.1);
-		if (one->map[(int)one->posy][(int)(one->posx - one->dirx *
-			one->movespeed)] != '1')
-			one->posx -= one->diry * (one->movespeed - 0.1);
+		if (one->map[(int)(one->posy - one->dirx * 0.5)][(int)one->posx] != '1')
+			one->posy -= one->dirx * 0.4;
+		if (one->map[(int)one->posy][(int)(one->posx + one->diry * 0.5)] != '1')
+			one->posx += one->diry * 0.4;
 	}
 }
 
 void	key3(t_pos *one, int keycode)
 {
-	if (keycode == 2 || keycode == 124)
+	if (keycode == 124)
 	{
 		one->olddirx = one->dirx;
 		one->dirx = one->dirx * cos(-(one->rotspeed)) - one->diry *
@@ -89,13 +85,13 @@ void	key3(t_pos *one, int keycode)
 int		ft_keyboard(int keycode, t_pos *one)
 {
 	(void)one;
-	one->movespeed = 0.5;
-	one->rotspeed = 0.2;
+	one->movespeed = 0.4;
+	one->rotspeed = 0.25;
 	mlx_hook(one->mlx_win, 17, 0, exit_hook, (void*)one);
 	key1(one, keycode);
 	key2(one, keycode);
 	key3(one, keycode);
-	if (keycode == 0 || keycode == 123)
+	if (keycode == 123)
 	{
 		one->olddirx = one->dirx;
 		one->dirx = one->dirx * cos(one->rotspeed) -
