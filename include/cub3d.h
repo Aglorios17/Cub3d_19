@@ -148,18 +148,23 @@ typedef	struct	s_first
 	int			bgnl;
 }				t_pos;
 
-void			*raycast_flat(void *mlx1, t_pos *one);
+void			initmain(t_pos *one);
+void			*raycast_flat(t_pos *one);
 int				ft_keyboard(int keycode, t_pos *one);
 void			raycastdraw(t_pos *one, int x);
 int				texture(t_pos *one);
 int				parsing(t_pos *one, char *file);
 int				err(t_pos *one, int b, int fd, char *line);
 int				check(t_pos *one, int fd, char *line);
+int				checkfonction(t_pos *one);
 void			inittext(t_pos *one);
 int				check_errormap(t_pos *one);
+int				check_numsprite(t_pos *one);
 int				algomap4(t_pos *one, int i, int j);
 int				ft_strlen2(char *s);
 int				checktexture(t_pos *one);
+int				checktexture2(t_pos *one, int h, int w, char *mur);
+int				eatext(t_pos *one, int h, int w, char *mur);
 int				objtext(t_pos *one, int h, int w, char *mur);
 int				ctext(t_pos *one, int h, int w, char *mur);
 int				ftext(t_pos *one, int h, int w, char *mur);
@@ -171,6 +176,10 @@ int				sprites(t_pos *one);
 void			stripe(t_pos *one);
 int				parsesprite(t_pos *one);
 int				bmp(t_pos *one);
+int				exit_hook2(void *ok, t_pos *one);
 void			exit_end(t_pos *one);
+void			exit_end2(t_pos *one);
+void			exit_end3(t_pos *one);
+void			dest(t_pos *one);
 
 #endif

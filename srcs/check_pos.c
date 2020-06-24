@@ -54,7 +54,7 @@ void	lettercheck(t_pos *one, int i, int j, int a)
 	}
 	lettercheck2(one, i, j);
 	one->map[i][j] = '0';
-	a = 1;
+	a -= a + 1;
 }
 
 int		error(t_pos *one, int i, int j, int a)
@@ -80,7 +80,7 @@ int		check_pos(t_pos *one)
 	i = 0;
 	a = 0;
 	one->popo = 0;
-	while (one->map[i] != '\0')
+	while (one->map[i])
 	{
 		j = 0;
 		while (one->map[i][j] != '\0')

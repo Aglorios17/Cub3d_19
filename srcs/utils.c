@@ -24,6 +24,23 @@ int		ft_strlen2(char *s)
 	return (i);
 }
 
+void	initmain(t_pos *one)
+{
+	one->datamap = NULL;
+	one->spritex = 0;
+	one->spritey = 0;
+	one->size = 0;
+	one->textno = 0;
+	one->textso = 0;
+	one->textwe = 0;
+	one->textea = 0;
+	one->textf = 0;
+	one->textc = 0;
+	one->textobj = 0;
+	one->mlx = 0;
+	one->mlx_win = 0;
+}
+
 void	inittext(t_pos *one)
 {
 	one->map = 0;
@@ -36,19 +53,36 @@ void	inittext(t_pos *one)
 	one->textobj = "";
 	one->textf = "";
 	one->textc = "";
+	one->agnl = 0;
+	one->bgnl = 0;
 }
 
 int		err(t_pos *one, int b, int fd, char *line)
 {
-	int i;
-
-	i = 1;
 	if (b < 3)
 	{
 		write(1, "map error", 9);
+		free(line);
 		return (-1);
 	}
 	if (check(one, fd, line) == -1)
+		return (-1);
+	return (1);
+}
+
+int		checkfonction(t_pos *one)
+{
+	if (check_pos(one) == -1)
+		return (-1);
+	if (check_errormap(one) == -1)
+		return (-1);
+	if (check_errordata(one) == -1)
+		return (-1);
+	if (check_numsprite(one) == -1)
+		return (-1);
+	if (parsesprite(one) == -1)
+		return (-1);
+	if (checktexture(one) == -1)
 		return (-1);
 	return (1);
 }

@@ -31,7 +31,7 @@ int	parsesprite(t_pos *one)
 	a = 0;
 	if (!(spritemalloc(one)))
 		return (-1);
-	while (one->map[i] != '\0')
+	while (one->map[i])
 	{
 		j = 0;
 		while (one->map[i][j] != '\0')

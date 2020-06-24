@@ -12,7 +12,7 @@
 
 #include "../include/cub3d.h"
 
-int	objtext(t_pos *one, int h, int w, char *mur)
+int		objtext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -22,7 +22,7 @@ int	objtext(t_pos *one, int h, int w, char *mur)
 		i += 2;
 	while (one->textobj[i] != '\0' && one->textobj[i] == ' ')
 		i++;
-	mur = ft_strdup(&one->textobj[i]);
+	mur = &one->textobj[i];
 	if (!(one->imgobj = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 	{
 		write(1, "\nError", 7);
@@ -33,7 +33,7 @@ int	objtext(t_pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	ftext(t_pos *one, int h, int w, char *mur)
+int		ftext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -45,7 +45,7 @@ int	ftext(t_pos *one, int h, int w, char *mur)
 			i += 2;
 		while (one->textf[i] != '\0' && one->textf[i] == ' ')
 			i++;
-		mur = ft_strdup(&one->textf[i]);
+		mur = &one->textf[i];
 		if (!(one->imgf = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 		{
 			write(1, "\nError", 7);
@@ -57,7 +57,7 @@ int	ftext(t_pos *one, int h, int w, char *mur)
 	return (1);
 }
 
-int	ctext(t_pos *one, int h, int w, char *mur)
+int		ctext(t_pos *one, int h, int w, char *mur)
 {
 	int i;
 
@@ -69,14 +69,38 @@ int	ctext(t_pos *one, int h, int w, char *mur)
 			i += 2;
 		while (one->textc[i] != '\0' && one->textc[i] == ' ')
 			i++;
-		mur = ft_strdup(&one->textc[i]);
+		mur = &one->textc[i];
 		if (!(one->imgc = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 		{
 			write(1, "\nError", 7);
 			return (-1);
 		}
 		one->addrc = (int*)mlx_get_data_addr(one->imgc, &one->bits_per_pixel,
-			&one->line_length, &one->endian);
+		&one->line_length, &one->endian);
 	}
+	return (1);
+}
+
+int		checktexture2(t_pos *one, int h, int w, char *mur)
+{
+	if (eatext(one, h, w, mur) == -1)
+	{
+		mlx_destroy_image(one->mlx, one->imgwe);
+		mlx_destroy_image(one->mlx, one->imgso);
+		mlx_destroy_image(one->mlx, one->imgno);
+		return (-1);
+	}
+	if (objtext(one, h, w, mur) == -1)
+	{
+		mlx_destroy_image(one->mlx, one->imgwe);
+		mlx_destroy_image(one->mlx, one->imgso);
+		mlx_destroy_image(one->mlx, one->imgno);
+		mlx_destroy_image(one->mlx, one->imgea);
+		return (-1);
+	}
+	if (ftext(one, h, w, mur) == -1)
+		return (-1);
+	if (ctext(one, h, w, mur) == -1)
+		return (-1);
 	return (1);
 }

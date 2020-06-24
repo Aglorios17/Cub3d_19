@@ -18,7 +18,9 @@ int		check_numsprite(t_pos *one)
 	int j;
 
 	i = 0;
-	while (one->map[i] != '\0')
+	if (!one->map)
+		return (-1);
+	while (one->map[i])
 	{
 		j = 0;
 		while (one->map[i][j] != '\0')
@@ -34,58 +36,62 @@ int		check_numsprite(t_pos *one)
 
 int		check(t_pos *one, int fd, char *line)
 {
+	char *fr;
+
+	fr = 0;
 	if (!one->size)
 		return (-1);
-	one->datamap = ft_strjoin(one->datamap, line);
-	one->datamap = ft_strjoin(one->datamap, "\0");
+	fr = one->datamap;
+	one->datamap = ft_strjoin(fr, line);
+	free(fr);
+	fr = one->datamap;
+	one->datamap = ft_strjoin(fr, "\0");
+	free(fr);
 	free(line);
 	close(fd);
-	one->map = ft_split(one->datamap, '\n');
-	if (check_pos(one) == -1)
-		return (-1);
-	if (check_errormap(one) == -1)
-		return (-1);
-	if (check_errordata(one) == -1)
-		return (-1);
-	if (check_numsprite(one) == -1)
-		return (-1);
-	if (parsesprite(one) == -1)
-		return (-1);
-	if (checktexture(one) == -1)
+	fr = one->datamap;
+	one->map = ft_split(fr, '\n');
+	free(one->datamap);
+	if (checkfonction(one) == -1)
 		return (-1);
 	return (1);
 }
 
 void	linecheck(t_pos *one, char *line)
 {
-	if (line[0] == 'R')
+	if (line[0] == 'R' && one->size[0] == '\0')
 		one->size = ft_strjoin(one->size, line);
-	if (line[0] == 'N')
+	if (line[0] == 'N' && one->textno[0] == '\0')
 		one->textno = ft_strjoin(one->textno, line);
-	if (line[0] == 'W')
+	if (line[0] == 'W' && one->textwe[0] == '\0')
 		one->textwe = ft_strjoin(one->textwe, line);
-	if (line[0] == 'E')
+	if (line[0] == 'E' && one->textea[0] == '\0')
 		one->textea = ft_strjoin(one->textea, line);
-	if (line[0] == 'F')
+	if (line[0] == 'F' && one->textf[0] == '\0')
 		one->textf = ft_strjoin(one->textf, line);
-	if (line[0] == 'C')
+	if (line[0] == 'C' && one->textc[0] == '\0')
 		one->textc = ft_strjoin(one->textc, line);
 	if (line[0] == 'S')
 	{
-		if (line[1] == 'O')
+		if (line[1] == 'O' && one->textso[0] == '\0')
 			one->textso = ft_strjoin(one->textso, line);
-		else
+		if (line[1] == ' ' && one->textobj[0] == '\0')
 			one->textobj = ft_strjoin(one->textobj, line);
 	}
 }
 
 int		mapgnl(t_pos *one, char *line, int a, int b)
 {
+	char *fr;
+
 	if (line[0] != '\0' && a > 8)
 	{
-		one->datamap = ft_strjoin(one->datamap, line);
-		free(line);
-		one->datamap = ft_strjoin(one->datamap, "\n");
+		fr = one->datamap;
+		one->datamap = ft_strjoin(fr, line);
+		free(fr);
+		fr = one->datamap;
+		one->datamap = ft_strjoin(fr, "\n");
+		free(fr);
 		b = 1;
 	}
 	return (b);
@@ -98,8 +104,7 @@ int		parsing(t_pos *one, char *file)
 
 	inittext(one);
 	line = NULL;
-	one->agnl = 0;
-	one->bgnl = 0;
+	one->datamap = ft_strdup("");
 	if ((fd = open(file, O_RDONLY)) < 0)
 	{
 		write(1, "fail open", 9);
@@ -114,6 +119,7 @@ int		parsing(t_pos *one, char *file)
 		}
 		if (mapgnl(one, line, one->agnl, one->bgnl) == 1)
 			one->bgnl++;
+		free(line);
 	}
 	if (err(one, one->bgnl, fd, line) == -1)
 		return (-1);

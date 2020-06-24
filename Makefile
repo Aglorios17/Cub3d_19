@@ -29,6 +29,7 @@ SRCS_LIST		= raycast_flat.c \
 				draw_sprites.c	\
 				bmp.c	\
 				utils.c	\
+				conf.c	\
 				main.c
 
 SRCS			= $(addprefix ${FOLDER}/, ${SRCS_LIST})

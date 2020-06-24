@@ -20,7 +20,7 @@ int	algomap4(t_pos *one, int i, int j)
 		return (-1);
 	}
 	i = 0;
-	while (one->map[i] != '\0')
+	while (one->map[i])
 	{
 		j = 0;
 		one->mapg = 0;

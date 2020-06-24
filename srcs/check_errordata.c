@@ -41,7 +41,7 @@ int	textf(t_pos *one)
 	{
 		while (one->textf[i] == 'F' || one->textf[i] == ' ')
 			i++;
-		if (one->textf[i] != '.')
+		if (one->textf[i] != '.' && one->textf[i] != ',')
 		{
 			i = rgb(one, i);
 			one->fo = 1;
@@ -87,7 +87,7 @@ int	textc(t_pos *one)
 	{
 		while (one->textc[i] == 'C' || one->textc[i] == ' ')
 			i++;
-		if (one->textc[i] != '.')
+		if (one->textc[i] != '.' && one->textc[i] != ',')
 		{
 			i = rgb2(one, i);
 			one->co = 1;

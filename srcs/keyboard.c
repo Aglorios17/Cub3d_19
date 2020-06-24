@@ -104,7 +104,7 @@ int		ft_keyboard(int keycode, t_pos *one)
 		one->planey = one->oldplanex * sin(one->rotspeed) +
 			one->planey * cos(one->rotspeed);
 	}
-	raycast_flat(one->mlx, one);
+	raycast_flat(one);
 	mlx_put_image_to_window(one->mlx, one->mlx_win, one->img, 0, 0);
 	return (0);
 }

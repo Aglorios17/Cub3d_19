@@ -14,29 +14,28 @@
 
 int	rscreen(t_pos *one, int i)
 {
-	while (one->size[i] != '\0')
+	i = 1;
+	while (one->size[i] == ' ')
+		i++;
+	if (!ft_isdigit(one->size[i]))
+		return (-1);
+	one->screenwidth = ft_atoi(&one->size[i]);
+	while (ft_isdigit(one->size[i]))
+		i++;
+	while (one->size[i] == ' ')
+		i++;
+	if (!ft_isdigit(one->size[i]))
+		return (-1);
+	one->screenheight = ft_atoi(&one->size[i]);
+	while (ft_isdigit(one->size[i]))
+		i++;
+	if (one->size[i] != '\0')
+		return (-1);
+	if (one->screenheight <= 0 || one->screenwidth <= 0)
 	{
-		if (one->size[i] == 'R' || one->size[i] == ' ')
-			i++;
-		while (one->size[i] >= '0' && one->size[i] <= '9')
-		{
-			one->screenheight = one->screenheight * 10 + (one->size[i] - 48);
-			i++;
-		}
-		if (one->size[i] == ' ')
-		{
-			i++;
-			while (one->size[i] >= '0' && one->size[i] <= '9')
-			{
-				one->screenwidth = one->screenwidth * 10 + (one->size[i] - 48);
-				i++;
-			}
-		}
-	}
-	if (one->screenheight == 0 || one->screenwidth == 0)
-	{
-		write(1, "screen with 0 !", 15);
+		write(1, "screen ?!", 15);
 		return (-1);
 	}
-	return (1);
+	else
+		return (1);
 }

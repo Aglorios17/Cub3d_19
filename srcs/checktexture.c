@@ -21,7 +21,7 @@ int	notext(t_pos *one, int h, int w, char *mur)
 		i += 2;
 	while (one->textno[i] != '\0' && one->textno[i] == ' ')
 		i++;
-	mur = ft_strdup(&one->textno[i]);
+	mur = &one->textno[i];
 	if (!(one->imgno = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 	{
 		write(1, "\nError", 7);
@@ -42,7 +42,7 @@ int	sotext(t_pos *one, int h, int w, char *mur)
 		i += 2;
 	while (one->textso[i] != '\0' && one->textso[i] == ' ')
 		i++;
-	mur = ft_strdup(&one->textso[i]);
+	mur = &one->textso[i];
 	if (!(one->imgso = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 	{
 		write(1, "\nError", 7);
@@ -63,7 +63,7 @@ int	wetext(t_pos *one, int h, int w, char *mur)
 		i += 2;
 	while (one->textwe[i] != '\0' && one->textwe[i] == ' ')
 		i++;
-	mur = ft_strdup(&one->textwe[i]);
+	mur = &one->textwe[i];
 	if (!(one->imgwe = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 	{
 		write(1, "\nError", 7);
@@ -84,7 +84,7 @@ int	eatext(t_pos *one, int h, int w, char *mur)
 		i += 2;
 	while (one->textea[i] != '\0' && one->textea[i] == ' ')
 		i++;
-	mur = ft_strdup(&one->textea[i]);
+	mur = &one->textea[i];
 	if (!(one->imgea = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 	{
 		write(1, "\nError", 7);
@@ -107,16 +107,17 @@ int	checktexture(t_pos *one)
 	if (notext(one, h, w, mur) == -1)
 		return (-1);
 	if (sotext(one, h, w, mur) == -1)
+	{
+		mlx_destroy_image(one->mlx, one->imgno);
 		return (-1);
+	}
 	if (wetext(one, h, w, mur) == -1)
+	{
+		mlx_destroy_image(one->mlx, one->imgno);
+		mlx_destroy_image(one->mlx, one->imgso);
 		return (-1);
-	if (eatext(one, h, w, mur) == -1)
-		return (-1);
-	if (objtext(one, h, w, mur) == -1)
-		return (-1);
-	if (ftext(one, h, w, mur) == -1)
-		return (-1);
-	if (ctext(one, h, w, mur) == -1)
+	}
+	if (checktexture2(one, h, w, mur) == -1)
 		return (-1);
 	return (1);
 }

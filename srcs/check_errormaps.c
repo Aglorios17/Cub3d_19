@@ -14,18 +14,18 @@
 
 int		algomap1(t_pos *one, int i)
 {
-	if (one->map[i] == '\0')
+	if (!one->map[i])
 	{
 		write(1, "MAP ??", 6);
 		return (-1);
 	}
-	while (one->map[i] != '\0')
+	while (one->map[i])
 	{
 		if (one->mapa < ft_strlen2(one->map[i]))
 			one->mapa = ft_strlen2(one->map[i]);
 		i++;
 	}
-	while (one->map[one->mapf] != '\0')
+	while (one->map[one->mapf])
 		one->mapf++;
 	one->mapg = 0;
 	i = 0;
