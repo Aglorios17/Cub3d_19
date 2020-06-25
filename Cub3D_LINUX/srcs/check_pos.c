@@ -80,7 +80,7 @@ int		check_pos(t_pos *one)
 	i = 0;
 	a = 0;
 	one->popo = 0;
-	while (one->map[i])
+	while (one->map && one->map[i])
 	{
 		j = 0;
 		while (one->map[i][j] != '\0')

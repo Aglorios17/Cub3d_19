@@ -12,22 +12,6 @@
 
 #include "../include/cub3d.h"
 
-void	exit_end3(t_pos *one)
-{
-	free(one->mlx);
-	free(one->spritex);
-	free(one->spritey);
-	free(one->size);
-	free(one->textno);
-	free(one->textso);
-	free(one->textwe);
-	free(one->textea);
-	free(one->textf);
-	free(one->textc);
-	free(one->textobj);
-	free(one->datamap);
-}
-
 void	exit_end2(t_pos *one)
 {
 	int i;
@@ -44,9 +28,16 @@ void	exit_end2(t_pos *one)
 	free(one->textf);
 	free(one->textc);
 	free(one->textobj);
-	while (one->map[i])
-		free(one->map[i++]);
-	free(one->map);
+	while (one->map && *one->map && one->map[i])
+	{
+		free(one->map[i]);
+		i++;
+	}
+	if (one->map)
+		free(one->map);
+	if (one->datamap)
+		free(one->datamap);
+	exit(1);
 }
 
 void	exit_end(t_pos *one)
@@ -68,7 +59,7 @@ void	exit_end(t_pos *one)
 	free(one->textf);
 	free(one->textc);
 	free(one->textobj);
-	while (one->map[i])
+	while (one->map && one->map[i])
 		free(one->map[i++]);
 	free(one->map);
 }
