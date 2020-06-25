@@ -49,14 +49,14 @@ void	key1(t_pos *one, int keycode)
 
 void	key2(t_pos *one, int keycode)
 {
-	if (keycode == 65361)
+	if (keycode == 97)
 	{
 		if (one->map[(int)(one->posy + one->dirx * 0.5)][(int)one->posx] != '1')
 			one->posy += one->dirx * 0.4;
 		if (one->map[(int)one->posy][(int)(one->posx - one->diry * 0.5)] != '1')
 			one->posx -= one->diry * 0.4;
 	}
-	if (keycode == 65363)
+	if (keycode == 100)
 	{
 		if (one->map[(int)(one->posy - one->dirx * 0.5)][(int)one->posx] != '1')
 			one->posy -= one->dirx * 0.4;
@@ -67,7 +67,7 @@ void	key2(t_pos *one, int keycode)
 
 void	key3(t_pos *one, int keycode)
 {
-	if (keycode == 100)
+	if (keycode == 65363)
 	{
 		one->olddirx = one->dirx;
 		one->dirx = one->dirx * cos(-(one->rotspeed)) - one->diry *
@@ -91,7 +91,7 @@ int		ft_keyboard(int keycode, t_pos *one)
 	key1(one, keycode);
 	key2(one, keycode);
 	key3(one, keycode);
-	if (keycode == 97)
+	if (keycode == 65361)
 	{
 		one->olddirx = one->dirx;
 		one->dirx = one->dirx * cos(one->rotspeed) -
