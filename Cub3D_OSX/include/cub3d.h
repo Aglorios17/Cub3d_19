@@ -146,6 +146,7 @@ typedef	struct	s_first
 	int			popo;
 	int			agnl;
 	int			bgnl;
+	int			ex;
 }				t_pos;
 
 void			initmain(t_pos *one);
@@ -154,6 +155,7 @@ int				ft_keyboard(int keycode, t_pos *one);
 void			raycastdraw(t_pos *one, int x);
 int				texture(t_pos *one);
 int				parsing(t_pos *one, char *file);
+void			linecheck2(t_pos *one, char *line);
 int				err(t_pos *one, int b, int fd, char *line);
 int				check(t_pos *one, int fd, char *line);
 int				checkfonction(t_pos *one);
@@ -179,7 +181,6 @@ int				bmp(t_pos *one);
 int				exit_hook2(void *ok, t_pos *one);
 void			exit_end(t_pos *one);
 void			exit_end2(t_pos *one);
-void			exit_end3(t_pos *one);
 void			dest(t_pos *one);
 
 #endif

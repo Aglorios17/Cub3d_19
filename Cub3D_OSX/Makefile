@@ -17,6 +17,7 @@ SRCS_LIST		= raycast_flat.c \
 				raycast_draw.c \
 				keyboard.c	\
 				parsing.c	\
+				parsing2.c	\
 				check_errordata.c	\
 				checkrscreen.c	\
 				check_errormaps.c	\

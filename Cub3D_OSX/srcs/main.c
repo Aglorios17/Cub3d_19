@@ -75,7 +75,7 @@ int		conf(int argc, char **argv, t_pos *one)
 	one->mlx = mlx_init();
 	if (errorcheck(argc, argv, one) == -1)
 	{
-		exit_end3(one);
+		exit_end2(one);
 		return (-1);
 	}
 	return (1);

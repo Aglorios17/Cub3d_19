@@ -51,7 +51,6 @@ int		check(t_pos *one, int fd, char *line)
 	close(fd);
 	fr = one->datamap;
 	one->map = ft_split(fr, '\n');
-	free(one->datamap);
 	if (checkfonction(one) == -1)
 		return (-1);
 	return (1);
@@ -59,25 +58,28 @@ int		check(t_pos *one, int fd, char *line)
 
 void	linecheck(t_pos *one, char *line)
 {
+	char *tmp;
+
+	tmp = NULL;
 	if (line[0] == 'R' && one->size[0] == '\0')
-		one->size = ft_strjoin(one->size, line);
-	if (line[0] == 'N' && one->textno[0] == '\0')
-		one->textno = ft_strjoin(one->textno, line);
-	if (line[0] == 'W' && one->textwe[0] == '\0')
-		one->textwe = ft_strjoin(one->textwe, line);
-	if (line[0] == 'E' && one->textea[0] == '\0')
-		one->textea = ft_strjoin(one->textea, line);
-	if (line[0] == 'F' && one->textf[0] == '\0')
-		one->textf = ft_strjoin(one->textf, line);
-	if (line[0] == 'C' && one->textc[0] == '\0')
-		one->textc = ft_strjoin(one->textc, line);
-	if (line[0] == 'S')
 	{
-		if (line[1] == 'O' && one->textso[0] == '\0')
-			one->textso = ft_strjoin(one->textso, line);
-		if (line[1] == ' ' && one->textobj[0] == '\0')
-			one->textobj = ft_strjoin(one->textobj, line);
+		tmp = one->size;
+		one->size = ft_strjoin(one->size, line);
+		free(tmp);
 	}
+	if (line[0] == 'N' && one->textno[0] == '\0')
+	{
+		tmp = one->textno;
+		one->textno = ft_strjoin(one->textno, line);
+		free(tmp);
+	}
+	if (line[0] == 'W' && one->textwe[0] == '\0')
+	{
+		tmp = one->textwe;
+		one->textwe = ft_strjoin(one->textwe, line);
+		free(tmp);
+	}
+	linecheck2(one, line);
 }
 
 int		mapgnl(t_pos *one, char *line, int a, int b)

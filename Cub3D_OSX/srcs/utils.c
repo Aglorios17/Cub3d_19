@@ -39,20 +39,21 @@ void	initmain(t_pos *one)
 	one->textobj = 0;
 	one->mlx = 0;
 	one->mlx_win = 0;
+	one->ex = 0;
 }
 
 void	inittext(t_pos *one)
 {
 	one->map = 0;
-	one->datamap = "";
-	one->size = "";
-	one->textno = "";
-	one->textso = "";
-	one->textwe = "";
-	one->textea = "";
-	one->textobj = "";
-	one->textf = "";
-	one->textc = "";
+	one->datamap = 0;
+	one->size = ft_strdup("");
+	one->textno = ft_strdup("");
+	one->textso = ft_strdup("");
+	one->textwe = ft_strdup("");
+	one->textea = ft_strdup("");
+	one->textobj = ft_strdup("");
+	one->textf = ft_strdup("");
+	one->textc = ft_strdup("");
 	one->agnl = 0;
 	one->bgnl = 0;
 }

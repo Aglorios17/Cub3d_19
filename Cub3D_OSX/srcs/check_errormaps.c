@@ -19,17 +19,17 @@ int		algomap1(t_pos *one, int i)
 		write(1, "MAP ??", 6);
 		return (-1);
 	}
-	while (one->map[i])
+	while (one->map && one->map[i])
 	{
 		if (one->mapa < ft_strlen2(one->map[i]))
 			one->mapa = ft_strlen2(one->map[i]);
 		i++;
 	}
-	while (one->map[one->mapf])
+	while (one->map && one->map[one->mapf])
 		one->mapf++;
 	one->mapg = 0;
 	i = 0;
-	while (one->map[i])
+	while (one->map && one->map[i])
 	{
 		if (one->map[i][0] != ' ' &&
 				one->map[i][0] != '1' && one->map[i][0] != '\0')
@@ -44,7 +44,7 @@ int		algomap1(t_pos *one, int i)
 void	algostrlen(t_pos *one, int i, int j)
 {
 	i = 0;
-	while (one->map[i])
+	while (one->map && one->map[i])
 	{
 		j = ft_strlen2(one->map[i]) - 1;
 		if (one->map[i][j] != '1')
@@ -57,7 +57,7 @@ void	algomap2(t_pos *one, int i, int j)
 {
 	algostrlen(one, i, j);
 	i = 0;
-	while (one->map[0][i])
+	while (one->map && one->map[0][i])
 	{
 		if (one->map[0][i] != '1' && one->map[0][i] != ' ')
 			one->mapg = 1;
@@ -66,7 +66,7 @@ void	algomap2(t_pos *one, int i, int j)
 		i++;
 	}
 	i = 0;
-	while (one->map[one->mapf - 1][i])
+	while (one->map && one->map[one->mapf - 1][i])
 	{
 		if (one->map[one->mapf - 1][i] != '1' &&
 				one->map[one->mapf - 1][i] != ' ')
@@ -119,7 +119,7 @@ int		check_errormap(t_pos *one)
 	j = 0;
 	algomap2(one, i, j);
 	i = 1;
-	while (i < one->mapf - 1)
+	while (one->map && i < one->mapf - 1)
 	{
 		j = 1;
 		while (j != ft_strlen2(one->map[i - 1]))

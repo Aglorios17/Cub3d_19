@@ -12,28 +12,50 @@
 
 #include "../include/cub3d.h"
 
-int	algomap4(t_pos *one, int i, int j)
+void	linecheck3(t_pos *one, char *line)
 {
-	if (one->mapg == 1)
+	char *tmp;
+
+	tmp = NULL;
+	if (line[0] == 'C' && one->textc[0] == '\0')
 	{
-		write(1, "\nError", 7);
-		return (-1);
+		tmp = one->textc;
+		one->textc = ft_strjoin(one->textc, line);
+		free(tmp);
 	}
-	i = 0;
-	while (one->map && one->map[i])
+	if (line[0] == 'S')
 	{
-		j = 0;
-		one->mapg = 0;
-		if (ft_strlen2(one->map[i]) < one->mapa)
+		if (line[1] == 'O' && one->textso[0] == '\0')
 		{
-			j = one->mapa - ft_strlen2(one->map[i]);
-			while (one->mapg < j)
-			{
-				one->map[i] = ft_strjoin(one->map[i], " ");
-				one->mapg++;
-			}
+			tmp = one->textso;
+			one->textso = ft_strjoin(one->textso, line);
+			free(tmp);
 		}
-		i++;
+		if (line[1] == ' ' && one->textobj[0] == '\0')
+		{
+			tmp = one->textobj;
+			one->textobj = ft_strjoin(one->textobj, line);
+			free(tmp);
+		}
 	}
-	return (1);
+}
+
+void	linecheck2(t_pos *one, char *line)
+{
+	char *tmp;
+
+	tmp = NULL;
+	if (line[0] == 'E' && one->textea[0] == '\0')
+	{
+		tmp = one->textea;
+		one->textea = ft_strjoin(one->textea, line);
+		free(tmp);
+	}
+	if (line[0] == 'F' && one->textf[0] == '\0')
+	{
+		tmp = one->textf;
+		one->textf = ft_strjoin(one->textf, line);
+		free(tmp);
+	}
+	linecheck3(one, line);
 }
