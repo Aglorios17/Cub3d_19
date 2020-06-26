@@ -51,7 +51,7 @@ int		check(t_pos *one, int fd, char *line)
 	close(fd);
 	fr = one->datamap;
 	one->map = ft_split(fr, '\n');
-	if (checkfonction(one) == -1)
+	if (newmap(one) == -1 || checkfonction(one) == -1)
 	{
 		write(1, "\nError in check parse", 22);
 		return (-1);

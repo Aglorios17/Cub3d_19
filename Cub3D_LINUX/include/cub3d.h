@@ -184,5 +184,6 @@ void			exit_end2(t_pos *one);
 void			exit_end3(t_pos *one);
 void			dest(t_pos *one);
 void			screenmaxmin(t_pos *one);
+int				newmap(t_pos *one);
 
 #endif
