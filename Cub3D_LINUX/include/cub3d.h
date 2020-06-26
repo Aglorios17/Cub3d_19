@@ -181,6 +181,8 @@ int				bmp(t_pos *one);
 int				exit_hook2(void *ok, t_pos *one);
 void			exit_end(t_pos *one);
 void			exit_end2(t_pos *one);
+void			exit_end3(t_pos *one);
 void			dest(t_pos *one);
+void			screenmaxmin(t_pos *one);
 
 #endif

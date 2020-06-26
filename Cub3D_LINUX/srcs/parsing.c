@@ -52,7 +52,10 @@ int		check(t_pos *one, int fd, char *line)
 	fr = one->datamap;
 	one->map = ft_split(fr, '\n');
 	if (checkfonction(one) == -1)
+	{
+		write(1, "\nError in check parse", 22);
 		return (-1);
+	}
 	return (1);
 }
 
@@ -107,9 +110,9 @@ int		parsing(t_pos *one, char *file)
 	inittext(one);
 	line = NULL;
 	one->datamap = ft_strdup("");
-	if ((fd = open(file, O_RDONLY)) < 0)
+	if ((fd = open(file, O_RDONLY)) <= 0)
 	{
-		write(1, "fail open", 9);
+		write(1, "\nError fail open", 17);
 		return (-1);
 	}
 	while (get_next_line3d(fd, &line))

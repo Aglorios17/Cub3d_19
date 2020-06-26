@@ -110,7 +110,10 @@ int	check_errordata(t_pos *one)
 
 	i = 0;
 	if (rscreen(one, i) == -1)
+	{
+		write(1, "\nError screen", 14);
 		return (-1);
+	}
 	if (textf(one) == -1)
 		return (-1);
 	one->ground = transform_to_hex(one->r, one->g, one->b);

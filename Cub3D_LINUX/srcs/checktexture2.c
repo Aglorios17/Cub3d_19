@@ -25,7 +25,7 @@ int		objtext(t_pos *one, int h, int w, char *mur)
 	mur = &one->textobj[i];
 	if (!(one->imgobj = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 	{
-		write(1, "\nError", 7);
+		write(1, "\nError path texture", 19);
 		return (-1);
 	}
 	one->addrobj = (int*)mlx_get_data_addr(one->imgobj, &one->bits_per_pixel,
@@ -48,7 +48,7 @@ int		ftext(t_pos *one, int h, int w, char *mur)
 		mur = &one->textf[i];
 		if (!(one->imgf = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 		{
-			write(1, "\nError", 7);
+			write(1, "\nError path texture", 19);
 			return (-1);
 		}
 		one->addrf = (int*)mlx_get_data_addr(one->imgf,
@@ -72,7 +72,7 @@ int		ctext(t_pos *one, int h, int w, char *mur)
 		mur = &one->textc[i];
 		if (!(one->imgc = mlx_xpm_file_to_image(one->mlx, mur, &h, &w)))
 		{
-			write(1, "\nError", 7);
+			write(1, "\nError path texture", 19);
 			return (-1);
 		}
 		one->addrc = (int*)mlx_get_data_addr(one->imgc, &one->bits_per_pixel,

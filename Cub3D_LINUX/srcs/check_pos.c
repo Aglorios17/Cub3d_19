@@ -65,7 +65,7 @@ int		error(t_pos *one, int i, int j, int a)
 		lettercheck(one, i, j, a);
 	else
 	{
-		write(1, "\nError", 7);
+		write(1, "\nError letter", 13);
 		return (-1);
 	}
 	return (1);
