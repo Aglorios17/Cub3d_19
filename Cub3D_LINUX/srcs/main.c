@@ -104,8 +104,7 @@ int		main(int argc, char **argv)
 		exit_end(&one);
 		return (-1);
 	}
-	mlx_put_image_to_window(one.mlx, one.mlx_win, one.img, 0, 0);
-	mlx_hook(one.mlx_win, 2, 1L << 0, ft_keyboard, &one);
+	main_hok(&one);
 	mlx_loop(one.mlx);
 	exit_end(&one);
 	return (0);

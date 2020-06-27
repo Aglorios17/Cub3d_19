@@ -41,21 +41,9 @@ int		algomap1(t_pos *one, int i)
 	return (1);
 }
 
-void	algostrlen(t_pos *one, int i, int j)
-{
-	i = 0;
-	while (one->map && one->map[i])
-	{
-		j = ft_strlen2(one->map[i]) - 1;
-		if (one->map[i][j] != '1')
-			one->mapg = 1;
-		i++;
-	}
-}
-
 void	algomap2(t_pos *one, int i, int j)
 {
-	algostrlen(one, i, j);
+	j = j;
 	i = 0;
 	while (one->map && one->map[0][i])
 	{
@@ -80,29 +68,21 @@ void	algomap2(t_pos *one, int i, int j)
 
 void	algomap3(t_pos *one, int j, int i)
 {
-	if (one->map[i][j - 1] != '1' && one->map[i][j - 1] != ' ' &&
-			one->map[i][j - 1] != '\0')
+	if (one->map[i][j - 1] == ' ')
 		one->mapg = 1;
-	if (one->map[i][j + 1] != '1' && one->map[i][j + 1] != ' ' &&
-			one->map[i][j + 1] != '\0')
+	if (one->map[i][j + 1] == ' ')
 		one->mapg = 1;
-	if (one->map[i + 1][j] != '1' && one->map[i + 1][j] != ' ' &&
-			one->map[i + 1][j] != '\0')
+	if (one->map[i + 1][j] == ' ')
 		one->mapg = 1;
-	if (one->map[i - 1][j] != '1' && one->map[i - 1][j] != ' ' &&
-			one->map[i - 1][j] != '\0')
+	if (one->map[i - 1][j] == ' ')
 		one->mapg = 1;
-	if (one->map[i - 1][j - 1] != '1' && one->map[i - 1][j - 1] != ' ' &&
-			one->map[i - 1][j - 1] != '\0')
+	if (one->map[i - 1][j - 1] == ' ')
 		one->mapg = 1;
-	if (one->map[i + 1][j + 1] != '1' && one->map[i + 1][j + 1] != ' ' &&
-			one->map[i + 1][j + 1] != '\0')
+	if (one->map[i + 1][j + 1] == ' ')
 		one->mapg = 1;
-	if (one->map[i + 1][j - 1] != '1' && one->map[i + 1][j - 1] != ' ' &&
-			one->map[i + 1][j - 1] != '\0')
+	if (one->map[i + 1][j - 1] == ' ')
 		one->mapg = 1;
-	if (one->map[i - 1][j + 1] != '1' && one->map[i - 1][j + 1] != ' ' &&
-			one->map[i - 1][j + 1] != '\0')
+	if (one->map[i - 1][j + 1] == ' ')
 		one->mapg = 1;
 }
 
@@ -124,7 +104,7 @@ int		check_errormap(t_pos *one)
 		j = 1;
 		while (j != ft_strlen2(one->map[i - 1]))
 		{
-			if (one->map[i][j] == ' ')
+			if (one->map[i][j] == '0')
 				algomap3(one, j, i);
 			j++;
 		}

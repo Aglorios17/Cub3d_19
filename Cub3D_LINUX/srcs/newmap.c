@@ -15,7 +15,7 @@
 char	*new(char *old, int x)
 {
 	int		i;
-	char 	*nw;
+	char	*nw;
 
 	i = 0;
 	if (!(nw = malloc(x + 1)))
@@ -28,6 +28,7 @@ char	*new(char *old, int x)
 	while (i < x)
 		nw[i++] = ' ';
 	nw[i] = 0;
+	free(old);
 	return (nw);
 }
 
@@ -42,7 +43,7 @@ int		newmap(t_pos *one)
 	{
 		if (ft_strlen2(one->map[my]) > x)
 			x = ft_strlen(one->map[x]);
-		my++;	
+		my++;
 	}
 	my = 0;
 	while (one->map[my])

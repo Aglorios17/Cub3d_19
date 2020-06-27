@@ -15,7 +15,7 @@
 int		exit_hook(void *ok, t_pos *one)
 {
 	(void)ok;
-	exit_end(one);
+	(void)one;
 	exit(1);
 	return (0);
 }
@@ -87,7 +87,6 @@ int		ft_keyboard(int keycode, t_pos *one)
 	(void)one;
 	one->movespeed = 0.4;
 	one->rotspeed = 0.25;
-	mlx_hook(one->mlx_win, 17, 0, exit_hook, (void*)one);
 	key1(one, keycode);
 	key2(one, keycode);
 	key3(one, keycode);

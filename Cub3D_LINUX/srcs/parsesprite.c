@@ -12,6 +12,13 @@
 
 #include "../include/cub3d.h"
 
+int	visi(t_pos *one)
+{
+	raycast_flat(one);
+	mlx_put_image_to_window(one->mlx, one->mlx_win, one->img, 0, 0);
+	return (0);
+}
+
 int	spritemalloc(t_pos *one)
 {
 	if (!(one->spritex = malloc(sizeof(int *) * one->numsprites + 1)))

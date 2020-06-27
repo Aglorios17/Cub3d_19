@@ -33,6 +33,7 @@ SRCS_LIST =	raycast_flat.c \
 			utils.c	\
 			conf.c	\
 			newmap.c \
+			main_hok.c \
 			main.c
 
 
