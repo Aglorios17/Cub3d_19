@@ -114,10 +114,15 @@ int	check_errordata(t_pos *one)
 		write(1, "\nError screen", 14);
 		return (-1);
 	}
-	if (textf(one) == -1)
+	if (ft_strchr(one->textc, '-') || ft_strchr(one->textf, '-'))
+	{
+		write(1, "\nError negatif color", 20);
+		return (-1);
+	}
+	if (one->textf[1] != ' ' || textf(one) == -1)
 		return (-1);
 	one->ground = transform_to_hex(one->r, one->g, one->b);
-	if (textc(one) == -1)
+	if (one->textc[1] != ' ' || textc(one) == -1)
 		return (-1);
 	one->sky = transform_to_hex(one->r, one->g, one->b);
 	return (1);

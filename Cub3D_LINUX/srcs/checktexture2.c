@@ -83,14 +83,14 @@ int		ctext(t_pos *one, int h, int w, char *mur)
 
 int		checktexture2(t_pos *one, int h, int w, char *mur)
 {
-	if (eatext(one, h, w, mur) == -1)
+	if (one->textea[2] != ' ' || eatext(one, h, w, mur) == -1)
 	{
 		mlx_destroy_image(one->mlx, one->imgwe);
 		mlx_destroy_image(one->mlx, one->imgso);
 		mlx_destroy_image(one->mlx, one->imgno);
 		return (-1);
 	}
-	if (objtext(one, h, w, mur) == -1)
+	if (one->textobj[1] != ' ' || objtext(one, h, w, mur) == -1)
 	{
 		mlx_destroy_image(one->mlx, one->imgwe);
 		mlx_destroy_image(one->mlx, one->imgso);

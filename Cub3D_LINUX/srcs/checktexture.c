@@ -104,14 +104,14 @@ int	checktexture(t_pos *one)
 	h = 0;
 	w = 0;
 	mur = 0;
-	if (notext(one, h, w, mur) == -1)
+	if (one->textno[2] != ' ' || notext(one, h, w, mur) == -1)
 		return (-1);
-	if (sotext(one, h, w, mur) == -1)
+	if (one->textso[2] != ' ' || sotext(one, h, w, mur) == -1)
 	{
 		mlx_destroy_image(one->mlx, one->imgno);
 		return (-1);
 	}
-	if (wetext(one, h, w, mur) == -1)
+	if (one->textwe[2] != ' ' || wetext(one, h, w, mur) == -1)
 	{
 		mlx_destroy_image(one->mlx, one->imgno);
 		mlx_destroy_image(one->mlx, one->imgso);
