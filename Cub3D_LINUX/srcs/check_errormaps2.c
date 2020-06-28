@@ -12,13 +12,19 @@
 
 #include "../include/cub3d.h"
 
-int	algomap4(t_pos *one, int i, int j)
+void	algomap5(t_pos *one, int i, char *tmp)
 {
-	if (one->mapg == 1)
-	{
-		write(1, "\nError map", 11);
-		return (-1);
-	}
+	tmp = one->map[i];
+	one->map[i] = ft_strjoin(one->map[i], " ");
+	free(tmp);
+	one->mapg++;
+}
+
+int		algomap4(t_pos *one, int i, int j)
+{
+	char *tmp;
+
+	tmp = NULL;
 	i = 0;
 	while (one->map && one->map[i])
 	{
@@ -28,12 +34,35 @@ int	algomap4(t_pos *one, int i, int j)
 		{
 			j = one->mapa - ft_strlen2(one->map[i]);
 			while (one->mapg < j)
-			{
-				one->map[i] = ft_strjoin(one->map[i], " ");
-				one->mapg++;
-			}
+				algomap5(one, i, tmp);
 		}
 		i++;
 	}
+	if (one->mapg == 1)
+	{
+		write(1, "\nError map\n", 12);
+		return (-1);
+	}
+	return (1);
+}
+
+int		autour(t_pos *one, int i, int j)
+{
+	if (one->map[i][j - 1] == ' ')
+		return (-1);
+	if (one->map[i][j + 1] == ' ')
+		return (-1);
+	if (one->map[i + 1][j] == ' ')
+		return (-1);
+	if (one->map[i - 1][j] == ' ')
+		return (-1);
+	if (one->map[i - 1][j - 1] == ' ')
+		return (-1);
+	if (one->map[i + 1][j + 1] == ' ')
+		return (-1);
+	if (one->map[i + 1][j - 1] == ' ')
+		return (-1);
+	if (one->map[i - 1][j + 1] == ' ')
+		return (-1);
 	return (1);
 }

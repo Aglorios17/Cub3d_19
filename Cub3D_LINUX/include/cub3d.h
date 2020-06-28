@@ -188,5 +188,6 @@ void			screenmaxmin(t_pos *one);
 int				newmap(t_pos *one);
 int				visi(t_pos *one);
 void			main_hok(t_pos *one);
+int				autour(t_pos *one, int i, int j);
 
 #endif

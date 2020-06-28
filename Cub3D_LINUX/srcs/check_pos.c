@@ -38,7 +38,7 @@ void	lettercheck(t_pos *one, int i, int j, int a)
 	one->posx = j + 0.5;
 	if (one->map[i][j] == 'S')
 	{
-		one->planex = 0.66;
+		one->planex = -0.66;
 		one->planey = 0;
 		one->dirx = 0;
 		one->diry = 1;
@@ -46,7 +46,7 @@ void	lettercheck(t_pos *one, int i, int j, int a)
 	}
 	if (one->map[i][j] == 'N')
 	{
-		one->planex = -0.66;
+		one->planex = 0.66;
 		one->planey = 0;
 		one->dirx = 0;
 		one->diry = -1;
@@ -62,7 +62,14 @@ int		error(t_pos *one, int i, int j, int a)
 	if (a == 0 && (one->map[i][j] == 'N' ||
 		one->map[i][j] == 'S' || one->map[i][j] == 'W' ||
 			one->map[i][j] == 'E'))
+	{
+		if (autour(one, i, j) == -1)
+		{
+			write(1, "Error\nletter\n", 13);
+			return (-1);
+		}
 		lettercheck(one, i, j, a);
+	}
 	else
 	{
 		write(1, "\nError letter", 13);

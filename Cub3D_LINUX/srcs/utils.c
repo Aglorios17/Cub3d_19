@@ -73,11 +73,11 @@ int		err(t_pos *one, int b, int fd, char *line)
 
 int		checkfonction(t_pos *one)
 {
+	if (check_pos(one) == -1)
+		return (-1);
 	if (check_errormap(one) == -1)
 		return (-1);
 	if (check_errordata(one) == -1)
-		return (-1);
-	if (check_pos(one) == -1)
 		return (-1);
 	if (check_numsprite(one) == -1)
 		return (-1);

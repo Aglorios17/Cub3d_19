@@ -42,7 +42,7 @@ int		newmap(t_pos *one)
 	while (one->map[my])
 	{
 		if (ft_strlen2(one->map[my]) > x)
-			x = ft_strlen(one->map[x]);
+			x = ft_strlen(one->map[my]);
 		my++;
 	}
 	my = 0;

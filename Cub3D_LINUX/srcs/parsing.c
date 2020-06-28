@@ -53,7 +53,7 @@ int		check(t_pos *one, int fd, char *line)
 	one->map = ft_split(fr, '\n');
 	if (newmap(one) == -1 || checkfonction(one) == -1)
 	{
-		write(1, "\nError in check parse", 22);
+		write(1, "Error\n in check parse", 22);
 		return (-1);
 	}
 	return (1);
@@ -98,6 +98,12 @@ int		mapgnl(t_pos *one, char *line, int a, int b)
 		one->datamap = ft_strjoin(fr, "\n");
 		free(fr);
 		b = 1;
+	}
+	if (line[0] == '\0' && a > 8)
+	{
+		write(1, "Error\nmap\n", 10);
+		exit_end2(one);
+		return (-1);
 	}
 	return (b);
 }
