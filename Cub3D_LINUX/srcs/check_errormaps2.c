@@ -40,7 +40,7 @@ int		algomap4(t_pos *one, int i, int j)
 	}
 	if (one->mapg == 1)
 	{
-		write(1, "\nError map\n", 12);
+		write(1, "Error\nmap\n", 9);
 		return (-1);
 	}
 	return (1);

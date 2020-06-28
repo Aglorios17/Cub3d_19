@@ -23,12 +23,12 @@ int	spritemalloc(t_pos *one)
 {
 	if (!(one->spritex = malloc(sizeof(int *) * one->numsprites + 1)))
 	{
-		write(1, "\nError malloc", 14);
+		write(1, "Error\nmalloc\n", 13);
 		return (-1);
 	}
 	if (!(one->spritey = malloc(sizeof(int *) * one->numsprites + 1)))
 	{
-		write(1, "\nError malloc", 14);
+		write(1, "Error\nmalloc\n", 13);
 		return (-1);
 	}
 	return (1);

@@ -43,27 +43,27 @@ void	init(t_pos *one)
 
 int		errorcheck(int argc, char **argv, t_pos *one)
 {
-	if (!ft_strchr(argv[1], '.') || (argc >= 2 && ft_strchr(argv[1], '.') &&
-		ft_strncmp(ft_strchr(argv[1], '.'), ".cub", 4)))
+	if (argc >= 2 && (!ft_strrchr(argv[1], '.') ||
+		ft_strncmp(ft_strrchr(argv[1], '.'), ".cub", 4)))
 	{
-		write(1, "\nError extention.cub", 21);
+		write(1, "Error\nExtention.cub\n", 20);
 		exit_end3(one);
 		return (-1);
 	}
 	if (argc != 2)
 	{
-		if (argc == 3 && !ft_strncmp(argv[2], "--save", 6))
+		if (argc == 3 && !ft_strncmp(argv[2], "--save", 7))
 			one->save = 1;
 		else
 		{
-			write(1, "\nError arguments", 18);
+			write(1, "Error\nArguments\n", 15);
 			exit_end3(one);
 			return (-1);
 		}
 	}
 	if (parsing(one, argv[1]) == -1)
 	{
-		write(1, "\nError Parsing", 15);
+		write(1, "Error\nIn parsing\n", 17);
 		return (-1);
 	}
 	screenmaxmin(one);
@@ -106,7 +106,7 @@ int		main(int argc, char **argv)
 	}
 	if (one.save == 5)
 	{
-		write(1, "\nError bmp", 11);
+		write(1, "Error\nbmp\n", 10);
 		exit_end(&one);
 		return (-1);
 	}

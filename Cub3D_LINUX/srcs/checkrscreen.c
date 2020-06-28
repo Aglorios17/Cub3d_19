@@ -33,7 +33,7 @@ int	rscreen(t_pos *one, int i)
 		return (-1);
 	if (one->screenheight <= 0 || one->screenwidth <= 0)
 	{
-		write(1, "screen ?!", 15);
+		write(1, "Error\nscreen ?!\n", 16);
 		return (-1);
 	}
 	else

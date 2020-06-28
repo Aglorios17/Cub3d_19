@@ -52,7 +52,7 @@ int	textf(t_pos *one)
 	if (one->r > 255 || one->g > 255 || one->b > 255 ||
 		one->r < 0 || one->g < 0 || one->b < 0)
 	{
-		write(1, "\nError color", 13);
+		write(1, "Error\ncolor\n", 12);
 		return (-1);
 	}
 	return (1);
@@ -98,7 +98,7 @@ int	textc(t_pos *one)
 	if (one->r > 255 || one->g > 255 || one->b > 255 ||
 		one->r < 0 || one->g < 0 || one->b < 0)
 	{
-		write(1, "\nError color", 13);
+		write(1, "Error\ncolor\n", 12);
 		return (-1);
 	}
 	return (1);
@@ -111,12 +111,12 @@ int	check_errordata(t_pos *one)
 	i = 0;
 	if (rscreen(one, i) == -1)
 	{
-		write(1, "\nError screen", 14);
+		write(1, "Error\nScreen\n", 13);
 		return (-1);
 	}
 	if (ft_strchr(one->textc, '-') || ft_strchr(one->textf, '-'))
 	{
-		write(1, "\nError negatif color", 20);
+		write(1, "Error\nNegatif color\n", 20);
 		return (-1);
 	}
 	if (one->textf[1] != ' ' || textf(one) == -1)

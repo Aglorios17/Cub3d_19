@@ -17,7 +17,7 @@ void	lettercheck2(t_pos *one, int i, int j)
 	if (one->map[i][j] == 'W')
 	{
 		one->planex = 0;
-		one->planey = 0.66;
+		one->planey = -0.66;
 		one->dirx = -1;
 		one->diry = 0;
 		one->popo += 1;
@@ -25,7 +25,7 @@ void	lettercheck2(t_pos *one, int i, int j)
 	if (one->map[i][j] == 'E')
 	{
 		one->planex = 0;
-		one->planey = -0.66;
+		one->planey = 0.66;
 		one->dirx = 1;
 		one->diry = 0;
 		one->popo += 1;
@@ -72,7 +72,7 @@ int		error(t_pos *one, int i, int j, int a)
 	}
 	else
 	{
-		write(1, "\nError letter", 13);
+		write(1, "Error\nletter\n", 13);
 		return (-1);
 	}
 	return (1);
@@ -101,7 +101,7 @@ int		check_pos(t_pos *one)
 	}
 	if (one->popo != 1)
 	{
-		write(1, "\nError pos", 11);
+		write(1, "Error\nposition\n", 14);
 		return (-1);
 	}
 	return (1);
