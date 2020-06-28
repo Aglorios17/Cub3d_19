@@ -17,7 +17,7 @@ void	lettercheck2(t_pos *one, int i, int j)
 	if (one->map[i][j] == 'W')
 	{
 		one->planex = 0;
-		one->planey = 0.66;
+		one->planey = -0.66;
 		one->dirx = -1;
 		one->diry = 0;
 		one->popo += 1;
@@ -25,7 +25,7 @@ void	lettercheck2(t_pos *one, int i, int j)
 	if (one->map[i][j] == 'E')
 	{
 		one->planex = 0;
-		one->planey = -0.66;
+		one->planey = 0.66;
 		one->dirx = 1;
 		one->diry = 0;
 		one->popo += 1;
@@ -38,7 +38,7 @@ void	lettercheck(t_pos *one, int i, int j, int a)
 	one->posx = j + 0.5;
 	if (one->map[i][j] == 'S')
 	{
-		one->planex = 0.66;
+		one->planex = -0.66;
 		one->planey = 0;
 		one->dirx = 0;
 		one->diry = 1;
@@ -46,7 +46,7 @@ void	lettercheck(t_pos *one, int i, int j, int a)
 	}
 	if (one->map[i][j] == 'N')
 	{
-		one->planex = -0.66;
+		one->planex = 0.66;
 		one->planey = 0;
 		one->dirx = 0;
 		one->diry = -1;
@@ -62,10 +62,17 @@ int		error(t_pos *one, int i, int j, int a)
 	if (a == 0 && (one->map[i][j] == 'N' ||
 		one->map[i][j] == 'S' || one->map[i][j] == 'W' ||
 			one->map[i][j] == 'E'))
+	{
+		if (autour(one, i, j) == -1)
+		{
+			write(1, "Error\nletter\n", 13);
+			return (-1);
+		}
 		lettercheck(one, i, j, a);
+	}
 	else
 	{
-		write(1, "\nError", 7);
+		write(1, "Error\nletter\n", 13);
 		return (-1);
 	}
 	return (1);
@@ -94,7 +101,7 @@ int		check_pos(t_pos *one)
 	}
 	if (one->popo != 1)
 	{
-		write(1, "\nError pos", 11);
+		write(1, "Error\nposition\n", 14);
 		return (-1);
 	}
 	return (1);

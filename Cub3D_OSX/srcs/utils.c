@@ -62,7 +62,7 @@ int		err(t_pos *one, int b, int fd, char *line)
 {
 	if (b < 3)
 	{
-		write(1, "map error", 9);
+		write(1, "Error\nMap\n", 10);
 		free(line);
 		return (-1);
 	}

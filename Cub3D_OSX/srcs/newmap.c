@@ -12,52 +12,48 @@
 
 #include "../include/cub3d.h"
 
-int	visi(t_pos *one)
-{
-	raycast_flat(one);
-	mlx_put_image_to_window(one->mlx, one->mlx_win, one->img, 0, 0);
-	return (0);
-}
-
-int	spritemalloc(t_pos *one)
-{
-	if (!(one->spritex = malloc(sizeof(int *) * one->numsprites + 1)))
-	{
-		write(1, "Error\nmalloc\n", 13);
-		return (-1);
-	}
-	if (!(one->spritey = malloc(sizeof(int *) * one->numsprites + 1)))
-	{
-		write(1, "Error\nmalloc\n", 13);
-		return (-1);
-	}
-	return (1);
-}
-
-int	parsesprite(t_pos *one)
+char	*new(char *old, int x)
 {
 	int		i;
-	int		j;
-	double	a;
+	char	*nw;
 
 	i = 0;
-	a = 0;
-	if (!(spritemalloc(one)))
-		return (-1);
-	while (one->map && one->map[i])
+	if (!(nw = malloc(x + 1)))
+		return (NULL);
+	while (old[i])
 	{
-		j = 0;
-		while (one->map[i][j] != '\0')
-		{
-			if (one->map[i][j] == '2')
-			{
-				one->spritex[(int)a] = j + 0.5;
-				one->spritey[(int)a] = i + 0.5;
-				a++;
-			}
-			j++;
-		}
+		nw[i] = old[i];
 		i++;
+	}
+	while (i < x)
+		nw[i++] = ' ';
+	nw[i] = 0;
+	free(old);
+	return (nw);
+}
+
+int		newmap(t_pos *one)
+{
+	int		my;
+	int		x;
+
+	my = 0;
+	x = 0;
+	while (one->map[my])
+	{
+		if (ft_strlen2(one->map[my]) > x)
+			x = ft_strlen(one->map[my]);
+		my++;
+	}
+	my = 0;
+	while (one->map[my])
+	{
+		if (ft_strlen2(one->map[my]) < x)
+		{
+			if (!(one->map[my] = new(one->map[my], x)))
+				return (-1);
+		}
+		my++;
 	}
 	return (1);
 }

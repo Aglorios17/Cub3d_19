@@ -17,14 +17,14 @@ int	rscreen(t_pos *one, int i)
 	i = 1;
 	while (one->size[i] == ' ')
 		i++;
-	if (!ft_isdigit(one->size[i]))
+	if (one->size[i] == '0' || !ft_isdigit(one->size[i]))
 		return (-1);
 	one->screenwidth = ft_atoi(&one->size[i]);
 	while (ft_isdigit(one->size[i]))
 		i++;
 	while (one->size[i] == ' ')
 		i++;
-	if (!ft_isdigit(one->size[i]))
+	if (one->size[i] == '0' || !ft_isdigit(one->size[i]))
 		return (-1);
 	one->screenheight = ft_atoi(&one->size[i]);
 	while (ft_isdigit(one->size[i]))
@@ -33,7 +33,7 @@ int	rscreen(t_pos *one, int i)
 		return (-1);
 	if (one->screenheight <= 0 || one->screenwidth <= 0)
 	{
-		write(1, "screen ?!", 15);
+		write(1, "Error\nscreen ?!\n", 16);
 		return (-1);
 	}
 	else

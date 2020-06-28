@@ -95,13 +95,13 @@ void	raycast(t_pos *one, int x)
 	drawcalcul(one, x);
 }
 
-void	*raycast_flat(t_pos *one)
+int		raycast_flat(t_pos *one)
 {
 	int	x;
 
 	x = 0;
 	if (!(one->zbuffer = malloc(sizeof(int *) * one->screenwidth + 1)))
-		return (NULL);
+		return (0);
 	while (x < one->screenwidth)
 	{
 		raycast(one, x);
@@ -117,5 +117,5 @@ void	*raycast_flat(t_pos *one)
 		exit(1);
 	}
 	free(one->zbuffer);
-	return (NULL);
+	return (0);
 }

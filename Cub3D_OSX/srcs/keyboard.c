@@ -15,7 +15,7 @@
 int		exit_hook(void *ok, t_pos *one)
 {
 	(void)ok;
-	exit_end(one);
+	(void)one;
 	exit(1);
 	return (0);
 }
@@ -49,14 +49,14 @@ void	key1(t_pos *one, int keycode)
 
 void	key2(t_pos *one, int keycode)
 {
-	if (keycode == 0)
+	if (keycode == 2)
 	{
 		if (one->map[(int)(one->posy + one->dirx * 0.5)][(int)one->posx] != '1')
 			one->posy += one->dirx * 0.4;
 		if (one->map[(int)one->posy][(int)(one->posx - one->diry * 0.5)] != '1')
 			one->posx -= one->diry * 0.4;
 	}
-	if (keycode == 2)
+	if (keycode == 0)
 	{
 		if (one->map[(int)(one->posy - one->dirx * 0.5)][(int)one->posx] != '1')
 			one->posy -= one->dirx * 0.4;
@@ -67,7 +67,7 @@ void	key2(t_pos *one, int keycode)
 
 void	key3(t_pos *one, int keycode)
 {
-	if (keycode == 124)
+	if (keycode == 123)
 	{
 		one->olddirx = one->dirx;
 		one->dirx = one->dirx * cos(-(one->rotspeed)) - one->diry *
@@ -87,11 +87,10 @@ int		ft_keyboard(int keycode, t_pos *one)
 	(void)one;
 	one->movespeed = 0.4;
 	one->rotspeed = 0.25;
-	mlx_hook(one->mlx_win, 17, 0, exit_hook, (void*)one);
 	key1(one, keycode);
 	key2(one, keycode);
 	key3(one, keycode);
-	if (keycode == 123)
+	if (keycode == 124)
 	{
 		one->olddirx = one->dirx;
 		one->dirx = one->dirx * cos(one->rotspeed) -

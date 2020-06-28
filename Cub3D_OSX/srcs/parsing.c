@@ -51,8 +51,11 @@ int		check(t_pos *one, int fd, char *line)
 	close(fd);
 	fr = one->datamap;
 	one->map = ft_split(fr, '\n');
-	if (checkfonction(one) == -1)
+	if (newmap(one) == -1 || checkfonction(one) == -1)
+	{
+		write(1, "Error\nIn check parse\n", 21);
 		return (-1);
+	}
 	return (1);
 }
 
@@ -96,6 +99,12 @@ int		mapgnl(t_pos *one, char *line, int a, int b)
 		free(fr);
 		b = 1;
 	}
+	if (line[0] == '\0' && a > 8)
+	{
+		write(1, "Error\nMap\n", 10);
+		exit_end2(one);
+		return (-1);
+	}
 	return (b);
 }
 
@@ -107,9 +116,9 @@ int		parsing(t_pos *one, char *file)
 	inittext(one);
 	line = NULL;
 	one->datamap = ft_strdup("");
-	if ((fd = open(file, O_RDONLY)) < 0)
+	if ((fd = open(file, O_RDONLY)) <= 0)
 	{
-		write(1, "fail open", 9);
+		write(1, "Error\nFail open\n", 16);
 		return (-1);
 	}
 	while (get_next_line3d(fd, &line))

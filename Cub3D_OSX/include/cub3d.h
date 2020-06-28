@@ -150,7 +150,7 @@ typedef	struct	s_first
 }				t_pos;
 
 void			initmain(t_pos *one);
-void			*raycast_flat(t_pos *one);
+int				raycast_flat(t_pos *one);
 int				ft_keyboard(int keycode, t_pos *one);
 void			raycastdraw(t_pos *one, int x);
 int				texture(t_pos *one);
@@ -178,9 +178,16 @@ int				sprites(t_pos *one);
 void			stripe(t_pos *one);
 int				parsesprite(t_pos *one);
 int				bmp(t_pos *one);
+int				exit_hook(void *ok, t_pos *one);
 int				exit_hook2(void *ok, t_pos *one);
 void			exit_end(t_pos *one);
 void			exit_end2(t_pos *one);
+void			exit_end3(t_pos *one);
 void			dest(t_pos *one);
+void			screenmaxmin(t_pos *one);
+int				newmap(t_pos *one);
+int				visi(t_pos *one);
+void			main_hok(t_pos *one);
+int				autour(t_pos *one, int i, int j);
 
 #endif

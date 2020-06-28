@@ -43,29 +43,30 @@ void	init(t_pos *one)
 
 int		errorcheck(int argc, char **argv, t_pos *one)
 {
+	if (argc >= 2 && (!ft_strrchr(argv[1], '.') ||
+		ft_strncmp(ft_strrchr(argv[1], '.'), ".cub", 4)))
+	{
+		write(1, "Error\nExtention.cub\n", 20);
+		exit_end3(one);
+		return (-1);
+	}
 	if (argc != 2)
 	{
-		if (argc == 3 && !ft_strncmp(argv[2], "--save", 6))
+		if (argc == 3 && !ft_strncmp(argv[2], "--save", 7))
 			one->save = 1;
 		else
 		{
-			write(1, "\nError", 7);
+			write(1, "Error\nArguments\n", 15);
+			exit_end3(one);
 			return (-1);
 		}
 	}
 	if (parsing(one, argv[1]) == -1)
 	{
-		write(1, "\nError Parsing", 15);
+		write(1, "Error\nIn parsing\n", 17);
 		return (-1);
 	}
-	if (one->screenwidth > 5120)
-		one->screenwidth = 2560;
-	if (one->screenheight > 2880)
-		one->screenheight = 1440;
-	if (one->screenwidth < 720)
-		one->screenwidth = 720;
-	if (one->screenheight < 480)
-		one->screenheight = 480;
+	screenmaxmin(one);
 	return (1);
 }
 
@@ -73,6 +74,12 @@ int		conf(int argc, char **argv, t_pos *one)
 {
 	init(one);
 	one->mlx = mlx_init();
+	if (argc == 1)
+	{
+		write(1, "Error\nargument\n", 15);
+		exit_end3(one);
+		return (-1);
+	}
 	if (errorcheck(argc, argv, one) == -1)
 	{
 		exit_end2(one);
@@ -87,21 +94,23 @@ int		main(int argc, char **argv)
 
 	if (conf(argc, argv, &one) == -1)
 		return (-1);
-	one.mlx_win = mlx_new_window(one.mlx, one.screenwidth,
-			one.screenheight, "Cub3D");
 	one.img = mlx_new_image(one.mlx, one.screenwidth, one.screenheight);
 	one.addr = (int*)mlx_get_data_addr(one.img, &one.bits_per_pixel,
-			&one.line_length, &one.endian);
-	mlx_hook(one.mlx_win, 17, 0, exit_hook2, (void*)&one);
+		&one.line_length, &one.endian);
 	raycast_flat(&one);
+	if (one.save == 0)
+	{
+		one.mlx_win = mlx_new_window(one.mlx, one.screenwidth,
+			one.screenheight, "Cub3D");
+		mlx_hook(one.mlx_win, 17, 0, exit_hook2, (void*)&one);
+	}
 	if (one.save == 5)
 	{
-		write(1, "\nError bmp", 11);
+		write(1, "Error\nbmp\n", 10);
 		exit_end(&one);
 		return (-1);
 	}
-	mlx_put_image_to_window(one.mlx, one.mlx_win, one.img, 0, 0);
-	mlx_hook(one.mlx_win, 2, 1L << 0, ft_keyboard, &one);
+	main_hok(&one);
 	mlx_loop(one.mlx);
 	exit_end(&one);
 	return (0);
